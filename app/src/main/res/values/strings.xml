@@ -7,4 +7,9 @@
     <string name="user_name">نام کاربر</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category">دسته بندی ها</string>
+    <string name="home">صفحه اصلی</string>
 </resources>

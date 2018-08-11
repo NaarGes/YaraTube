@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.asus.yaratube.bottomnavholder.BNHolderFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -23,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setDrawer();
+        setBottomNavigationFragment();
+
+    }
+
+    public void setDrawer() {
 
         // drawer settings
         drawerLayout = findViewById(R.id.drawer);
@@ -30,10 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
     }
 
-    // hamburger menu work
+    public void setBottomNavigationFragment() {
+
+        BNHolderFragment bnHolderFragment = BNHolderFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, bnHolderFragment).commit();
+    }
+
+    // Open the drawer when the button is tapped
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return (actionBarDrawerToggle.onOptionsItemSelected(item)) || super.onOptionsItemSelected(item);
