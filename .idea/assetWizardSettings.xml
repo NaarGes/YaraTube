@@ -28,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_menu_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\ASUS" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_telegram" />
+                            <entry key="sourceFile" value="C:\Users\ASUS\Documents\Android Development\icons\telegram.psd" />
                           </map>
                         </option>
                       </PersistentState>

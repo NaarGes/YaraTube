@@ -1,5 +1,7 @@
 package com.example.asus.yaratube;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -7,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import com.example.asus.yaratube.bottomnavholder.BNHolderFragment;
+import com.example.asus.yaratube.developerinfo.AboutFragment;
+import com.example.asus.yaratube.developerinfo.ContactFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +42,35 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+        // click listener
+        NavigationView navigationView = findViewById(R.id.drawer_nv);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                switch (item.getItemId()) {
+                    case R.id.profile_nd:
+                        // TODO
+                        Toast.makeText(MainActivity.this, "پروفایل کاربر", Toast.LENGTH_SHORT).show();
+                        return true;
+
+                    case R.id.about_nd:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_container, AboutFragment.newInstance()).addToBackStack("about fragment").commit();
+                        return true;
+
+                    case R.id.contact_nd:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_container, ContactFragment.newInstance()).addToBackStack("contact fragment").commit();
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     public void setBottomNavigationFragment() {

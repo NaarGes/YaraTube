@@ -1,25 +1,21 @@
-package com.example.asus.yaratube.bottomnavholder;
+package com.example.asus.yaratube;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.home.category.CategoryFragment;
 import com.example.asus.yaratube.home.dashboard.DashboardFragment;
 
 
 public class BNHolderFragment extends Fragment {
-
-    private BottomNavigationView bottomNavigationView;
 
     public BNHolderFragment() {
     }
@@ -60,23 +56,16 @@ public class BNHolderFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
     }
 
     public void bottomNavigationManager(View view) {
 
-        bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

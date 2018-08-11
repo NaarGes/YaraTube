@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:padding="@dimen/padding_16dp"
+    tools:context="com.example.asus.yaratube.developerinfo.ContactFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_developer"
+        android:textSize="@dimen/font_size_20sp"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/padding_16dp"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_16dp"
+        android:rowCount="2"
+        android:columnCount="2"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/developer_github_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_github_character"
+            android:background="@drawable/round_corners"
+            android:contentDescription="@string/developer_github"
+            android:padding="@dimen/padding_25dp"
+            android:layout_margin="@dimen/padding_16dp"
+            />
+
+        <ImageButton
+            android:id="@+id/developer_email_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mail"
+            android:background="@drawable/round_corners"
+            android:contentDescription="@string/developer_email"
+            android:padding="@dimen/padding_25dp"
+            android:layout_margin="@dimen/padding_16dp"
+            />
+
+        <ImageButton
+            android:id="@+id/developer_linkedin_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_16dp"
+            android:background="@drawable/round_corners"
+            android:contentDescription="@string/developer_linkedin"
+            android:padding="@dimen/padding_25dp"
+            android:src="@drawable/ic_linkedin"
+            />
+
+        <ImageButton
+            android:id="@+id/developer_telegram_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_16dp"
+            android:background="@drawable/round_corners"
+            android:contentDescription="@string/developer_telegram"
+            android:padding="@dimen/padding_25dp"
+            android:src="@drawable/ic_telegram"
+            />
+
+    </GridLayout>
+
+</LinearLayout>
