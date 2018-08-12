@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.asus.yaratube.home.category.CategoryFragment;
 import com.example.asus.yaratube.home.dashboard.DashboardFragment;
 
+// FIXME save state of which child fragment is active, when comeback here
 
 public class BNHolderFragment extends Fragment {
 

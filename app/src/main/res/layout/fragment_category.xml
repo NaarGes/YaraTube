@@ -4,10 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.asus.yaratube.home.category.CategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="this is category" />
+        <ProgressBar
+            android:id="@+id/category_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/category-recycler-view"/>
 
 </FrameLayout>
