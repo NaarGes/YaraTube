@@ -18,7 +18,6 @@ public interface CategoryContract {
     interface Presenter {
 
         void onLoadCategory();
-
     }
 
 }

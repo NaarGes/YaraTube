@@ -1,6 +1,8 @@
 package com.example.asus.yaratube;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,11 +16,14 @@ import android.widget.Toast;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         // FIXME minimum sdk is 17, use another way
         // change app direction to RTL
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         setDrawer();
         setBottomNavigationFragment();

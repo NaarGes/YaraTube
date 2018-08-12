@@ -85,7 +85,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         RecyclerView recyclerView;
         recyclerView = view.findViewById(R.id.category_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(),
+                                                                                DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
         adapter = new CategoryAdapter(view.getContext());

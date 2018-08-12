@@ -24,7 +24,6 @@ public class Repository {
     public void getCategories(final ApiResult.CategoryResult callback) {
 
         Call<List<Category>> call = service.getCategories();
-
         call.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {

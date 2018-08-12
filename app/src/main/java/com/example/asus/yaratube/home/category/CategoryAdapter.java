@@ -73,7 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
             categoryAvatarUrl = BASE_URL + '/' +category.getAvatar();
             Log.v("image url", categoryAvatarUrl);
-            Glide.with(context).load(categoryAvatarUrl).into(categoryAvatar);  // cant use itemView.getContext() instead of context?
+            Glide.with(itemView.getContext()).load(categoryAvatarUrl).into(categoryAvatar);
 
             categoryTitle.setText(category.getTitle());
 

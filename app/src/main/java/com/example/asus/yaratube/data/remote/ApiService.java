@@ -11,6 +11,7 @@ import static com.example.asus.yaratube.util.Util.STORE_ID;
 
 public interface ApiService {
 
+    // get category list
     @GET("/category/" + STORE_ID + "/463")
     Call<List<Category>> getCategories();
 

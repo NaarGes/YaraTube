@@ -11,10 +11,8 @@
     <string name="category">دسته بندی ها</string>
     <string name="home">صفحه اصلی</string>
     <string name="about_developer">درباره توسعه دهنده</string>
-    <string name="about_developer_desc">نرگس صادقی \\n کارآموز برنامه نویسی اندروید شرکت یارا \\n تابستان سال 1397</string>
+    <string name="about_developer_desc"> نرگس صادقی \n کارآموز برنامه نویسی اندروید شرکت یارا \n تابستان سال 1397</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contact_developer">ارتباط با توسعه دهنده</string>
     <string name="developer_github">https://github.com/NaarGes</string>
     <string name="developer_email">mailto:nargessadeghi@ut.ac.ir?subject=Contact%20to%20Yaratube%20developer\"</string>
