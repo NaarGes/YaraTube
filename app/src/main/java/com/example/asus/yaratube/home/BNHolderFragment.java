@@ -1,4 +1,4 @@
-package com.example.asus.yaratube;
+package com.example.asus.yaratube.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.home.category.CategoryFragment;
 import com.example.asus.yaratube.home.dashboard.DashboardFragment;
 

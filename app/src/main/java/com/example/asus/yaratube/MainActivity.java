@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
+import com.example.asus.yaratube.home.BNHolderFragment;
 
 import java.util.Objects;
 

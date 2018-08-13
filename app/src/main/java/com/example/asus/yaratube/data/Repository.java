@@ -1,6 +1,7 @@
 package com.example.asus.yaratube.data;
 
 import com.example.asus.yaratube.data.model.Category;
+import com.example.asus.yaratube.data.model.Store;
 import com.example.asus.yaratube.data.remote.ApiClient;
 import com.example.asus.yaratube.data.remote.ApiResult;
 import com.example.asus.yaratube.data.remote.ApiService;
@@ -41,5 +42,28 @@ public class Repository {
                 callback.onFail();
             }
         });
+    }
+
+    public void getStore(final ApiResult.StoreResult callback) {
+
+        Call<Store> call = service.getDashboard();
+        call.enqueue(new Callback<Store>() {
+            @Override
+            public void onResponse(Call<Store> call, Response<Store> response) {
+
+                if(response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFail();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Store> call, Throwable t) {
+
+                callback.onFail();
+            }
+        });
+
     }
 }
