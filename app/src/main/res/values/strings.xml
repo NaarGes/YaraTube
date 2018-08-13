@@ -18,4 +18,6 @@
     <string name="developer_email">mailto:nargessadeghi@ut.ac.ir?subject=Contact%20to%20Yaratube%20developer\"</string>
     <string name="developer_linkedin">https://www.linkedin.com//in/nargessadeghi</string>
     <string name="developer_telegram">https://t.me/NnargessS</string>
+    <string name="product_image">تصویر محصول</string>
+    <string name="header_image">تصویر هدر</string>
 </resources>

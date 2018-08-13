@@ -5,4 +5,7 @@
     <dimen name="font_size_20sp">20sp</dimen>
     <dimen name="font_size_18sp">18sp</dimen>
     <dimen name="padding_25dp">25dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
+    <dimen name="_150dp">150dp</dimen>
+    <dimen name="_300dp">300dp</dimen>
 </resources>
