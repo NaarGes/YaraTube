@@ -52,7 +52,6 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
 
     class HomeItemViewHolder extends RecyclerView.ViewHolder {
 
-        private String productImageUrl;
         private ImageView productImage;
         private TextView productName;
         private TextView productDescription;
@@ -68,8 +67,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
         void onBind(Product product) {
 
             if(product.getAvatar() != null) {
-                productImageUrl = BASE_URL + '/' + product.getAvatar().getXxhdpi();
-                Glide.with(itemView.getContext()).load(productImageUrl).into(productImage);
+                Glide.with(itemView.getContext()).load(product.getAvatarUrl()).into(productImage);
             }
 
             productName.setText(product.getName());

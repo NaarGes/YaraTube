@@ -15,15 +15,15 @@ import static com.example.asus.yaratube.util.Util.STORE_ID;
 public interface ApiService {
 
     // get dashboard list
-    @GET("/store/" + STORE_ID)
+    @GET("store/" + STORE_ID)
     Call<Store> getDashboard();
 
     // get category list
-    @GET("/category/" + STORE_ID + "/463")
+    @GET("category/" + STORE_ID + "/463")
     Call<List<Category>> getCategories();
 
     // get all products of a category
-    @GET("/listproducts/{categoryId}")
+    @GET("listproducts/{categoryId}")
     Call<List<Product>> getProductList(@Path("categoryId") int categoryId);
 
 }

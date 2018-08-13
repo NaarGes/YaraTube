@@ -4,6 +4,8 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import static com.example.asus.yaratube.util.Util.BASE_URL;
+
 public class Category {
 
     @SerializedName("id")
@@ -60,6 +62,10 @@ public class Category {
 
     public Object getAvatar() {
         return avatar;
+    }
+
+    public String getAvatarUrl() {
+        return BASE_URL + getAvatar();
     }
 
     public void setAvatar(Object avatar) {

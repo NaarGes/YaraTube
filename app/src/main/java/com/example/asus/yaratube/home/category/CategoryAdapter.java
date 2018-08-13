@@ -60,7 +60,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private String categoryAvatarUrl;
         private ImageView categoryAvatar;
         private TextView categoryTitle;
 
@@ -73,9 +72,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         void onBind(final Category category) {
 
-            categoryAvatarUrl = BASE_URL + '/' +category.getAvatar();
-            Log.v("image url", categoryAvatarUrl);
-            Glide.with(itemView.getContext()).load(categoryAvatarUrl).into(categoryAvatar);
+            if(category.getAvatar() != null) {
+                Glide.with(itemView.getContext()).load(category.getAvatarUrl()).into(categoryAvatar);
+            }
 
             categoryTitle.setText(category.getTitle());
 

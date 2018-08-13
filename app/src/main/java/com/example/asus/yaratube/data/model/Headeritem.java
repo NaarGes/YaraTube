@@ -5,6 +5,8 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import static com.example.asus.yaratube.util.Util.BASE_URL;
+
 public class Headeritem {
 
     @SerializedName("id")
@@ -149,6 +151,10 @@ public class Headeritem {
 
     public FeatureAvatar_ getFeatureAvatar() {
         return featureAvatar;
+    }
+
+    public String getFeatureAvatarUrl() {
+        return BASE_URL + getFeatureAvatar().getHdpi();
     }
 
     public void setFeatureAvatar(FeatureAvatar_ featureAvatar) {

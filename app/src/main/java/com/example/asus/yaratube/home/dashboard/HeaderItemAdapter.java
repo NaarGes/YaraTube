@@ -52,7 +52,6 @@ public class HeaderItemAdapter extends RecyclerView.Adapter<HeaderItemAdapter.He
     class HeaderItemViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView headerImage;
-        private String headerImageUrl;
 
         HeaderItemViewHolder(View itemView) {
             super(itemView);
@@ -62,8 +61,9 @@ public class HeaderItemAdapter extends RecyclerView.Adapter<HeaderItemAdapter.He
 
         void onBind(Headeritem headeritem) {
 
-            headerImageUrl = BASE_URL + '/' + headeritem.getFeatureAvatar().getXxhdpi();
-            Glide.with(itemView.getContext()).load(headerImageUrl).into(headerImage);
+            if(headeritem.getFeatureAvatar() != null) {
+                Glide.with(itemView.getContext()).load(headeritem.getFeatureAvatarUrl()).into(headerImage);
+            }
         }
     }
 }
