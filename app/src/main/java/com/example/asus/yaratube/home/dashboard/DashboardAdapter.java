@@ -2,7 +2,6 @@ package com.example.asus.yaratube.home.dashboard;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +21,6 @@ import static android.support.constraint.Constraints.TAG;
 
 public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Store store;
     private List<Homeitem> homeitems;
     private List<Headeritem> headeritems;
     private Context context;
@@ -36,7 +34,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void setStore(Store store) {
-        this.store = store;
         this.homeitems = store.getHomeitem();
         this.headeritems = store.getHeaderitem();
         notifyDataSetChanged();
@@ -122,7 +119,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         private RecyclerView headerRecyclerView;
 
-        public HeaderViewHolder(View itemView) {
+        HeaderViewHolder(View itemView) {
             super(itemView);
 
             headerRecyclerView = itemView.findViewById(R.id.headeritem_recycler_view);

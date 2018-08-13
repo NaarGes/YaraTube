@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,14 +15,10 @@ import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Store;
-import com.example.asus.yaratube.home.category.CategoryAdapter;
-
-// TODO add progressbar
 
 public class DashboardFragment extends Fragment implements DashboardContract.View {
 
     private DashboardContract.Presenter presenter;
-    private RecyclerView recyclerView;
     private DashboardAdapter adapter;
     private ProgressBar spinner;
 
@@ -86,9 +81,6 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
         RecyclerView recyclerView;
         recyclerView = view.findViewById(R.id.dashboard_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(),
-                DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(itemDecoration);
 
         adapter = new DashboardAdapter(view.getContext());
         recyclerView.setAdapter(adapter);

@@ -18,7 +18,8 @@
             android:id="@+id/product_image"
             android:layout_width="@dimen/_100dp"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/product_image"/>
+            android:contentDescription="@string/product_image"
+            android:src="@drawable/ic_image_black_100dp"/>
 
         <TextView
             android:id="@+id/product_name"

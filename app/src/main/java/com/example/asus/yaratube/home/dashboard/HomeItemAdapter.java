@@ -2,7 +2,6 @@ package com.example.asus.yaratube.home.dashboard;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,15 +67,14 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
 
         void onBind(Product product) {
 
-            productImageUrl = BASE_URL + '/' + product.getAvatar().getXxhdpi();
-            Glide.with(itemView.getContext()).load(productImageUrl).into(productImage);
+            if(product.getAvatar() != null) {
+                productImageUrl = BASE_URL + '/' + product.getAvatar().getXxhdpi();
+                Glide.with(itemView.getContext()).load(productImageUrl).into(productImage);
+            }
 
             productName.setText(product.getName());
             productDescription.setText(product.getShortDescription());
 
-            Log.v("product url ", productImageUrl);
-            Log.v("product name ", ""+productName.getText());
-            Log.v("product description ", ""+productDescription.getText());
         }
     }
 }
