@@ -18,7 +18,9 @@ import com.example.asus.yaratube.data.model.Store;
 
 import java.util.List;
 
-public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.DashboardViewHolder> {
+import static android.support.constraint.Constraints.TAG;
+
+public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Store store;
     private List<Homeitem> homeitems;
@@ -43,24 +45,39 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @NonNull
     @Override
-    public DashboardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if(viewType == HEADER_VIEW) { // header list
-            View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_header, parent, false);
-            return new DashboardViewHolder(result);
-        } else if(viewType == HOME_VIEW) {
+        if(viewType == HOME_VIEW) {
             View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_home, parent, false);
-            return new DashboardViewHolder(result);
+            return new HomeViewHolder(result);
+
+        } else if(viewType == HEADER_VIEW) {
+            View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_header, parent, false);
+            return new HeaderViewHolder(result);
         }
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DashboardViewHolder holder, int position) {
-        if(holder.getItemViewType() == HOME_VIEW)
-            holder.onBindHomeList(homeitems.get(position-1));
-        else
-            holder.onBindHeaderList();
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        int viewType = holder.getItemViewType();
+        if(viewType == HOME_VIEW) {
+
+            Log.d(TAG, "onBindViewHolder() called with: holder = [" + holder + "], position = [" + position + "]");
+            ((HomeViewHolder) holder).onBind(homeitems.get(position - 1));
+        }
+        else if (viewType == HEADER_VIEW)
+            ((HeaderViewHolder) holder).onBind();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        //return super.getItemViewType(position);
+
+        if(position == 0)
+            return HEADER_VIEW;
+        return HOME_VIEW;
     }
 
     @Override
@@ -75,37 +92,22 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         return 1 + homeitems.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        //return super.getItemViewType(position);
 
-        if(position == 0)
-            return HEADER_VIEW;
-        return HOME_VIEW;
-    }
-
-    class DashboardViewHolder extends RecyclerView.ViewHolder {
+    class HomeViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView homeRecyclerView;
         private TextView productListName;
-        private RecyclerView headerRecyclerView;
-        private RecyclerView.ItemDecoration itemDecoration;
 
-        DashboardViewHolder(View itemView) {
+        HomeViewHolder(View itemView) {
             super(itemView);
 
             homeRecyclerView = itemView.findViewById(R.id.homeitem_recycler_view);
             productListName = itemView.findViewById(R.id.product_list_name);
-            headerRecyclerView = itemView.findViewById(R.id.headeritem_recycler_view);
-
-            itemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-
         }
 
-        void onBindHomeList(Homeitem homeitem) {
+        void onBind(Homeitem homeitem) {
 
             homeRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-            homeRecyclerView.addItemDecoration(itemDecoration);
 
             HomeItemAdapter adapter = new HomeItemAdapter();
             adapter.setProducts(homeitem.getProducts());
@@ -113,16 +115,26 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
             productListName.setText(homeitem.getTitle());
         }
+    }
 
-        void onBindHeaderList() {
+
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
+
+        private RecyclerView headerRecyclerView;
+
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+
+            headerRecyclerView = itemView.findViewById(R.id.headeritem_recycler_view);
+        }
+
+        void onBind() {
 
             headerRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-            headerRecyclerView.addItemDecoration(itemDecoration);
 
             HeaderItemAdapter adapter = new HeaderItemAdapter();
             adapter.setHeaderItems(headeritems);
             headerRecyclerView.setAdapter(adapter);
         }
-
     }
 }
