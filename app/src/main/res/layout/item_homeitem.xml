@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/header_image"
     android:layout_width="150dp"
-    android:layout_height="100dp"
+    android:layout_height="300dp"
     android:layout_margin="@dimen/padding_8dp"
     app:cardCornerRadius="@dimen/padding_8dp">
 
@@ -16,19 +16,21 @@
 
         <ImageView
             android:id="@+id/product_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             />
 
         <TextView
             android:id="@+id/product_name"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:textSize="@dimen/font_size_18sp" />
 
         <TextView
             android:id="@+id/product_desc"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>

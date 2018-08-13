@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
     private Store store;
     private List<Homeitem> homeitems;
     private List<Headeritem> headeritems;
-    private boolean isHome = false;
     private Context context;
+
+    private static int HEADER_VIEW = 1;
+    private static int HOME_VIEW = 2;
 
     DashboardAdapter(Context context) {
 
@@ -42,12 +45,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
     @Override
     public DashboardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if(viewType == 0) { // header list
-            isHome = false;
+        if(viewType == HEADER_VIEW) { // header list
             View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_header, parent, false);
             return new DashboardViewHolder(result);
-        } else if(viewType == 1) {
-            isHome = true;
+        } else if(viewType == HOME_VIEW) {
             View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_home, parent, false);
             return new DashboardViewHolder(result);
         }
@@ -56,9 +57,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @Override
     public void onBindViewHolder(@NonNull DashboardViewHolder holder, int position) {
-
-        if(isHome)
-            holder.onBindHomeList(homeitems.get(position));
+        if(holder.getItemViewType() == HOME_VIEW)
+            holder.onBindHomeList(homeitems.get(position-1));
         else
             holder.onBindHeaderList();
     }
@@ -71,6 +71,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             return homeitems.size();
         else if(homeitems == null)
             return 1;
+        Log.d("Adapter", "Dashboard size-> getItemCount():" + (homeitems.size() +1 ));
         return 1 + homeitems.size();
     }
 
@@ -79,8 +80,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         //return super.getItemViewType(position);
 
         if(position == 0)
-            return 0; // header list
-        return 1; // home list
+            return HEADER_VIEW;
+        return HOME_VIEW;
     }
 
     class DashboardViewHolder extends RecyclerView.ViewHolder {

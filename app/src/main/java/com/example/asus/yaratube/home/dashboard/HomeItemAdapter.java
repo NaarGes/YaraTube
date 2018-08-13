@@ -2,6 +2,7 @@ package com.example.asus.yaratube.home.dashboard;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
 
             productName.setText(product.getName());
             productDescription.setText(product.getShortDescription());
+
+            Log.v("product url ", productImageUrl);
+            Log.v("product name ", ""+productName.getText());
+            Log.v("product description ", ""+productDescription.getText());
         }
     }
 }
