@@ -1,8 +1,11 @@
 package com.example.asus.yaratube.home.dashboard;
 
 import com.example.asus.yaratube.data.Repository;
+import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Store;
 import com.example.asus.yaratube.data.remote.ApiResult;
+
+import java.util.List;
 
 public class DashboardPresenter implements DashboardContract.Presenter {
 
@@ -20,7 +23,7 @@ public class DashboardPresenter implements DashboardContract.Presenter {
 
         view.showProgressBar();
 
-        repository.getStore(new ApiResult.StoreResult() {
+        repository.getStore(new ApiResult<Store>() {
             @Override
             public void onSuccess(Store store) {
 

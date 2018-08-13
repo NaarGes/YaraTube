@@ -22,7 +22,7 @@ public class Repository {
         service = ApiClient.getRetrofitInstance().create(ApiService.class);
     }
 
-    public void getCategories(final ApiResult.CategoryResult callback) {
+    public void getCategories(final ApiResult<List<Category>> callback) {
 
         Call<List<Category>> call = service.getCategories();
         call.enqueue(new Callback<List<Category>>() {
@@ -44,7 +44,7 @@ public class Repository {
         });
     }
 
-    public void getStore(final ApiResult.StoreResult callback) {
+    public void getStore(final ApiResult<Store> callback) {
 
         Call<Store> call = service.getDashboard();
         call.enqueue(new Callback<Store>() {

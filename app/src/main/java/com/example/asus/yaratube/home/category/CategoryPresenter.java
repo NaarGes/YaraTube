@@ -22,7 +22,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
         view.showProgressBar();
 
-        repository.getCategories(new ApiResult.CategoryResult() {
+        repository.getCategories(new ApiResult<List<Category>>() {
             @Override
             public void onSuccess(List<Category> categories) {
 
