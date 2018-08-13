@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Category;
 
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 public class CategoryFragment extends Fragment implements CategoryContract.View {
@@ -89,7 +92,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
                                                                                 DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        adapter = new CategoryAdapter(view.getContext());
+        adapter = new CategoryAdapter();
         recyclerView.setAdapter(adapter);
     }
 
@@ -112,6 +115,13 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     public void showCategoryList(List<Category> categories) {
 
         adapter.setCategories(categories);
+        adapter.setListener(new CategoryContract.onCategoryClickListener() {
+            @Override
+            public void onCategoryClick(int CategoryID) {
+                Log.d(TAG, "onCategoryClick() called with: CategoryID = [" + CategoryID + "]");
+                // TODO call a method to go to productlist fragment
+            }
+        });
     }
 
     @Override

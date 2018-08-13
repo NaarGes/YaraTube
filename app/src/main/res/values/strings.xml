@@ -20,4 +20,7 @@
     <string name="developer_telegram">https://t.me/NnargessS</string>
     <string name="product_image">تصویر محصول</string>
     <string name="header_image">تصویر هدر</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

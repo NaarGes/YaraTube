@@ -21,17 +21,19 @@ import static com.example.asus.yaratube.util.Util.BASE_URL;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     private List<Category> categories;
-    private Context context;
+    private CategoryContract.onCategoryClickListener listener;
 
-    CategoryAdapter(Context context) {
-
-        this.context = context;
+    CategoryAdapter() {
     }
 
     public void setCategories(List<Category> categories) {
 
         this.categories = categories;
         notifyDataSetChanged();
+    }
+
+    public void setListener(CategoryContract.onCategoryClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -69,13 +71,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             categoryAvatar = itemView.findViewById(R.id.category_avatar);
         }
 
-        void onBind(Category category) {
+        void onBind(final Category category) {
 
             categoryAvatarUrl = BASE_URL + '/' +category.getAvatar();
             Log.v("image url", categoryAvatarUrl);
             Glide.with(itemView.getContext()).load(categoryAvatarUrl).into(categoryAvatar);
 
             categoryTitle.setText(category.getTitle());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onCategoryClick(category.getId());
+                }
+            });
 
         }
     }

@@ -17,4 +17,9 @@ public interface CategoryContract {
         void onLoadCategory();
     }
 
+    interface onCategoryClickListener {
+
+        void onCategoryClick(int CategoryID);
+    }
+
 }
