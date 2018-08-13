@@ -1,7 +1,7 @@
 package com.example.asus.yaratube.home.category;
 
 import com.example.asus.yaratube.data.model.Category;
-import com.example.asus.yaratube.util.BaseView;
+import com.example.asus.yaratube.BaseView;
 
 import java.util.List;
 

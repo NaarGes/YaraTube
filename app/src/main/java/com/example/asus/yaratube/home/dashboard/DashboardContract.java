@@ -1,7 +1,7 @@
 package com.example.asus.yaratube.home.dashboard;
 
 import com.example.asus.yaratube.data.model.Store;
-import com.example.asus.yaratube.util.BaseView;
+import com.example.asus.yaratube.BaseView;
 
 public interface DashboardContract {
 
