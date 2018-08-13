@@ -119,6 +119,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
             @Override
             public void onCategoryClick(int CategoryID) {
                 Log.d(TAG, "onCategoryClick() called with: CategoryID = [" + CategoryID + "]");
+
                 // TODO call a method to go to productlist fragment
             }
         });
