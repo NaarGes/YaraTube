@@ -8,4 +8,7 @@
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_150dp">150dp</dimen>
     <dimen name="_300dp">300dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
+    <dimen name="font_size_15sp">15sp</dimen>
+    <dimen name="_200dp">200dp</dimen>
 </resources>

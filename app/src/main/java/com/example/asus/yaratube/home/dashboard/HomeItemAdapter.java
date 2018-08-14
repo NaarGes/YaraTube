@@ -1,5 +1,6 @@
 package com.example.asus.yaratube.home.dashboard;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -67,6 +68,9 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
         void onBind(Product product) {
 
             if(product.getAvatar() != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    productImage.setClipToOutline(true);
+                }
                 Glide.with(itemView.getContext()).load(product.getAvatarUrl()).into(productImage);
             }
 
