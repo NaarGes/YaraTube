@@ -12,7 +12,6 @@
         android:src="@drawable/ic_image_black_100dp"
         android:background="@drawable/image_rounded_corner"
         android:contentDescription="@string/header_image"
-        android:padding="@dimen/_5dp"
         />
-    
+
 </ScrollView>

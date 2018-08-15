@@ -26,7 +26,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<Headeritem> headeritems;
     private Context context;
 
-    private HeaderAdapter headerAdapter;
     private FragmentManager fragmentManager;
     private ViewPager viewPager;
 
@@ -132,29 +131,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         void onBind() {
 
-            headerAdapter = new HeaderAdapter(fragmentManager);
+            HeaderAdapter headerAdapter = new HeaderAdapter(fragmentManager);
+            headerAdapter.setHeaderitems(headeritems);
             viewPager.setAdapter(headerAdapter);
-        }
-    }
-
-    public class HeaderAdapter extends FragmentPagerAdapter {
-
-        HeaderAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-
-            return HeaderFragment.newInstance(headeritems.get(position));
-        }
-
-        @Override
-        public int getCount() {
-
-            if (headeritems == null)
-                return 0;
-            return headeritems.size();
         }
     }
 }

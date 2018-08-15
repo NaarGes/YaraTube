@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Headeritem;
 
 import org.parceler.Parcels;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class HeaderFragment extends Fragment {
 
@@ -48,7 +45,7 @@ public class HeaderFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View result = inflater.inflate(R.layout.header_slide_page, container, false);
+        View result = inflater.inflate(R.layout.item_headeritem, container, false);
 
         imageHeader = result.findViewById(R.id.header_image);
         if(headeritem.getFeatureAvatar() != null) {
