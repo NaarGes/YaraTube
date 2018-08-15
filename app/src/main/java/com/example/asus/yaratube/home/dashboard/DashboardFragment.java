@@ -110,4 +110,16 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
 
         Toast.makeText(this.getContext(),"Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        for ( Fragment f : getChildFragmentManager().getFragments() ) {
+            if ( f instanceof HeaderFragment ) {
+                getChildFragmentManager().beginTransaction().remove( f ).commit();
+            }
+        }
+
+    }
 }

@@ -2,13 +2,14 @@ package com.example.asus.yaratube.home.dashboard;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
 import com.example.asus.yaratube.data.model.Headeritem;
 
 import java.util.List;
 
 
-public class HeaderAdapter extends FragmentPagerAdapter {
+public class HeaderAdapter extends FragmentStatePagerAdapter {
 
     private List<Headeritem> headeritems;
     HeaderAdapter(FragmentManager fm) {

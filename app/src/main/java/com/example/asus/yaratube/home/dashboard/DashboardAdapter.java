@@ -95,7 +95,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return 1 + homeitems.size();
     }
 
-
     class HomeViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView homeRecyclerView;
@@ -136,4 +135,5 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewPager.setAdapter(headerAdapter);
         }
     }
+
 }
