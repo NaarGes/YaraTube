@@ -42,7 +42,6 @@ public class HeaderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.headeritem = Parcels.unwrap(getArguments().getParcelable("header item"));
-            Log.d(TAG, "headeritem in fragment " + headeritem);
         }
     }
 
@@ -56,10 +55,6 @@ public class HeaderFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 imageHeader.setClipToOutline(true);
             }
-            Log.d(TAG, "context in fragment " + container.getContext());
-            Log.d(TAG, "image in fragment " + imageHeader); // this is null
-            Log.d(TAG, "image in fragment " + headeritem.getFeatureAvatarUrl());
-
             Glide.with(container.getContext()).load(headeritem.getFeatureAvatarUrl()).into(imageHeader);
         }
         return result;

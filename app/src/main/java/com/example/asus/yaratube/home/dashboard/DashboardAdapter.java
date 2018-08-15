@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,14 +127,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
 
             viewPager = itemView.findViewById(R.id.header_view_pager);
-            Log.d("header view holder ", "view pager ->" + viewPager);
+            viewPager.setRotationY(180);
         }
 
         void onBind() {
 
             headerAdapter = new HeaderAdapter(fragmentManager);
             viewPager.setAdapter(headerAdapter);
-            Log.d("header view holder ", "view adapter ->" + viewPager);
         }
     }
 
@@ -143,13 +141,11 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         HeaderAdapter(FragmentManager fm) {
             super(fm);
-            Log.d("headeradapter fm ", ""+fm);
         }
 
         @Override
         public Fragment getItem(int position) {
 
-            Log.d("getitem position", ""+position);
             return HeaderFragment.newInstance(headeritems.get(position));
         }
 
