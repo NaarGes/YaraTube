@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/header_image"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_image_black_100dp"
+        android:background="@drawable/image_rounded_corner"
+        android:contentDescription="@string/header_image"
+        android:padding="@dimen/_5dp"
+        />
+</ScrollView>

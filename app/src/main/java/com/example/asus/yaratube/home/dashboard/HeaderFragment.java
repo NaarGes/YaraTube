@@ -1,49 +1,38 @@
 package com.example.asus.yaratube.home.dashboard;
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.example.asus.test.R;
+import com.bumptech.glide.Glide;
+import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.data.model.Headeritem;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HeaderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.parceler.Parcels;
+
+import static android.support.constraint.Constraints.TAG;
+
 public class HeaderFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private Headeritem headeritem;
+    private ImageView imageHeader;
 
     public HeaderFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HeaderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HeaderFragment newInstance(String param1, String param2) {
+    public static HeaderFragment newInstance(Headeritem headeritem) {
         HeaderFragment fragment = new HeaderFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
+        args.putParcelable("header item", Parcels.wrap(headeritem));
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,17 +41,23 @@ public class HeaderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            this.headeritem = Parcels.unwrap(getArguments().getParcelable("header item"));
+            Log.d(TAG, "header item in fragment " + headeritem);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
-    }
+        View result = inflater.inflate(R.layout.header_slide_page, container, false);
 
+        imageHeader = container.findViewById(R.id.header_image);
+        if(headeritem.getFeatureAvatar() != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imageHeader.setClipToOutline(true);
+            }
+            Glide.with(getContext()).load(headeritem.getFeatureAvatarUrl()).into(imageHeader);
+        }
+        return result;
+    }
 }
