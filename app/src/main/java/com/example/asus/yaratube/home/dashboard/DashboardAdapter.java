@@ -29,6 +29,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private HeaderAdapter headerAdapter;
     private FragmentManager fragmentManager;
+    private ViewPager viewPager;
+
 
     private static int HEADER_VIEW = 1;
     private static int HOME_VIEW = 2;
@@ -51,12 +53,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if(viewType == HOME_VIEW) {
-            View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard, parent, false);
+            View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_home, parent, false);
             return new HomeViewHolder(result);
 
         } else if(viewType == HEADER_VIEW) {
 
-            View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_slide_page, parent, false);
+            View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dashboard_header, parent, false);
             return new HeaderViewHolder(result);
         }
         return null;
@@ -85,9 +87,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        if(homeitems == null)
+
+        if(headeritems == null && homeitems == null)
+            return 0;
+        else if(headeritems == null)
+            return homeitems.size();
+        else if(homeitems == null)
             return 1;
-        Log.d("Adapter", "Dashboard size-> getItemCount():" + (homeitems.size() +1 ));
         return 1 + homeitems.size();
     }
 
@@ -116,19 +122,20 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-        ViewPager viewPager;
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         HeaderViewHolder(View itemView) {
             super(itemView);
 
             viewPager = itemView.findViewById(R.id.header_view_pager);
+            Log.d("header view holder ", "view pager ->" + viewPager);
         }
 
         void onBind() {
 
-            HeaderAdapter adapter = new HeaderAdapter(fragmentManager);
+            headerAdapter = new HeaderAdapter(fragmentManager);
+            viewPager.setAdapter(headerAdapter);
+            Log.d("header view holder ", "view adapter ->" + viewPager);
         }
     }
 
@@ -136,15 +143,19 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         HeaderAdapter(FragmentManager fm) {
             super(fm);
+            Log.d("headeradapter fm ", ""+fm);
         }
 
         @Override
         public Fragment getItem(int position) {
+
+            Log.d("getitem position", ""+position);
             return HeaderFragment.newInstance(headeritems.get(position));
         }
 
         @Override
         public int getCount() {
+
             if (headeritems == null)
                 return 0;
             return headeritems.size();

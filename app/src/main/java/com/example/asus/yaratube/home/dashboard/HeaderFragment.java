@@ -42,7 +42,7 @@ public class HeaderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.headeritem = Parcels.unwrap(getArguments().getParcelable("header item"));
-            Log.d(TAG, "header item in fragment " + headeritem);
+            Log.d(TAG, "headeritem in fragment " + headeritem);
         }
     }
 
@@ -51,13 +51,19 @@ public class HeaderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View result = inflater.inflate(R.layout.header_slide_page, container, false);
 
-        imageHeader = container.findViewById(R.id.header_image);
+        imageHeader = result.findViewById(R.id.header_image);
         if(headeritem.getFeatureAvatar() != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 imageHeader.setClipToOutline(true);
             }
-            Glide.with(getContext()).load(headeritem.getFeatureAvatarUrl()).into(imageHeader);
+            Log.d(TAG, "context in fragment " + container.getContext());
+            Log.d(TAG, "image in fragment " + imageHeader); // this is null
+            Log.d(TAG, "image in fragment " + headeritem.getFeatureAvatarUrl());
+
+            Glide.with(container.getContext()).load(headeritem.getFeatureAvatarUrl()).into(imageHeader);
         }
         return result;
     }
+
+
 }

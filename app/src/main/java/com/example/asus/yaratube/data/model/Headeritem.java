@@ -5,8 +5,13 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+import org.parceler.ParcelFactory;
+
 import static com.example.asus.yaratube.util.Util.BASE_URL;
 
+@Parcel
 public class Headeritem {
 
     @SerializedName("id")
@@ -24,9 +29,6 @@ public class Headeritem {
     @SerializedName("producer_name")
     @Expose
     private String producerName;
-    @SerializedName("payment_type")
-    @Expose
-    private List<Object> paymentType = null;
     @SerializedName("price")
     @Expose
     private Integer price;
@@ -63,27 +65,20 @@ public class Headeritem {
     @SerializedName("date_added")
     @Expose
     private String dateAdded;
-    @SerializedName("invest_goal")
-    @Expose
-    private Object investGoal;
-    @SerializedName("product_staff")
-    @Expose
-    private List<Object> productStaff = null;
     @SerializedName("support")
     @Expose
     private Support_ support;
     @SerializedName("is_special")
     @Expose
     private Boolean isSpecial;
-    @SerializedName("additional_attributes")
-    @Expose
-    private List<Object> additionalAttributes = null;
     @SerializedName("date_published")
     @Expose
     private String datePublished;
-    @SerializedName("customjson")
-    @Expose
-    private Object customjson;
+
+    @ParcelConstructor
+    Headeritem() {
+
+    }
 
     public Integer getId() {
         return id;
@@ -123,14 +118,6 @@ public class Headeritem {
 
     public void setProducerName(String producerName) {
         this.producerName = producerName;
-    }
-
-    public List<Object> getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(List<Object> paymentType) {
-        this.paymentType = paymentType;
     }
 
     public Integer getPrice() {
@@ -233,22 +220,6 @@ public class Headeritem {
         this.dateAdded = dateAdded;
     }
 
-    public Object getInvestGoal() {
-        return investGoal;
-    }
-
-    public void setInvestGoal(Object investGoal) {
-        this.investGoal = investGoal;
-    }
-
-    public List<Object> getProductStaff() {
-        return productStaff;
-    }
-
-    public void setProductStaff(List<Object> productStaff) {
-        this.productStaff = productStaff;
-    }
-
     public Support_ getSupport() {
         return support;
     }
@@ -265,28 +236,12 @@ public class Headeritem {
         this.isSpecial = isSpecial;
     }
 
-    public List<Object> getAdditionalAttributes() {
-        return additionalAttributes;
-    }
-
-    public void setAdditionalAttributes(List<Object> additionalAttributes) {
-        this.additionalAttributes = additionalAttributes;
-    }
-
     public String getDatePublished() {
         return datePublished;
     }
 
     public void setDatePublished(String datePublished) {
         this.datePublished = datePublished;
-    }
-
-    public Object getCustomjson() {
-        return customjson;
-    }
-
-    public void setCustomjson(Object customjson) {
-        this.customjson = customjson;
     }
 
 }

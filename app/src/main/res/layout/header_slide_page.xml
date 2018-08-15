@@ -13,4 +13,5 @@
         android:contentDescription="@string/header_image"
         android:padding="@dimen/_5dp"
         />
+    
 </ScrollView>
