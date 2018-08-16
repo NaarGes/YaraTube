@@ -5,7 +5,8 @@
     android:gravity="center|top"
     android:orientation="vertical"
     android:padding="@dimen/padding_16dp"
-    tools:context="com.example.asus.yaratube.developerinfo.AboutFragment">
+    tools:context="com.example.asus.yaratube.developerinfo.AboutFragment"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"

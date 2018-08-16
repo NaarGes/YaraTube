@@ -4,7 +4,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,12 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
-import com.example.asus.yaratube.home.BNHolderFragment;
+import com.example.asus.yaratube.home.BottomHolderFragment;
 import com.example.asus.yaratube.productlist.ProductListFragment;
 
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements TransferBetweenFragments {
@@ -66,13 +67,12 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                         return true;
 
                     case R.id.about_nd:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_container, AboutFragment.newInstance()).addToBackStack("about fragment").commit();
+
+                        addFragment(AboutFragment.newInstance());
                         return true;
 
                     case R.id.contact_nd:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_container, ContactFragment.newInstance()).addToBackStack("contact fragment").commit();
+                        addFragment(ContactFragment.newInstance());
                         return true;
 
                     default:
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
     public void setBottomNavigationFragment() {
 
-        BNHolderFragment bnHolderFragment = BNHolderFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, bnHolderFragment).commit();
+        BottomHolderFragment bottomHolderFragment = BottomHolderFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, bottomHolderFragment).commit();
     }
 
     // Open the drawer when the button is tapped
@@ -110,6 +110,39 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
         ProductListFragment productListFragment = ProductListFragment.newInstance(categoryId);
         getSupportFragmentManager().beginTransaction().addToBackStack("productlist fragment")
-                .replace(R.id.main_container, productListFragment).commit();
+                .add(R.id.main_container, productListFragment).commit();
+    }
+
+    private void addFragment (Fragment fragment){
+
+        String backStateName = fragment.getClass().getName();
+
+        boolean fragmentPopped = getSupportFragmentManager().popBackStackImmediate (backStateName, 0);
+
+        // if there is other option of drawer menu open, close it
+        if(topFragment() instanceof  AboutFragment ||
+                topFragment() instanceof ContactFragment)
+            getSupportFragmentManager().popBackStack();
+
+        //fragment not in back stack, create it
+        if (!fragmentPopped){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.main_container, fragment);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
+    }
+
+    // this method is because of that removing a fragment, does not make the list size decrease (the fragment entry just turn to null)
+    public Fragment topFragment() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        Fragment top = null;
+        for (int i = fragments.size() -1; i>=0 ; i--) {
+            top = fragments.get(i);
+            if (top != null) {
+                return top;
+            }
+        }
+        return top;
     }
 }

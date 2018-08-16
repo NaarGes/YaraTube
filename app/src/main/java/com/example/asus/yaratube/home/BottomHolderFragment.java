@@ -15,13 +15,16 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.home.category.CategoryFragment;
 import com.example.asus.yaratube.home.dashboard.DashboardFragment;
 
-public class BNHolderFragment extends Fragment {
+public class BottomHolderFragment extends Fragment {
 
-    public BNHolderFragment() {
+    private DashboardFragment dashboardFragment;
+    private CategoryFragment categoryFragment;
+
+    public BottomHolderFragment() {
     }
 
-    public static BNHolderFragment newInstance() {
-        BNHolderFragment fragment = new BNHolderFragment();
+    public static BottomHolderFragment newInstance() {
+        BottomHolderFragment fragment = new BottomHolderFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -30,22 +33,23 @@ public class BNHolderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            // get arguments and set parameters
+
+        if (savedInstanceState == null) {
+            dashboardFragment = DashboardFragment.newInstance();
+            categoryFragment = CategoryFragment.newInstance();
         }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_bnholder, container, false);
+        return inflater.inflate(R.layout.fragment_bottom_holder, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // FIXME shouldn't be here
         bottomNavigationManager(view);
     }
 
@@ -62,9 +66,6 @@ public class BNHolderFragment extends Fragment {
     public void bottomNavigationManager(View view) {
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-
-        final DashboardFragment dashboardFragment = DashboardFragment.newInstance();
-        final CategoryFragment categoryFragment = CategoryFragment.newInstance();
 
         getChildFragmentManager().beginTransaction()
                 .add(R.id.home_category_fragment_container, dashboardFragment)
@@ -102,4 +103,15 @@ public class BNHolderFragment extends Fragment {
         );
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        for ( Fragment f : getChildFragmentManager().getFragments() ) {
+            if ( f instanceof DashboardFragment || f instanceof CategoryFragment) {
+                getChildFragmentManager().beginTransaction().remove( f ).commit();
+            }
+        }
+
+    }
 }
