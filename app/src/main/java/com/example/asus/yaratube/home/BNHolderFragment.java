@@ -15,8 +15,6 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.home.category.CategoryFragment;
 import com.example.asus.yaratube.home.dashboard.DashboardFragment;
 
-// FIXME save state of which child fragment is active, when comeback here
-
 public class BNHolderFragment extends Fragment {
 
     public BNHolderFragment() {
@@ -47,6 +45,7 @@ public class BNHolderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // FIXME shouldn't be here
         bottomNavigationManager(view);
     }
 
@@ -88,13 +87,13 @@ public class BNHolderFragment extends Fragment {
                                 return true;
 
                             case R.id.category_bn:
-                                // FIXME add to back-stack
                                 if(!categoryFragment.isVisible())
                                     getChildFragmentManager().beginTransaction()
                                             .hide(dashboardFragment)
                                             .show(categoryFragment)
                                             .commit();
                                 return true;
+
                             default:
                                 return false;
                         }

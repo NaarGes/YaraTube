@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.TransferBetweenFragments;
 import com.example.asus.yaratube.data.model.Category;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     private CategoryContract.Presenter presenter;
     private CategoryAdapter adapter;
     private ProgressBar spinner;
+    private TransferBetweenFragments transferBetweenFragments;
 
     public CategoryFragment() {
     }
@@ -69,12 +71,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
+        transferBetweenFragments = (TransferBetweenFragments) context;
     }
 
     @Override
@@ -117,10 +114,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         adapter.setCategories(categories);
         adapter.setListener(new CategoryContract.onCategoryClickListener() {
             @Override
-            public void onCategoryClick(int CategoryID) {
-                Log.d(TAG, "onCategoryClick() called with: CategoryID = [" + CategoryID + "]");
-
-                // TODO call a method to go to productlist fragment
+            public void onCategoryClick(int categoryId) {
+                transferBetweenFragments.goFromCategoryToProductList(categoryId);
             }
         });
     }

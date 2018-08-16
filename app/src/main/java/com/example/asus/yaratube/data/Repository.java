@@ -1,5 +1,7 @@
 package com.example.asus.yaratube.data;
 
+import android.util.Log;
+
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.Store;
@@ -12,6 +14,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class Repository {
 
@@ -68,13 +72,14 @@ public class Repository {
     }
 
     public void getProductList(final ApiResult<List<Product>> callback, int categoryId) {
-
+        Log.d(TAG, "getProductList() called with: categoryId = [" + categoryId + "]"); // correct
         Call<List<Product>> call = service.getProductList(categoryId);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
                 if(response.isSuccessful()) {
+                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response.body() + "]"); // correct
                     callback.onSuccess(response.body());
                 } else {
                     callback.onFail();

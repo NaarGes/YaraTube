@@ -1,6 +1,7 @@
 package com.example.asus.yaratube.productlist;
 
 import com.example.asus.yaratube.BaseView;
+import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
 
 import java.util.List;
@@ -14,6 +15,6 @@ public interface ProductListContract {
 
     interface Presenter {
 
-        void onLoadProductList(int categoryId);
+        void onLoadProductList(int categoryID);
     }
 }

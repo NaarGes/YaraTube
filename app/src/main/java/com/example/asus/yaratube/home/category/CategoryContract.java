@@ -19,7 +19,7 @@ public interface CategoryContract {
 
     interface onCategoryClickListener {
 
-        void onCategoryClick(int CategoryID);
+        void onCategoryClick(int categoryId);
     }
 
 }

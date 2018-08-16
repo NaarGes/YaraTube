@@ -2,6 +2,7 @@ package com.example.asus.yaratube.productlist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.example.asus.yaratube.data.model.Product;
 
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.example.asus.yaratube.util.Util.BASE_URL;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder> {
@@ -25,6 +27,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public void setProducts(List<Product> products) {
+        Log.d(TAG, "setProducts() called with: products = [" + products + "]"); // checked: ok
         this.products = products;
     }
 
@@ -50,6 +53,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return products.size();
     }
 
+    //////////////////////////// in too nemireee
     class ProductListViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView productImage;
@@ -65,6 +69,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
 
         void onBind(Product product) {
+
+            Log.d(TAG, "onBind() called with: product = [" + product + "]"); // not ok
 
             if(product.getAvatar() != null) {
                 Glide.with(itemView.getContext()).load(product.getAvatarUrl()).into(productImage);

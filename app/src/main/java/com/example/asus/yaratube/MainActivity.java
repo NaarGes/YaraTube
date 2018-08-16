@@ -4,6 +4,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,13 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
 import com.example.asus.yaratube.home.BNHolderFragment;
+import com.example.asus.yaratube.productlist.ProductListFragment;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TransferBetweenFragments {
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
@@ -99,5 +102,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void goFromCategoryToProductList(int categoryId) {
+
+
+        ProductListFragment productListFragment = ProductListFragment.newInstance(categoryId);
+        getSupportFragmentManager().beginTransaction().addToBackStack("productlist fragment")
+                .replace(R.id.main_container, productListFragment).commit();
     }
 }

@@ -1,10 +1,14 @@
 package com.example.asus.yaratube.productlist;
 
+import android.util.Log;
+
 import com.example.asus.yaratube.data.Repository;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.remote.ApiResult;
 
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class ProductListPresenter implements ProductListContract.Presenter {
 
@@ -26,6 +30,7 @@ public class ProductListPresenter implements ProductListContract.Presenter {
             @Override
             public void onSuccess(List<Product> products) {
 
+                Log.d(TAG, "onSuccess() called with: products = [" + products + "]"); // checked: ok
                 view.hideProgressBar();
                 view.showProductList(products);
             }
