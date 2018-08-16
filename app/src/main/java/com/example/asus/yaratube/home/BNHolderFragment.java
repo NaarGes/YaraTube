@@ -47,12 +47,7 @@ public class BNHolderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // show dashboard when app start
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.home_category_fragment_container, DashboardFragment.newInstance()).commit();
-
         bottomNavigationManager(view);
-
     }
 
     @Override
@@ -69,6 +64,15 @@ public class BNHolderFragment extends Fragment {
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 
+        final DashboardFragment dashboardFragment = DashboardFragment.newInstance();
+        final CategoryFragment categoryFragment = CategoryFragment.newInstance();
+
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.home_category_fragment_container, dashboardFragment)
+                .add(R.id.home_category_fragment_container, categoryFragment)
+                .hide(categoryFragment)
+                .commit();
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -76,13 +80,20 @@ public class BNHolderFragment extends Fragment {
 
                         switch (item.getItemId()) {
                             case R.id.home_bn:
-                                getChildFragmentManager().beginTransaction()
-                                        .replace(R.id.home_category_fragment_container, DashboardFragment.newInstance()).commit();
+                                if(!dashboardFragment.isVisible())
+                                    getChildFragmentManager().beginTransaction()
+                                            .hide(categoryFragment)
+                                            .show(dashboardFragment)
+                                            .commit();
                                 return true;
+
                             case R.id.category_bn:
                                 // FIXME add to back-stack
-                                getChildFragmentManager().beginTransaction()
-                                        .replace(R.id.home_category_fragment_container, CategoryFragment.newInstance()).commit();
+                                if(!categoryFragment.isVisible())
+                                    getChildFragmentManager().beginTransaction()
+                                            .hide(dashboardFragment)
+                                            .show(categoryFragment)
+                                            .commit();
                                 return true;
                             default:
                                 return false;
