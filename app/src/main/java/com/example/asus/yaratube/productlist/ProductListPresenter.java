@@ -30,7 +30,6 @@ public class ProductListPresenter implements ProductListContract.Presenter {
             @Override
             public void onSuccess(List<Product> products) {
 
-                Log.d(TAG, "onSuccess() called with: products = [" + products + "]"); // checked: ok
                 view.hideProgressBar();
                 view.showProductList(products);
             }

@@ -29,6 +29,8 @@ public class ProductListFragment extends Fragment implements ProductListContract
     private ProductListAdapter adapter;
     private ProgressBar spinner;
     private int categoryID;
+    private RecyclerView recyclerView;
+
 
     public ProductListFragment() {
     }
@@ -88,18 +90,17 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     public void setRecyclerView(View view) {
 
-        RecyclerView recyclerView;
         recyclerView = view.findViewById(R.id.product_list_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
         adapter = new ProductListAdapter();
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void showProductList(List<Product> products) {
 
         adapter.setProducts(products);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
