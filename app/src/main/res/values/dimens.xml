@@ -11,4 +11,5 @@
     <dimen name="_5dp">5dp</dimen>
     <dimen name="font_size_15sp">15sp</dimen>
     <dimen name="_200dp">200dp</dimen>
+    <dimen name="font_size_12sp">12sp</dimen>
 </resources>
