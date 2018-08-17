@@ -3,6 +3,8 @@ package com.example.asus.yaratube.home.dashboard;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.example.asus.yaratube.data.model.Headeritem;
 
@@ -33,3 +35,4 @@ public class HeaderAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 }
+

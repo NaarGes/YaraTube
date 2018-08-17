@@ -124,6 +124,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             viewPager = itemView.findViewById(R.id.header_view_pager);
             viewPager.setRotationY(180);
+            viewPager.setPageTransformer(true, new DepthPageTransformer());
         }
 
         void onBind() {
