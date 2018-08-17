@@ -17,9 +17,10 @@ import android.widget.Toast;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Store;
 
+import static com.example.asus.yaratube.util.Util.DEFAULT_ERROR_MESSAGE;
+
 public class DashboardFragment extends Fragment implements DashboardContract.View {
 
-    private DashboardContract.Presenter presenter;
     private DashboardAdapter adapter;
     private ProgressBar spinner;
 
@@ -36,9 +37,7 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //if (getArguments() != null) {
-            // get arguments and set parameters
-        //}
+
     }
 
     @Override
@@ -51,7 +50,7 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new DashboardPresenter(this);
+        DashboardContract.Presenter presenter = new DashboardPresenter(this);
 
         spinner = view.findViewById(R.id.dashboard_progressbar);
         setRecyclerView(view);
@@ -63,18 +62,11 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*if (context instanceof OnFragmentInteractionListener) {
-            //mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-       // mListener = null;
     }
 
     public void setRecyclerView(View view) {
@@ -108,7 +100,7 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     @Override
     public void showErrorMessage() {
 
-        Toast.makeText(this.getContext(),"Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 
     @Override

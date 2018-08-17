@@ -104,15 +104,6 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         }
     }
 
-    @Override
-    public void goFromCategoryToProductList(int categoryId) {
-
-
-        ProductListFragment productListFragment = ProductListFragment.newInstance(categoryId);
-        getSupportFragmentManager().beginTransaction().addToBackStack("productlist fragment")
-                .add(R.id.main_container, productListFragment).commit();
-    }
-
     private void addFragment (Fragment fragment){
 
         String backStateName = fragment.getClass().getName();
@@ -144,5 +135,13 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
             }
         }
         return top;
+    }
+
+    @Override
+    public void goFromCategoryToProductList(int categoryId) {
+
+        ProductListFragment productListFragment = ProductListFragment.newInstance(categoryId);
+        getSupportFragmentManager().beginTransaction().addToBackStack(productListFragment.getClass().getName())
+                .add(R.id.main_container, productListFragment).commit();
     }
 }

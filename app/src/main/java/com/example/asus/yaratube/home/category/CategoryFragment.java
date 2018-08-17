@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +21,11 @@ import com.example.asus.yaratube.data.model.Category;
 
 import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
+import static com.example.asus.yaratube.util.Util.DEFAULT_ERROR_MESSAGE;
 
 
 public class CategoryFragment extends Fragment implements CategoryContract.View {
 
-    private CategoryContract.Presenter presenter;
     private CategoryAdapter adapter;
     private ProgressBar spinner;
     private TransferBetweenFragments transferBetweenFragments;
@@ -45,9 +43,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-           // get arguments and set parameters here
-        }
     }
 
     @Override
@@ -60,7 +55,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new CategoryPresenter(this);
+        CategoryContract.Presenter presenter = new CategoryPresenter(this);
 
         spinner = view.findViewById(R.id.category_progress_bar);
         setRecyclerView(view);
@@ -77,7 +72,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
+        transferBetweenFragments = null;
     }
 
     public void setRecyclerView(View view) {
@@ -123,6 +118,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void showErrorMessage() {
 
-        Toast.makeText(this.getContext(),"Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 }

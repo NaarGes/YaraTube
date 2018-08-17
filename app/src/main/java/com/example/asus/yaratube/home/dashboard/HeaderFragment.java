@@ -20,6 +20,7 @@ public class HeaderFragment extends Fragment {
 
     private Headeritem headeritem;
     private ImageView imageHeader;
+    private final static String HEADER = "header item";
 
     public HeaderFragment() {
 
@@ -29,7 +30,7 @@ public class HeaderFragment extends Fragment {
         HeaderFragment fragment = new HeaderFragment();
         Bundle args = new Bundle();
 
-        args.putParcelable("header item", Parcels.wrap(headeritem));
+        args.putParcelable(HEADER, Parcels.wrap(headeritem));
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,7 +39,7 @@ public class HeaderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.headeritem = Parcels.unwrap(getArguments().getParcelable("header item"));
+            this.headeritem = Parcels.unwrap(getArguments().getParcelable(HEADER));
         }
     }
 

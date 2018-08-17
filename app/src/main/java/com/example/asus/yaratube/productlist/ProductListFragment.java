@@ -19,17 +19,17 @@ import com.example.asus.yaratube.data.model.Product;
 
 import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
+import static com.example.asus.yaratube.util.Util.DEFAULT_ERROR_MESSAGE;
 
 
 public class ProductListFragment extends Fragment implements ProductListContract.View {
 
 
-    private ProductListContract.Presenter presenter;
     private ProductListAdapter adapter;
     private ProgressBar spinner;
     private int categoryID;
     private RecyclerView recyclerView;
+    private final static String CATID = "category id";
 
 
     public ProductListFragment() {
@@ -37,11 +37,9 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     public static ProductListFragment newInstance(int categoryId) {
 
-        Log.d(TAG, "newInstance() called with: categoryId = [" + categoryId + "]");
-
         ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
-        args.putInt("category id", categoryId);
+        args.putInt(CATID, categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +48,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        categoryID = getArguments().getInt("category id");
+        categoryID = getArguments().getInt(CATID);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new ProductListPresenter(this);
+        ProductListContract.Presenter presenter = new ProductListPresenter(this);
 
         spinner = view.findViewById(R.id.product_list_progress_bar);
         setRecyclerView(view);
@@ -74,18 +72,11 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
     }
 
     public void setRecyclerView(View view) {
@@ -118,6 +109,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void showErrorMessage() {
 
-        Toast.makeText(this.getContext(),"Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 }
