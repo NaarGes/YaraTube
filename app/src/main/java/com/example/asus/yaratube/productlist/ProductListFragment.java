@@ -109,6 +109,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void showErrorMessage() {
 
+        hideProgressBar();
         Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 }

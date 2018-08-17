@@ -118,6 +118,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void showErrorMessage() {
 
+        hideProgressBar();
         Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 }

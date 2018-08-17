@@ -100,6 +100,7 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     @Override
     public void showErrorMessage() {
 
+        hideProgressBar();
         Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
     }
 
