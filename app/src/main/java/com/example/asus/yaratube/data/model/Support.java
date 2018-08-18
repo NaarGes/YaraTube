@@ -4,6 +4,10 @@ package com.example.asus.yaratube.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
+@Parcel
 public class Support {
 
     @SerializedName("instagram")
@@ -30,6 +34,11 @@ public class Support {
     @SerializedName("tel")
     @Expose
     private String tel;
+
+    @ParcelConstructor
+    Support() {
+
+    }
 
     public String getInstagram() {
         return instagram;

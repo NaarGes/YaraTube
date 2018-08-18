@@ -4,6 +4,10 @@ package com.example.asus.yaratube.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
+@Parcel
 public class FeatureAvatar {
 
     @SerializedName("mdpi")
@@ -21,6 +25,11 @@ public class FeatureAvatar {
     @SerializedName("xhdpi")
     @Expose
     private String xhdpi;
+
+    @ParcelConstructor
+    FeatureAvatar() {
+
+    }
 
     public String getMdpi() {
         return mdpi;

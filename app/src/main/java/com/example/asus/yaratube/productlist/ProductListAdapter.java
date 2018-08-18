@@ -21,6 +21,7 @@ import static com.example.asus.yaratube.util.Util.BASE_URL;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder> {
 
     private List<Product> products;
+    private ProductListContract.onProductClickListener listener;
 
     ProductListAdapter() {
 
@@ -30,6 +31,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         this.products = products;
         notifyDataSetChanged();
+    }
+
+    public void setListener(ProductListContract.onProductClickListener listener) {
+
+        this.listener = listener;
     }
 
     @NonNull
@@ -68,7 +74,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productDescription = itemView.findViewById(R.id.pro_desc);
         }
 
-        void onBind(Product product) {
+        void onBind(final Product product) {
 
             if(product.getAvatar() != null) {
                 Glide.with(itemView.getContext()).load(product.getAvatarUrl()).into(productImage);
@@ -77,6 +83,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productName.setText(product.getName());
             productDescription.setText(product.getShortDescription());
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onProductClick(product);
+                }
+            });
         }
     }
 }

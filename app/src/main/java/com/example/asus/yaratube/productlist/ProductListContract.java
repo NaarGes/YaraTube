@@ -17,4 +17,9 @@ public interface ProductListContract {
 
         void onLoadProductList(Category category);
     }
+
+    interface onProductClickListener {
+
+        void onProductClick(Product product);
+    }
 }

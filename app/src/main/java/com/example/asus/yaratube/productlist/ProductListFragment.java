@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.TransferBetweenFragments;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
 
@@ -33,6 +34,8 @@ public class ProductListFragment extends Fragment implements ProductListContract
     private Category category;
     private RecyclerView recyclerView;
     private final static String CAT = "category";
+
+    private TransferBetweenFragments transferBetweenFragments;
 
 
     public ProductListFragment() {
@@ -75,11 +78,13 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        transferBetweenFragments = (TransferBetweenFragments) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        transferBetweenFragments = null;
     }
 
     public void setRecyclerView(View view) {
@@ -94,6 +99,13 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void showProductList(List<Product> products) {
 
         adapter.setProducts(products);
+        adapter.setListener(new ProductListContract.onProductClickListener() {
+            @Override
+            public void onProductClick(Product product) {
+                transferBetweenFragments.goFromProductListToProductDetail(product);
+            }
+        });
+
         recyclerView.setAdapter(adapter);
     }
 

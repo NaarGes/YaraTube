@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_image_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_play_circle_filled_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,11 +33,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="100" />
-                            <entry key="outputName" value="ic_image_black_100dp" />
+                            <entry key="color" value="009999" />
+                            <entry key="height" value="32" />
+                            <entry key="outputName" value="ic_play_circle_filled_black_32dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\ASUS\Documents\Android Development\icons\telegram.psd" />
-                            <entry key="width" value="100" />
+                            <entry key="width" value="32" />
                           </map>
                         </option>
                       </PersistentState>
