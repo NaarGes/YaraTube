@@ -1,17 +1,20 @@
 package com.example.asus.yaratube.productdetail;
 
 import com.example.asus.yaratube.BaseView;
+import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
+
+import java.util.List;
 
 public interface ProductDetailContract {
 
     interface View extends BaseView {
 
-        void showProductDetail(Product product);
+        void showComments(List<Comment> comments);
     }
 
     interface Presenter {
 
-        void onLoadProductDetail(Product product);
+        void onLoadComments(Product product);
     }
 }

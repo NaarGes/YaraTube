@@ -6,5 +6,5 @@ import com.example.asus.yaratube.data.model.Product;
 public interface TransferBetweenFragments {
     void goFromCategoryToProductList(Category category);
 
-    void goFromProductListToProductDetail(Product product);
+    void ToProductDetail(Product product);
 }

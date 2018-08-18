@@ -1,6 +1,7 @@
 package com.example.asus.yaratube.data.remote;
 
 import com.example.asus.yaratube.data.model.Category;
+import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.Store;
 
@@ -26,4 +27,7 @@ public interface ApiService {
     @GET("listproducts/{categoryId}")
     Call<List<Product>> getProductList(@Path("categoryId") int categoryId);
 
+    // get all comments of a product
+    @GET("comment/{productId}")
+    Call<List<Comment>> getComments(@Path("productId") int productId);
 }

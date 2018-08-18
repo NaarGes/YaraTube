@@ -3,6 +3,7 @@ package com.example.asus.yaratube.data;
 import android.util.Log;
 
 import com.example.asus.yaratube.data.model.Category;
+import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.Store;
 import com.example.asus.yaratube.data.remote.ApiClient;
@@ -89,6 +90,29 @@ public class Repository {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
+
+                callback.onFail();
+            }
+        });
+    }
+
+
+    public void getComments(final ApiResult<List<Comment>> callback, Product product) {
+
+        Call<List<Comment>> call = service.getComments(product.getId());
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+
+                if(response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFail();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
 
                 callback.onFail();
             }
