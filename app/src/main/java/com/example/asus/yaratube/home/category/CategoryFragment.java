@@ -109,8 +109,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         adapter.setCategories(categories);
         adapter.setListener(new CategoryContract.onCategoryClickListener() {
             @Override
-            public void onCategoryClick(int categoryId) {
-                transferBetweenFragments.goFromCategoryToProductList(categoryId);
+            public void onCategoryClick(Category category) {
+                transferBetweenFragments.goFromCategoryToProductList(category);
             }
         });
     }

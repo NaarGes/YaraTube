@@ -1,5 +1,7 @@
 package com.example.asus.yaratube;
 
+import com.example.asus.yaratube.data.model.Category;
+
 public interface TransferBetweenFragments {
-    void goFromCategoryToProductList(int categoryID);
+    void goFromCategoryToProductList(Category category);
 }

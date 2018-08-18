@@ -4,8 +4,12 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import static com.example.asus.yaratube.util.Util.BASE_URL;
 
+@Parcel
 public class Category {
 
     @SerializedName("id")
@@ -19,7 +23,7 @@ public class Category {
     private String title;
     @SerializedName("avatar")
     @Expose
-    private Object avatar;
+    private String avatar;
     @SerializedName("position")
     @Expose
     private Integer position;
@@ -34,7 +38,12 @@ public class Category {
     private Integer parent;
     @SerializedName("childs")
     @Expose
-    private List<Object> childs = null;
+    private List<Category> childs = null;
+
+    @ParcelConstructor
+    Category() {
+
+    }
 
     public Integer getId() {
         return id;
@@ -60,7 +69,7 @@ public class Category {
         this.title = title;
     }
 
-    public Object getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
@@ -68,7 +77,7 @@ public class Category {
         return BASE_URL + getAvatar();
     }
 
-    public void setAvatar(Object avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -104,11 +113,11 @@ public class Category {
         this.parent = parent;
     }
 
-    public List<Object> getChilds() {
+    public List<Category> getChilds() {
         return childs;
     }
 
-    public void setChilds(List<Object> childs) {
+    public void setChilds(List<Category> childs) {
         this.childs = childs;
     }
 

@@ -15,7 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -27,19 +30,19 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     private ProductListAdapter adapter;
     private ProgressBar spinner;
-    private int categoryID;
+    private Category category;
     private RecyclerView recyclerView;
-    private final static String CATID = "category id";
+    private final static String CAT = "category";
 
 
     public ProductListFragment() {
     }
 
-    public static ProductListFragment newInstance(int categoryId) {
+    public static ProductListFragment newInstance(Category category) {
 
         ProductListFragment fragment = new ProductListFragment();
         Bundle args = new Bundle();
-        args.putInt(CATID, categoryId);
+        args.putParcelable(CAT, Parcels.wrap(category));
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +51,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        categoryID = getArguments().getInt(CATID);
+        category = Parcels.unwrap(getArguments().getParcelable(CAT));
     }
 
     @Override
@@ -66,7 +69,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         spinner = view.findViewById(R.id.product_list_progress_bar);
         setRecyclerView(view);
 
-        presenter.onLoadProductList(categoryID);
+        presenter.onLoadProductList(category);
     }
 
     @Override

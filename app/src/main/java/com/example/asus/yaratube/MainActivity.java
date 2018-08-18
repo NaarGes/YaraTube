@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
 import com.example.asus.yaratube.home.BottomHolderFragment;
@@ -138,9 +139,9 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     }
 
     @Override
-    public void goFromCategoryToProductList(int categoryId) {
+    public void goFromCategoryToProductList(Category category) {
 
-        ProductListFragment productListFragment = ProductListFragment.newInstance(categoryId);
+        ProductListFragment productListFragment = ProductListFragment.newInstance(category);
         getSupportFragmentManager().beginTransaction().addToBackStack(productListFragment.getClass().getName())
                 .add(R.id.main_container, productListFragment).commit();
     }

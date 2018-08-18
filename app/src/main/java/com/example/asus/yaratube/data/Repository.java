@@ -67,19 +67,20 @@ public class Repository {
             public void onFailure(Call<Store> call, Throwable t) {
 
                 callback.onFail();
+                t.printStackTrace();
             }
         });
     }
 
-    public void getProductList(final ApiResult<List<Product>> callback, int categoryId) {
-        Log.d(TAG, "getProductList() called with: categoryId = [" + categoryId + "]"); // correct
-        Call<List<Product>> call = service.getProductList(categoryId);
+    public void getProductList(final ApiResult<List<Product>> callback, Category category) {
+
+        Call<List<Product>> call = service.getProductList(category.getId());
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
                 if(response.isSuccessful()) {
-                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response.body() + "]"); // correct
+
                     callback.onSuccess(response.body());
                 } else {
                     callback.onFail();

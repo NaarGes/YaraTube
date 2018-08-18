@@ -1,14 +1,13 @@
 package com.example.asus.yaratube.productlist;
 
-import android.util.Log;
 
 import com.example.asus.yaratube.data.Repository;
+import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.remote.ApiResult;
 
 import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class ProductListPresenter implements ProductListContract.Presenter {
 
@@ -22,7 +21,7 @@ public class ProductListPresenter implements ProductListContract.Presenter {
     }
 
     @Override
-    public void onLoadProductList(int categoryId) {
+    public void onLoadProductList(Category category) {
 
         view.showProgressBar();
 
@@ -39,6 +38,6 @@ public class ProductListPresenter implements ProductListContract.Presenter {
 
                 view.showErrorMessage();
             }
-        }, categoryId);
+        }, category);
     }
 }

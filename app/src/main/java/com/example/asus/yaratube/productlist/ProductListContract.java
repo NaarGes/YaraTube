@@ -15,6 +15,6 @@ public interface ProductListContract {
 
     interface Presenter {
 
-        void onLoadProductList(int categoryID);
+        void onLoadProductList(Category category);
     }
 }
