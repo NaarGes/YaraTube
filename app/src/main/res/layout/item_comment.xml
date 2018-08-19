@@ -3,16 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="@dimen/padding_8dp">
 
     <TextView
         android:id="@+id/comment_user"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/comment_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_5dp"
+        android:layout_marginStart="@dimen/padding_8dp"/>
 
 </LinearLayout>

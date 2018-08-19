@@ -42,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/padding_8dp"
-                android:layout_margin="@dimen/padding_8dp">
+                android:layout_margin="@dimen/padding_8dp"
+                android:elevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,27 +56,31 @@
                         android:layout_height="250dp"
                         android:scaleType="centerCrop"/>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/padding_8dp">
 
                         <TextView
                             android:id="@+id/video_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:layout_margin="@dimen/padding_8dp"/>
+                            android:layout_margin="@dimen/padding_8dp"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/font_size_18sp"
+                            />
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/video_play_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_play_circle_filled_black_32dp"
-                            android:background="@color/white"
-                            android:layout_gravity="start"/>
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_play_circle_filled_black_32dp"
+                            android:layout_alignParentEnd="true"
+                            android:elevation="3dp"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -85,24 +90,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/padding_8dp"
-                android:layout_margin="@dimen/padding_8dp">
+                android:layout_margin="@dimen/padding_8dp"
+                android:elevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/padding_8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/padding_8dp"
-                        android:text="@string/description"/>
+                        android:text="@string/description"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/font_size_17sp"/>
 
                     <TextView
                         android:id="@+id/video_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_8dp"/>
+                        android:layout_margin="@dimen/padding_8dp"
+                        />
 
                 </LinearLayout>
 
@@ -112,14 +122,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/padding_8dp"
-                android:layout_margin="@dimen/padding_8dp">
+                android:layout_margin="@dimen/padding_8dp"
+                android:elevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/padding_8dp">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -127,15 +139,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="نظرات کاربران"
-                            android:layout_gravity="end"/>
+                            android:text="@string/users_comments"
+                            android:layout_gravity="end"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/font_size_17sp"/>
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="نظر دهید"
-                            android:layout_gravity="start"/>
-                    </LinearLayout>
+                            android:layout_alignParentEnd="true"
+                            android:elevation="3dp"
+                            android:text="@string/comment"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
 
                     <ProgressBar
                         android:id="@+id/comment_progress_bar"
