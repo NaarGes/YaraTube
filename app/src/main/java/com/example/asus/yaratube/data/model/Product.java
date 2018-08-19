@@ -1,4 +1,3 @@
-
 package com.example.asus.yaratube.data.model;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class Product {
     private FeatureAvatar featureAvatar;
     @SerializedName("rank")
     @Expose
-    private Integer rank;
+    private Float rank;
     @SerializedName("totalInstalled")
     @Expose
     private Integer totalInstalled;
@@ -202,7 +201,6 @@ public class Product {
     /*public List<Object> getPaymentType() {
         return paymentType;
     }
-
     public void setPaymentType(List<Object> paymentType) {
         this.paymentType = paymentType;
     }*/
@@ -244,11 +242,11 @@ public class Product {
         this.featureAvatar = featureAvatar;
     }
 
-    public Integer getRank() {
+    public Float getRank() {
         return rank;
     }
 
-    public void setRank(Integer rank) {
+    public void setRank(Float rank) {
         this.rank = rank;
     }
 
@@ -276,14 +274,13 @@ public class Product {
         this.description = description;
     }
 
-   /* public List<Object> getPromotionalContainers() {
-        return promotionalContainers;
-    }
-
-    public void setPromotionalContainers(List<Object> promotionalContainers) {
-        this.promotionalContainers = promotionalContainers;
-    }
-*/
+    /* public List<Object> getPromotionalContainers() {
+         return promotionalContainers;
+     }
+     public void setPromotionalContainers(List<Object> promotionalContainers) {
+         this.promotionalContainers = promotionalContainers;
+     }
+ */
     public Boolean getIsPurchased() {
         return isPurchased;
     }
@@ -311,39 +308,30 @@ public class Product {
     /*public List<Object> getGenericFiles() {
         return genericFiles;
     }
-
     public void setGenericFiles(List<Object> genericFiles) {
         this.genericFiles = genericFiles;
     }
-
     public List<Object> getDirector() {
         return director;
     }
-
     public void setDirector(List<Object> director) {
         this.director = director;
     }
-
     public List<Object> getMovieProducer() {
         return movieProducer;
     }
-
     public void setMovieProducer(List<Object> movieProducer) {
         this.movieProducer = movieProducer;
     }
-
     public List<Object> getCast() {
         return cast;
     }
-
     public void setCast(List<Object> cast) {
         this.cast = cast;
     }
-
     public Object getDateCreate() {
         return dateCreate;
     }
-
     public void setDateCreate(Object dateCreate) {
         this.dateCreate = dateCreate;
     }
@@ -383,7 +371,6 @@ public class Product {
     /*public List<CategoryModel> getCategoryModel() {
         return categoryModel;
     }
-
     public void setCategoryModel(List<CategoryModel> categoryModel) {
         this.categoryModel = categoryModel;
     }*/
@@ -423,15 +410,12 @@ public class Product {
     /*public Object getCustomJson() {
         return customJson;
     }
-
     public void setCustomJson(Object customJson) {
         this.customJson = customJson;
     }
-
     public List<Object> getPolls() {
         return polls;
     }
-
     public void setPolls(List<Object> polls) {
         this.polls = polls;
     }*/
@@ -447,15 +431,12 @@ public class Product {
     /*public Object getInvestGoal() {
         return investGoal;
     }
-
     public void setInvestGoal(Object investGoal) {
         this.investGoal = investGoal;
     }
-
     public List<Object> getProductStaff() {
         return productStaff;
     }
-
     public void setProductStaff(List<Object> productStaff) {
         this.productStaff = productStaff;
     }*/
@@ -479,7 +460,6 @@ public class Product {
     /*public List<Object> getAdditionalAttributes() {
         return additionalAttributes;
     }
-
     public void setAdditionalAttributes(List<Object> additionalAttributes) {
         this.additionalAttributes = additionalAttributes;
     }*/
@@ -495,15 +475,12 @@ public class Product {
     public Object getCustomjson() {
         return customjson;
     }
-
     public void setCustomjson(Object customjson) {
         this.customjson = customjson;
     }
-
     public Object getLastCheckedFile() {
         return lastCheckedFile;
     }
-
     public void setLastCheckedFile(Object lastCheckedFile) {
         this.lastCheckedFile = lastCheckedFile;
     }*/
