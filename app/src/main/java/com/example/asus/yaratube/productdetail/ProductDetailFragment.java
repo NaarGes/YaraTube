@@ -1,11 +1,12 @@
 package com.example.asus.yaratube.productdetail;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,17 +69,12 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         super.onViewCreated(view, savedInstanceState);
 
         setData(view);
+        setRecyclerView(view);
 
-        commentList = view.findViewById(R.id.comments);
         spinner = view.findViewById(R.id.comment_progress_bar);
 
         ProductDetailContract.Presenter presenter = new ProductDetailPresenter(this);
-
-        adapter = new CommentAdapter();
-        commentList.setAdapter(adapter);
-
         presenter.onLoadComments(product);
-
     }
 
     void setData(View view) {
@@ -96,15 +92,23 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
     }
 
+    void setRecyclerView(View view) {
+
+        commentList = view.findViewById(R.id.comments);
+        commentList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(),
+                DividerItemDecoration.VERTICAL);
+        commentList.addItemDecoration(itemDecoration);
+
+        adapter = new CommentAdapter();
+    }
+
     @Override
     public void showComments(List<Comment> comments) {
 
-        //Toast.makeText(getContext(), "Comments: "+comments, Toast.LENGTH_SHORT).show();
-
-        if(comments.size() == 0)
-            Toast.makeText(getContext(), "0 Comments", Toast.LENGTH_SHORT).show();
-
         adapter.setComments(comments);
+        commentList.setAdapter(adapter);
+
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.asus.yaratube.data;
 
-import android.util.Log;
 
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
@@ -15,8 +14,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class Repository {
 
@@ -105,7 +102,7 @@ public class Repository {
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
 
                 if(response.isSuccessful()) {
-                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+
                     callback.onSuccess(response.body());
                 } else {
                     callback.onFail();
@@ -115,7 +112,6 @@ public class Repository {
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
 
-                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 callback.onFail();
             }
         });
