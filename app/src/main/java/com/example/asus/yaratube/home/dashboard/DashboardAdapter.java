@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.TransferBetweenFragments;
 import com.example.asus.yaratube.data.model.Headeritem;
 import com.example.asus.yaratube.data.model.Homeitem;
+import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.Store;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private FragmentManager fragmentManager;
     private ViewPager viewPager;
 
+    private TransferBetweenFragments transferBetweenFragments;
 
     private static int HEADER_VIEW = 1;
     private static int HOME_VIEW = 2;
@@ -35,6 +38,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.transferBetweenFragments = (TransferBetweenFragments) context;
     }
 
     public void setStore(Store store) {
@@ -111,6 +115,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             HomeItemAdapter adapter = new HomeItemAdapter();
             adapter.setProducts(homeitem.getProducts());
+            adapter.setListener(new DashboardContract.onHomeItemClickListener() {
+                @Override
+                public void onProductClick(Product product) {
+                    transferBetweenFragments.ToProductDetail(product);
+                }
+            });
             homeRecyclerView.setAdapter(adapter);
 
             productListName.setText(homeitem.getTitle());

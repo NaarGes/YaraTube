@@ -20,14 +20,21 @@ import static com.example.asus.yaratube.util.Util.BASE_URL;
 public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeItemViewHolder> {
 
     private List<Product> products;
+    private DashboardContract.onHomeItemClickListener listener;
 
     HomeItemAdapter() {
 
     }
 
     public void setProducts(List<Product> products) {
+
         this.products = products;
         notifyDataSetChanged();
+    }
+
+    public void setListener(DashboardContract.onHomeItemClickListener listener) {
+
+        this.listener = listener;
     }
 
     @NonNull
@@ -46,6 +53,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
 
     @Override
     public int getItemCount() {
+
         if(products == null)
             return 0;
         return products.size();
@@ -65,7 +73,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
             productDescription = itemView.findViewById(R.id.product_desc);
         }
 
-        void onBind(Product product) {
+        void onBind(final Product product) {
 
             if(product.getAvatar() != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -77,6 +85,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.HomeIt
             productName.setText(product.getName());
             productDescription.setText(product.getShortDescription());
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onProductClick(product);
+                }
+            });
         }
     }
 }

@@ -99,7 +99,11 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     @Override
     public void showComments(List<Comment> comments) {
 
-        Toast.makeText(getContext(), "Comments: "+comments, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Comments: "+comments, Toast.LENGTH_SHORT).show();
+
+        if(comments.size() == 0)
+            Toast.makeText(getContext(), "0 Comments", Toast.LENGTH_SHORT).show();
+
         adapter.setComments(comments);
     }
 

@@ -105,6 +105,7 @@ public class Repository {
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
 
                 if(response.isSuccessful()) {
+                    Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                     callback.onSuccess(response.body());
                 } else {
                     callback.onFail();
@@ -114,6 +115,7 @@ public class Repository {
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
 
+                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 callback.onFail();
             }
         });
