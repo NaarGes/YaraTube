@@ -82,7 +82,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
         ImageView videoPreview = view.findViewById(R.id.video_preview);
         if(product.getAvatar() != null) {
-            Glide.with(view.getContext()).load(product.getAvatarUrl()).into(videoPreview);
+            Glide.with(view.getContext()).load(product.getAvatarUrl()).into(videoPreview); // che konam chikrar konammmm?
         }
 
         TextView videoTitle = view.findViewById(R.id.video_title);

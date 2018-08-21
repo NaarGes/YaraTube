@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
@@ -82,12 +83,13 @@ public class HeaderFragment extends Fragment {
                 imageHeader.setClipToOutline(true);
             }
             Glide.with(view.getContext()).load((BASE_URL + headeritem.getFeatureAvatar().getHdpi())).into(imageHeader);
+            Log.d("imaaage", "onViewCreated() called with: view = [" + BASE_URL + headeritem.getFeatureAvatar().getHdpi());
         }
 
-        view.setOnClickListener(new View.OnClickListener() {
+        imageHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("hooooraaaaa", "onClick: called"+view+" " +headeritem);
+                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
                 transferBetweenFragments.ToProductDetail(headeritem);
             }
         });
