@@ -23,7 +23,7 @@ import java.util.List;
 public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Homeitem> homeitems;
-    private List<Headeritem> headeritems;
+    private List<Product> headeritems;
     private Context context;
 
     private FragmentManager fragmentManager;

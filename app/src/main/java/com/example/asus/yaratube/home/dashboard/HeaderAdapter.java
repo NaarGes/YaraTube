@@ -3,17 +3,16 @@ package com.example.asus.yaratube.home.dashboard;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
 
-import com.example.asus.yaratube.data.model.Headeritem;
+import com.example.asus.yaratube.data.model.Product;
 
 import java.util.List;
 
 
 public class HeaderAdapter extends FragmentStatePagerAdapter {
 
-    private List<Headeritem> headeritems;
+    private List<Product> headeritems;
+
     HeaderAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -30,7 +29,7 @@ public class HeaderAdapter extends FragmentStatePagerAdapter {
         return headeritems.size();
     }
 
-    public void setHeaderitems(List<Headeritem> headeritems) {
+    public void setHeaderitems(List<Product> headeritems) {
         this.headeritems = headeritems;
         notifyDataSetChanged();
     }
