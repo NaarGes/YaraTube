@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -99,6 +100,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(),
                 DividerItemDecoration.VERTICAL);
         commentList.addItemDecoration(itemDecoration);
+        ViewCompat.setNestedScrollingEnabled(commentList, false);
 
         adapter = new CommentAdapter();
     }
