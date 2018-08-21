@@ -43,4 +43,24 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
             }
         }, product);
     }
+
+    @Override
+    public void onLoadProductDetail(int productId) {
+
+        repository.getProductDetail(new ApiResult<Product>() {
+            @Override
+            public void onSuccess(Product product) {
+
+                view.setProductDetails(product);
+            }
+
+            @Override
+            public void onFail() {
+
+                view.showErrorMessage();
+            }
+        }, productId);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.asus.yaratube.productdetail;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import static com.example.asus.yaratube.util.Util.BASE_URL;
+
 
 public class ProductDetailFragment extends Fragment implements ProductDetailContract.View {
 
@@ -35,6 +38,12 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     private CommentAdapter adapter;
     private RecyclerView commentList;
     private ProgressBar spinner;
+    private TextView videoDesc;
+    private ImageView videoPreview;
+    private Context context;
+
+
+    private ProductDetailContract.Presenter presenter;
 
     public ProductDetailFragment() {
 
@@ -74,23 +83,20 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
         spinner = view.findViewById(R.id.comment_progress_bar);
 
-        ProductDetailContract.Presenter presenter = new ProductDetailPresenter(this);
+        presenter = new ProductDetailPresenter(this);
         presenter.onLoadComments(product);
     }
 
     void setData(View view) {
 
-        ImageView videoPreview = view.findViewById(R.id.video_preview);
-        if(product.getAvatar() != null) {
-            Glide.with(view.getContext()).load(product.getAvatarUrl()).into(videoPreview); // che konam chikrar konammmm?
-        }
-
+        videoPreview = view.findViewById(R.id.video_preview);
         TextView videoTitle = view.findViewById(R.id.video_title);
+        videoDesc = view.findViewById(R.id.video_desc);
+        context = view.getContext();
+
+        Glide.with(context).load(product.getFeatureAvatarUrl()).into(videoPreview);
+
         videoTitle.setText(product.getName());
-
-        TextView videoDesc = view.findViewById(R.id.video_desc);
-        videoDesc.setText(product.getShortDescription());
-
     }
 
     void setRecyclerView(View view) {
@@ -111,6 +117,12 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         adapter.setComments(comments);
         commentList.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void setProductDetails(Product product) {
+
+        videoDesc.setText(product.getDescription());
     }
 
     @Override

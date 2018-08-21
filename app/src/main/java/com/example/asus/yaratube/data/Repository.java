@@ -116,4 +116,26 @@ public class Repository {
             }
         });
     }
+
+    public void getProductDetail(final ApiResult<Product> callback, int productId) {
+
+        Call<Product> call = service.getProductDetail(productId);
+        call.enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+
+                if(response.isSuccessful()) {
+
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFail();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                callback.onFail();
+            }
+        });
+    }
 }

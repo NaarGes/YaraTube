@@ -30,4 +30,8 @@ public interface ApiService {
     // get all comments of a product
     @GET("comment/{productId}")
     Call<List<Comment>> getComments(@Path("productId") int productId);
+
+    // get product detail
+    @GET("product/{productId}")
+    Call<Product> getProductDetail(@Path("productId") int productId);
 }

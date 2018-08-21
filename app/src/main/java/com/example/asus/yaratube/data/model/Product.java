@@ -238,6 +238,10 @@ public class Product {
         return featureAvatar;
     }
 
+    public String getFeatureAvatarUrl() {
+        return BASE_URL + getFeatureAvatar().getHdpi();
+    }
+
     public void setFeatureAvatar(FeatureAvatar featureAvatar) {
         this.featureAvatar = featureAvatar;
     }

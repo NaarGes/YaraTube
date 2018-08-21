@@ -11,10 +11,12 @@ public interface ProductDetailContract {
     interface View extends BaseView {
 
         void showComments(List<Comment> comments);
+        void setProductDetails(Product product);
     }
 
     interface Presenter {
 
         void onLoadComments(Product product);
+        void onLoadProductDetail(int productId);
     }
 }
