@@ -141,6 +141,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             HeaderAdapter headerAdapter = new HeaderAdapter(fragmentManager);
             headerAdapter.setHeaderitems(headeritems);
+            headerAdapter.setListener(new DashboardContract.onHomeItemClickListener() {
+                @Override
+                public void onProductClick(Product product) {
+                    transferBetweenFragments.ToProductDetail(product);
+                }
+            });
             viewPager.setAdapter(headerAdapter);
         }
     }
