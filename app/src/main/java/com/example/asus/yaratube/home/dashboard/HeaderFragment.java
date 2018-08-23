@@ -83,14 +83,12 @@ public class HeaderFragment extends Fragment {
                 imageHeader.setClipToOutline(true);
             }
             Glide.with(view.getContext()).load((BASE_URL + headeritem.getFeatureAvatar().getHdpi())).into(imageHeader);
-            Log.d("imaaage", "onViewCreated() called with: view = [" + BASE_URL + headeritem.getFeatureAvatar().getHdpi());
         }
 
         imageHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
-                transferBetweenFragments.ToProductDetail(headeritem);
+                transferBetweenFragments.goToProductDetail(headeritem);
             }
         });
     }

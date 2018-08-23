@@ -26,5 +26,8 @@
     <string name="description">توضیحات</string>
     <string name="users_comments">نظرات کاربران</string>
     <string name="comment">نظر دهید</string>
+    <string name="login">ورود</string>
+    <string name="phone_method">از طریق شماره موبایل</string>
+    <string name="google_method">از طریق حساب گوگل</string>
 
 </resources>

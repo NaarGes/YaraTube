@@ -102,16 +102,4 @@ public class BottomHolderFragment extends Fragment {
                 }
         );
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        for ( Fragment f : getChildFragmentManager().getFragments() ) {
-            if ( f instanceof DashboardFragment || f instanceof CategoryFragment) {
-                getChildFragmentManager().beginTransaction().remove( f ).commit();
-            }
-        }
-
-    }
 }

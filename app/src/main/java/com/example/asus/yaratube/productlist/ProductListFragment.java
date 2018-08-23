@@ -102,7 +102,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         adapter.setListener(new ProductListContract.onProductClickListener() {
             @Override
             public void onProductClick(Product product) {
-                transferBetweenFragments.ToProductDetail(product);
+                transferBetweenFragments.goToProductDetail(product);
             }
         });
 

@@ -20,6 +20,7 @@ import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
 import com.example.asus.yaratube.home.BottomHolderFragment;
+import com.example.asus.yaratube.login.LoginMethodFragment;
 import com.example.asus.yaratube.productdetail.ProductDetailFragment;
 import com.example.asus.yaratube.productlist.ProductListFragment;
 
@@ -65,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.profile_nd:
-                        // TODO
-                        Toast.makeText(MainActivity.this, "پروفایل کاربر", Toast.LENGTH_SHORT).show();
+
+                        addFragment(LoginMethodFragment.newInstance());
                         return true;
 
                     case R.id.about_nd:
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     }
 
     @Override
-    public void ToProductDetail(Product product) {
+    public void goToProductDetail(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product);
         getSupportFragmentManager().beginTransaction().addToBackStack(productDetailFragment.getClass().getName())
                 .add(R.id.main_container, productDetailFragment).commit();
