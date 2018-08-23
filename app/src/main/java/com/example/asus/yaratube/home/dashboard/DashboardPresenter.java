@@ -1,5 +1,7 @@
 package com.example.asus.yaratube.home.dashboard;
 
+import android.content.Context;
+
 import com.example.asus.yaratube.data.Repository;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Store;
@@ -12,10 +14,10 @@ public class DashboardPresenter implements DashboardContract.Presenter {
     private DashboardContract.View view;
     private Repository repository;
 
-    DashboardPresenter(DashboardContract.View view) {
+    DashboardPresenter(DashboardContract.View view, Context context) {
 
         this.view = view;
-        this.repository = new Repository();
+        this.repository = new Repository(context);
     }
 
     @Override
@@ -32,9 +34,9 @@ public class DashboardPresenter implements DashboardContract.Presenter {
             }
 
             @Override
-            public void onFail() {
+            public void onFail(String errorMessage) {
 
-                view.showErrorMessage();
+                view.showErrorMessage(errorMessage);
             }
         });
 

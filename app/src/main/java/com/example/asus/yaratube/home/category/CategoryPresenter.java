@@ -1,5 +1,7 @@
 package com.example.asus.yaratube.home.category;
 
+import android.content.Context;
+
 import com.example.asus.yaratube.data.Repository;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.remote.ApiResult;
@@ -11,10 +13,10 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     private CategoryContract.View view;
     private Repository repository;
 
-    CategoryPresenter(CategoryContract.View view) {
+    CategoryPresenter(CategoryContract.View view, Context context) {
 
         this.view = view;
-        repository = new Repository();
+        repository = new Repository(context);
     }
 
     @Override
@@ -31,9 +33,9 @@ public class CategoryPresenter implements CategoryContract.Presenter {
             }
 
             @Override
-            public void onFail() {
+            public void onFail(String errorMessage) {
 
-                view.showErrorMessage();
+                view.showErrorMessage(errorMessage);
             }
         });
     }

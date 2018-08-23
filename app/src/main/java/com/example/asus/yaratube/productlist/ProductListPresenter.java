@@ -1,6 +1,8 @@
 package com.example.asus.yaratube.productlist;
 
 
+import android.content.Context;
+
 import com.example.asus.yaratube.data.Repository;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
@@ -14,10 +16,10 @@ public class ProductListPresenter implements ProductListContract.Presenter {
     private ProductListContract.View view;
     private Repository repository;
 
-    ProductListPresenter(ProductListContract.View view) {
+    ProductListPresenter(ProductListContract.View view, Context context) {
 
         this.view = view;
-        repository = new Repository();
+        repository = new Repository(context);
     }
 
     @Override
@@ -34,9 +36,9 @@ public class ProductListPresenter implements ProductListContract.Presenter {
             }
 
             @Override
-            public void onFail() {
+            public void onFail(String errorMessage) {
 
-                view.showErrorMessage();
+                view.showErrorMessage(errorMessage);
             }
         }, category);
     }

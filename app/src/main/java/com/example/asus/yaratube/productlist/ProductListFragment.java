@@ -67,7 +67,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ProductListContract.Presenter presenter = new ProductListPresenter(this);
+        ProductListContract.Presenter presenter = new ProductListPresenter(this, getContext());
 
         spinner = view.findViewById(R.id.product_list_progress_bar);
         setRecyclerView(view);
@@ -122,9 +122,9 @@ public class ProductListFragment extends Fragment implements ProductListContract
     }
 
     @Override
-    public void showErrorMessage() {
+    public void showErrorMessage(String errorMessage) {
 
         hideProgressBar();
-        Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),errorMessage , Toast.LENGTH_SHORT).show();
     }
 }

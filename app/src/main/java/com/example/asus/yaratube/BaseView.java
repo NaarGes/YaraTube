@@ -9,6 +9,5 @@ public interface BaseView {
     void showProgressBar();
     void hideProgressBar();
 
-    void showErrorMessage(); // TODO different error for different states
-    // TODO add check internet connection and show message if not
+    void showErrorMessage(String errorMessage);
 }

@@ -50,7 +50,7 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        DashboardContract.Presenter presenter = new DashboardPresenter(this);
+        DashboardContract.Presenter presenter = new DashboardPresenter(this, getContext());
 
         spinner = view.findViewById(R.id.dashboard_progressbar);
         setRecyclerView(view);
@@ -98,10 +98,10 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
     }
 
     @Override
-    public void showErrorMessage() {
+    public void showErrorMessage(String errorMessage) {
 
         hideProgressBar();
-        Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(),errorMessage , Toast.LENGTH_SHORT).show();
     }
 
     @Override

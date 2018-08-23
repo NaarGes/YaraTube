@@ -17,7 +17,7 @@ public class BaseFragment extends Fragment implements BaseView{
     }
 
     @Override
-    public void showErrorMessage() {
+    public void showErrorMessage(String errorMessage) {
 
     }
 }

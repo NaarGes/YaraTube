@@ -55,7 +55,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CategoryContract.Presenter presenter = new CategoryPresenter(this);
+        CategoryContract.Presenter presenter = new CategoryPresenter(this, getContext());
 
         spinner = view.findViewById(R.id.category_progress_bar);
         setRecyclerView(view);
@@ -116,9 +116,9 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     }
 
     @Override
-    public void showErrorMessage() {
+    public void showErrorMessage(String errorMessage) {
 
         hideProgressBar();
-        Toast.makeText(this.getContext(),DEFAULT_ERROR_MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

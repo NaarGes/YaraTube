@@ -83,7 +83,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
         spinner = view.findViewById(R.id.comment_progress_bar);
 
-        presenter = new ProductDetailPresenter(this);
+        presenter = new ProductDetailPresenter(this, getContext());
         presenter.onLoadComments(product);
     }
 
@@ -138,8 +138,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     }
 
     @Override
-    public void showErrorMessage() {
+    public void showErrorMessage(String errorMessage) {
 
-        Toast.makeText(getContext(), "Oops! Problem in fetching comments", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), errorMessage , Toast.LENGTH_SHORT).show();
     }
 }
