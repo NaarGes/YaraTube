@@ -43,7 +43,7 @@ public class Repository {
                     if (response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 
@@ -70,7 +70,7 @@ public class Repository {
                     if (response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 
@@ -98,7 +98,7 @@ public class Repository {
 
                         callback.onSuccess(response.body());
                     } else {
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 
@@ -127,7 +127,7 @@ public class Repository {
 
                         callback.onSuccess(response.body());
                     } else {
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 
@@ -155,7 +155,7 @@ public class Repository {
 
                         callback.onSuccess(response.body());
                     } else {
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 

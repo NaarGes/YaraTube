@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Store;
 
-import static com.example.asus.yaratube.util.Util.DEFAULT_ERROR_MESSAGE;
-
 public class DashboardFragment extends Fragment implements DashboardContract.View {
 
     private DashboardAdapter adapter;

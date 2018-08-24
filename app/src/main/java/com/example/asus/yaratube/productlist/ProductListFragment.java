@@ -23,8 +23,6 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-import static com.example.asus.yaratube.util.Util.DEFAULT_ERROR_MESSAGE;
-
 
 public class ProductListFragment extends Fragment implements ProductListContract.View {
 

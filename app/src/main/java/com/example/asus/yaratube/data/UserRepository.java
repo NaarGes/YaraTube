@@ -1,7 +1,6 @@
 package com.example.asus.yaratube.data;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.data.model.Activation;
@@ -38,7 +37,7 @@ public class UserRepository {
                     if(response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 
@@ -64,8 +63,7 @@ public class UserRepository {
                     if(response.isSuccessful()) {
                         callback.onSuccess(response.body());
                     } else {
-                        Log.e("header", "onResponse: "+response.message()+" "+response.errorBody() );
-                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                        callback.onFail(response.message());
                     }
                 }
 

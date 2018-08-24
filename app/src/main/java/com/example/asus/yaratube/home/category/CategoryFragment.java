@@ -21,9 +21,6 @@ import com.example.asus.yaratube.data.model.Category;
 
 import java.util.List;
 
-import static com.example.asus.yaratube.util.Util.DEFAULT_ERROR_MESSAGE;
-
-
 public class CategoryFragment extends Fragment implements CategoryContract.View {
 
     private CategoryAdapter adapter;
