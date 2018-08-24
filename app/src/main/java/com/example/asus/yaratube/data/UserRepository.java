@@ -1,8 +1,10 @@
 package com.example.asus.yaratube.data;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.remote.ApiClient;
 import com.example.asus.yaratube.data.remote.ApiResult;
@@ -27,7 +29,7 @@ public class UserRepository {
 
     public void sendPhoneNumber(final ApiResult<SmsResponse> callback, String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
 
-        Call<SmsResponse> call = service.sendSMS(phoneNumber, deviceId, deviceModel, deviceOs);
+        Call<SmsResponse> call = service.activateStep1(phoneNumber, deviceId, deviceModel, deviceOs);
 
         if(Util.isNetworkAvailable(context)) {
             call.enqueue(new Callback<SmsResponse>() {
@@ -48,6 +50,31 @@ public class UserRepository {
             });
         } else {
             toastNetworkNotAvailable(context);
+        }
+    }
+
+    public void sendVerificationCode(final ApiResult<Activation> callback, String phoneNumber, String deviceId, int verificationCode) {
+
+        Call<Activation> call = service.activateStep2(phoneNumber, deviceId, verificationCode);
+
+        if(Util.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<Activation>() {
+                @Override
+                public void onResponse(Call<Activation> call, Response<Activation> response) {
+                    if(response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    } else {
+                        Log.e("header", "onResponse: "+response.message()+" "+response.errorBody() );
+                        callback.onFail(Util.SERVER_ERROR_MESSAGE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Activation> call, Throwable t) {
+
+                    callback.onFail(t.getMessage());
+                }
+            });
         }
     }
 

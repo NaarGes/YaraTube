@@ -103,16 +103,4 @@ public class DashboardFragment extends Fragment implements DashboardContract.Vie
         hideProgressBar();
         Toast.makeText(this.getContext(),errorMessage , Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        for ( Fragment f : getChildFragmentManager().getFragments() ) {
-            if ( f instanceof HeaderFragment ) {
-                getChildFragmentManager().beginTransaction().remove( f ).commit();
-            }
-        }
-
-    }
 }

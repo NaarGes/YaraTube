@@ -9,5 +9,7 @@ public interface TransferBetweenFragments {
 
     void goToProductDetail(Product product);
 
-    void goToPhoneLogin();
+    void goToLoginPhone();
+
+    void goToLoginCode(String phoneNumber);
 }

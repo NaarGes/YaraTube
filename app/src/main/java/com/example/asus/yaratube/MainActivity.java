@@ -20,6 +20,7 @@ import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
 import com.example.asus.yaratube.developerinfo.ContactFragment;
 import com.example.asus.yaratube.home.BottomHolderFragment;
+import com.example.asus.yaratube.login.LoginCodeFragment;
 import com.example.asus.yaratube.login.LoginMethodFragment;
 import com.example.asus.yaratube.login.LoginPhoneFragment;
 import com.example.asus.yaratube.productdetail.ProductDetailFragment;
@@ -159,12 +160,22 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     }
 
     @Override
-    public void goToPhoneLogin() {
+    public void goToLoginPhone() {
 
         getSupportFragmentManager().popBackStack();
 
         LoginPhoneFragment loginPhoneFragment = LoginPhoneFragment.newInstance();
         getSupportFragmentManager().beginTransaction().addToBackStack(loginPhoneFragment.getClass().getName())
                 .add(R.id.main_container, loginPhoneFragment).commit();
+    }
+
+    @Override
+    public void goToLoginCode(String phoneNumber) {
+
+        getSupportFragmentManager().popBackStack();
+
+        LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance(phoneNumber);
+        getSupportFragmentManager().beginTransaction().addToBackStack(loginCodeFragment.getClass().getName())
+                .add(R.id.main_container, loginCodeFragment).commit();
     }
 }

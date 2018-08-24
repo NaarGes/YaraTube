@@ -1,5 +1,6 @@
 package com.example.asus.yaratube.data.remote;
 
+import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
@@ -42,8 +43,15 @@ public interface ApiService {
     // send phone number and get response
     @POST("mobile_login_step1/" + STORE_ID)
     @FormUrlEncoded
-    Call<SmsResponse> sendSMS(@Field("mobile") String phoneNumber,
+    Call<SmsResponse> activateStep1(@Field("mobile") String phoneNumber,
                               @Field("device_id") String deviceId,
                               @Field("device_model") String deviceModel,
                               @Field("device_os") String deviceOs);
+
+    // send activation code and get token
+    @POST("mobile_login_step2/" + STORE_ID)
+    @FormUrlEncoded
+    Call<Activation> activateStep2(@Field("mobile") String phoneNumber,
+                                   @Field("device_id") String deviceId,
+                                   @Field("verification_code") int verificationCode);
 }

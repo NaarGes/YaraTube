@@ -7,7 +7,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.TransferBetweenFragments;
 
-public class LoginPhoneFragment extends DialogFragment implements LoginContract.View {
+public class LoginPhoneFragment extends DialogFragment implements LoginPhoneContract.View {
 
     private EditText phoneNumber;
     private Button submitPhone;
     private LoginPhonePresenter presenter;
+    private TransferBetweenFragments transferBetweenFragments;
 
     public LoginPhoneFragment() {
 
@@ -39,11 +40,13 @@ public class LoginPhoneFragment extends DialogFragment implements LoginContract.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        transferBetweenFragments = (TransferBetweenFragments) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        transferBetweenFragments = null;
     }
 
     @Override
@@ -75,7 +78,6 @@ public class LoginPhoneFragment extends DialogFragment implements LoginContract.
             @Override
             public void onClick(View view) {
 
-                Log.e("chizzzz", "onClick: "+deviceId+" "+deviceModel+" "+deviceOs+" "+phoneNumber.getText().toString() );
                 presenter.onSendPhoneNumber(phoneNumber.getText().toString(), deviceId, deviceModel, deviceOs);
             }
         });
@@ -83,8 +85,25 @@ public class LoginPhoneFragment extends DialogFragment implements LoginContract.
 
 
     @Override
-    public void showResponseMessage(String message) {
+    public void showProgressBar() {
 
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hideProgressBar() {
+
+    }
+
+    @Override
+    public void showErrorMessage(String errorMessage) {
+
+        hideProgressBar();
+        Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void smsReceived(String phoneNumber) {
+
+        transferBetweenFragments.goToLoginCode(phoneNumber);
     }
 }

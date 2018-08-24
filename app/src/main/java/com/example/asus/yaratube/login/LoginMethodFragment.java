@@ -58,7 +58,7 @@ public class LoginMethodFragment extends DialogFragment {
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferBetweenFragments.goToPhoneLogin();
+                transferBetweenFragments.goToLoginPhone();
             }
         });
     }
