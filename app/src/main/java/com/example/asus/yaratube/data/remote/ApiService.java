@@ -3,12 +3,16 @@ package com.example.asus.yaratube.data.remote;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
+import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.model.Store;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 import static com.example.asus.yaratube.util.Util.STORE_ID;
@@ -34,4 +38,12 @@ public interface ApiService {
     // get product detail
     @GET("product/{productId}")
     Call<Product> getProductDetail(@Path("productId") int productId);
+
+    // send phone number and get response
+    @POST("mobile_login_step1/" + STORE_ID)
+    @FormUrlEncoded
+    Call<SmsResponse> sendSMS(@Field("mobile") String phoneNumber,
+                              @Field("device_id") String deviceId,
+                              @Field("device_model") String deviceModel,
+                              @Field("device_os") String deviceOs);
 }
