@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.developerinfo.AboutFragment;
@@ -25,6 +26,7 @@ import com.example.asus.yaratube.login.LoginMethodFragment;
 import com.example.asus.yaratube.login.LoginPhoneFragment;
 import com.example.asus.yaratube.productdetail.ProductDetailFragment;
 import com.example.asus.yaratube.productlist.ProductListFragment;
+import com.example.asus.yaratube.profile.ProfileFragment;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
+    private AppDatabase database;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
         setDrawer();
         setBottomNavigationFragment();
+
+        database = AppDatabase.getAppDatabase(this);
 
     }
 
@@ -68,8 +73,10 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.profile_nd:
-
-                        addFragment(LoginMethodFragment.newInstance());
+                        if(database.userDao().getToken() == null)
+                            addFragment(LoginMethodFragment.newInstance());
+                        else
+                            addFragment(ProfileFragment.newInstance());
                         return true;
 
                     case R.id.about_nd:
