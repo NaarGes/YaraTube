@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
+import com.example.asus.yaratube.util.Util;
 
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
@@ -66,6 +67,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             public void onClick(View view) {
 
                 presenter.updateUserInfo(name.getText().toString(), sex.getText().toString(), birthDate.getText().toString());
+                Util.hideKeyboardFrom(getContext(), view);
             }
         });
 
@@ -73,6 +75,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onClick(View view) {
 
+                Util.hideKeyboardFrom(getContext(), view);
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
@@ -81,6 +84,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onClick(View view) {
 
+                Util.hideKeyboardFrom(getContext(), view);
                 getActivity().getSupportFragmentManager().popBackStack();
                 presenter.Logout();
             }

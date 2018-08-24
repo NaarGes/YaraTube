@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
 import com.example.asus.yaratube.data.local.AppDatabase;
+import com.example.asus.yaratube.util.Util;
 
 public class LoginCodeFragment extends DialogFragment implements LoginCodeContract.View {
 
@@ -85,6 +86,7 @@ public class LoginCodeFragment extends DialogFragment implements LoginCodeContra
 
                 Log.e("request params ", "onClick: "+phoneNumber+" "+deviceId+" "+verificationCode.getText().toString() );
                 presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(verificationCode.getText().toString()));
+                Util.hideKeyboardFrom(getContext(), view);
             }
         });
 
