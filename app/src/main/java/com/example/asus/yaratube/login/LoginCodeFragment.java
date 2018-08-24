@@ -101,6 +101,7 @@ public class LoginCodeFragment extends DialogFragment implements LoginCodeContra
     @Override
     public void activationDone() {
 
+        getActivity().getSupportFragmentManager().popBackStack();
         Toast.makeText(this.getContext(), "ورود شما با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
     }
 

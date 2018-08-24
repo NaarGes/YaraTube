@@ -13,7 +13,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:contentDescription="@string/nav_header_desc"
-    android:paddingTop="@dimen/padding_8dp"
         android:layout_gravity="center"
     app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -43,8 +42,100 @@
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/user_name"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="نام و نام خانوادگی"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/padding_8dp"
+            android:text="جنسیت"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_18sp" />
+
+        <Button
+            android:id="@+id/edit_sex_butt"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_pencil_edit_button"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_8dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/user_sex"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="مرد"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/padding_8dp"
+            android:text="تاریخ تولد"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_18sp" />
+
+        <Button
+            android:id="@+id/edit_birthdate_butt"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_pencil_edit_button"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_8dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/user_birth_date"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="1397/1/1"
+        android:inputType="date"
+        android:layout_marginBottom="@dimen/padding_16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/padding_16dp">
+
+        <Button
+            android:id="@+id/submit_user_info_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ثبت تغییرات"
+            android:layout_marginEnd="@dimen/padding_8dp"
+            />
+
+        <Button
+            android:id="@+id/cancel_user_info_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="انصراف"/>
+
+        <Button
+            android:id="@+id/logout_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="خروج از برنامه"
+            android:layout_marginStart="@dimen/padding_8dp"/>
+    </LinearLayout>
 </LinearLayout>

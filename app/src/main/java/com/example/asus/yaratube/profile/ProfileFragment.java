@@ -3,22 +3,31 @@ package com.example.asus.yaratube.profile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.data.local.AppDatabase;
+import com.example.asus.yaratube.data.local.UserEntity;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileContract.View {
 
+    private AppDatabase database;
+    private ProfileContract.Presenter presenter;
 
     public ProfileFragment() {
 
     }
 
     public static ProfileFragment newInstance() {
+
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -28,6 +37,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database = AppDatabase.getAppDatabase(getActivity());
+        presenter = new ProfilePresenter(this, database);
 
     }
 
@@ -37,4 +48,53 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        Button submitInfo = view.findViewById(R.id.submit_user_info_butt);
+        Button cancel = view.findViewById(R.id.cancel_user_info_butt);
+        Button logout = view.findViewById(R.id.logout_butt);
+
+        final EditText name = view.findViewById(R.id.user_name);
+        final EditText sex = view.findViewById(R.id.user_sex);
+        final EditText birthDate = view.findViewById(R.id.user_birth_date);
+
+        if(database.userDao().getName() != null) {
+            UserEntity user = database.userDao().getUser();
+
+            name.setText(user.getName());
+            sex.setText(user.getSex());
+            birthDate.setText(user.getBirthDate());
+        }
+
+        submitInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                presenter.onSubmitChanges(name.getText().toString(), sex.getText().toString(), birthDate.getText().toString());
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // TODO logout user
+            }
+        });
+    }
+
+    @Override
+    public void changesSubmitted() {
+
+        Toast.makeText(getContext(), "تغییرات با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
+    }
 }

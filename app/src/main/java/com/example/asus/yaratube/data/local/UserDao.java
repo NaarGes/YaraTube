@@ -12,6 +12,12 @@ public interface UserDao {
     @Query("SELECT token FROM user")
     public String getToken();
 
+    @Query("SELECT name FROM user")
+    public String getName();
+
+    @Query("SELECT * FROM user")
+    public UserEntity getUser();
+
     @Insert
     void insert(UserEntity userEntity);
 

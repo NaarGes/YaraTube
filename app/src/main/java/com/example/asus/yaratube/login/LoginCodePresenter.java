@@ -16,7 +16,7 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
     private AppDatabase database;
     private Context context;
 
-    public LoginCodePresenter(LoginCodeContract.View view, Context context, AppDatabase database) {
+    LoginCodePresenter(LoginCodeContract.View view, Context context, AppDatabase database) {
 
         this.view = view;
         this.context = context;
