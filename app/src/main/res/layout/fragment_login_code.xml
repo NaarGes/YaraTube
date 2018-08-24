@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/padding_8dp"
-    android:elevation="3dp"
+    android:elevation="@dimen/_3dp"
     android:layout_gravity="center"
     android:clickable="true"
     android:focusable="true">
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="کد فعال سازی را وارد کنید"
+            android:text="@string/enter_verification_code"
             android:textStyle="bold"
             android:textSize="@dimen/font_size_18sp"
             android:layout_margin="@dimen/padding_8dp"/>
@@ -28,14 +28,15 @@
             android:id="@+id/activation_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="کد فعال سازی"
+            android:gravity="end"
+            android:hint="@string/verification_code"
             android:layout_margin="@dimen/padding_8dp"
             android:paddingStart="@dimen/padding_8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="کد را دریافت نکردید؟"/>
+            android:text="@string/dont_receive_code"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                 android:id="@+id/submit_code_butt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ثبت"
+                android:text="@string/submit"
                 android:textColor="@color/white"
                 android:background="#3b89d2"
                 android:layout_margin="@dimen/padding_8dp" />
@@ -56,7 +57,7 @@
                 android:id="@+id/edit_phone_butt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="تصحیح شماره"
+                android:text="@string/edit_mobile"
                 android:textColor="#3b89d2"
                 android:layout_margin="@dimen/padding_8dp" />
         </LinearLayout>

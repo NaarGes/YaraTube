@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/padding_8dp"
-    android:elevation="3dp"
+    android:elevation="@dimen/_3dp"
     android:layout_gravity="center"
     android:clickable="true"
     android:focusable="true">
@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ورود از طریق شماره موبایل"
+            android:text="@string/mobile_login_method"
             android:textStyle="bold"
             android:textSize="@dimen/font_size_18sp"
             android:layout_margin="@dimen/padding_8dp"/>
@@ -27,7 +27,8 @@
             android:id="@+id/phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="شماره موبایل خود را وارد کنید"
+            android:gravity="end"
+            android:hint="@string/enter_mobile"
             android:layout_margin="@dimen/padding_8dp"
             android:paddingStart="@dimen/padding_8dp" />
 
@@ -35,7 +36,7 @@
             android:id="@+id/submit_phone_butt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ثبت"
+            android:text="@string/submit"
             android:textColor="@color/white"
             android:background="#3b89d2"
             android:layout_margin="@dimen/padding_8dp"

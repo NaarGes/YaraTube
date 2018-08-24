@@ -29,5 +29,21 @@
     <string name="login">ورود</string>
     <string name="phone_method">از طریق شماره موبایل</string>
     <string name="google_method">از طریق حساب گوگل</string>
+    <string name="show_name">نام نمایشی</string>
+    <string name="first_last_name">نام و نام خانوادگی</string>
+    <string name="sex">جنسیت</string>
+    <string name="male">مرد</string>
+    <string name="birth_date">تاریخ تولد</string>
+    <string name="default_date">1397/1/1</string>
+    <string name="submit_changes">ثبت تغییرات</string>
+    <string name="cancel">انصراف</string>
+    <string name="logout">خروج از برنامه</string>
+    <string name="mobile_login_method">ورود از طریق شماره موبایل</string>
+    <string name="enter_mobile">شماره موبایل خود را وارد کنید</string>
+    <string name="submit">ثبت</string>
+    <string name="enter_verification_code">کد فعال سازی را وارد کنید</string>
+    <string name="verification_code">کد فعال سازی</string>
+    <string name="dont_receive_code">کد را دریافت نکردید؟</string>
+    <string name="edit_mobile">تصحیح شماره</string>
 
 </resources>
