@@ -1,5 +1,6 @@
 package com.example.asus.yaratube.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.TransferBetweenFragments;
 
 public class LoginMethodFragment extends DialogFragment {
 
     private Button phoneLogin;
+    private TransferBetweenFragments transferBetweenFragments;
 
         public LoginMethodFragment() {
 
@@ -27,13 +30,25 @@ public class LoginMethodFragment extends DialogFragment {
         return fragment;
     }
 
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View result = inflater.inflate(R.layout.fragment_login_method, container, false);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        transferBetweenFragments = (TransferBetweenFragments) context;
+    }
 
-            return result;
-        }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        transferBetweenFragments = null;
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View result = inflater.inflate(R.layout.fragment_login_method, container, false);
+
+        return result;
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -43,7 +58,7 @@ public class LoginMethodFragment extends DialogFragment {
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO
+                transferBetweenFragments.goToPhoneLogin();
             }
         });
     }

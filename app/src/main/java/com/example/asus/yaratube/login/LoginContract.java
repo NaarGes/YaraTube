@@ -10,9 +10,4 @@ public interface LoginContract {
 
     }
 
-    interface LoginMethodClickListener {
-
-        void onPhoneMethodClick();
-        // void onGoogleMethodClick();
-    }
 }
