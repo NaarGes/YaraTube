@@ -59,19 +59,13 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         final EditText sex = view.findViewById(R.id.user_sex);
         final EditText birthDate = view.findViewById(R.id.user_birth_date);
 
-        if(database.userDao().getName() != null) {
-            UserEntity user = database.userDao().getUser();
-
-            name.setText(user.getName());
-            sex.setText(user.getSex());
-            birthDate.setText(user.getBirthDate());
-        }
+        fillEditTexts(name, sex, birthDate);
 
         submitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                presenter.onSubmitChanges(name.getText().toString(), sex.getText().toString(), birthDate.getText().toString());
+                presenter.updateUserInfo(name.getText().toString(), sex.getText().toString(), birthDate.getText().toString());
             }
         });
 
@@ -87,14 +81,26 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onClick(View view) {
 
-                // TODO logout user
+                getActivity().getSupportFragmentManager().popBackStack();
+                presenter.Logout();
             }
         });
     }
 
     @Override
-    public void changesSubmitted() {
+    public void toast(String message) {
 
-        Toast.makeText(getContext(), "تغییرات با موفقیت اعمال شد", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void fillEditTexts(EditText name, EditText sex, EditText birthDate) {
+
+        if(database.userDao().getName() != null) {
+            UserEntity user = database.userDao().getUser();
+
+            name.setText(user.getName());
+            sex.setText(user.getSex());
+            birthDate.setText(user.getBirthDate());
+        }
     }
 }

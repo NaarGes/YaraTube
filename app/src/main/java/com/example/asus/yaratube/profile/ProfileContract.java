@@ -4,11 +4,13 @@ public interface ProfileContract {
 
     interface View {
 
-        void changesSubmitted();
+        void toast(String message);
     }
 
     interface Presenter {
 
-        void onSubmitChanges(String name, String sex, String birthDate);
+        void updateUserInfo(String name, String sex, String birthDate);
+
+        void Logout();
     }
 }

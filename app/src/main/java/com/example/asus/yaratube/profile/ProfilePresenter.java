@@ -8,14 +8,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     private ProfileContract.View view;
     private AppDatabase database;
 
-    public ProfilePresenter(ProfileContract.View view, AppDatabase database) {
+    ProfilePresenter(ProfileContract.View view, AppDatabase database) {
 
         this.view = view;
         this.database = database;
     }
 
     @Override
-    public void onSubmitChanges(String name, String sex, String birthDate) {
+    public void updateUserInfo(String name, String sex, String birthDate) {
 
         UserEntity user = new UserEntity();
 
@@ -26,6 +26,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
         database.userDao().update(user);
 
-        view.changesSubmitted();
+        view.toast("تغییرات با موفقیت اعمال شد");
+    }
+
+    @Override
+    public void Logout() {
+
+        UserEntity user = database.userDao().getUser();
+        database.userDao().delete(user);
+        view.toast("شما با موفقیت خارج شدید");
     }
 }
