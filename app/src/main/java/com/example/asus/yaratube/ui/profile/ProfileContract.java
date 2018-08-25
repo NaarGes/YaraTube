@@ -12,5 +12,9 @@ public interface ProfileContract {
         void updateUserInfo(String name, String sex, String birthDate);
 
         void Logout();
+
+        String getUserName();
+        String getUserSex();
+        String getUserBirthDate();
     }
 }

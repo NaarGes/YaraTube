@@ -15,6 +15,12 @@ public interface UserDao {
     @Query("SELECT name FROM user")
     public String getName();
 
+    @Query("SELECT sex FROM user")
+    public String getSex();
+
+    @Query("SELECT birth_date FROM user")
+    public String getBirthDate();
+
     @Query("SELECT * FROM user")
     public UserEntity getUser();
 

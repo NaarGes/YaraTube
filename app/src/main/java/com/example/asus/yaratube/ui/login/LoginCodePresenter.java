@@ -3,6 +3,7 @@ package com.example.asus.yaratube.ui.login;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.asus.yaratube.data.LocalRepository;
 import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
@@ -15,6 +16,7 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
     private UserRepository repository;
     private AppDatabase database;
     private Context context;
+    private LocalRepository localRepository;
 
     LoginCodePresenter(LoginCodeContract.View view, Context context, AppDatabase database) {
 
@@ -22,6 +24,7 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
         this.context = context;
         repository = new UserRepository(context);
         this.database = database;
+        localRepository = new LocalRepository(database);
     }
 
     @Override
@@ -31,12 +34,9 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
             @Override
             public void onSuccess(Activation result) {
 
-
-                Log.e("token fetched ", "onSuccess: "+result.getToken() );
                 UserEntity user = new UserEntity();
                 user.setToken(result.getToken());
-                database.userDao().insert(user);
-                Log.e("token saved ", "onSuccess: "+database.userDao().getToken() );
+                localRepository.loginUser(user);
                 view.activationDone();
             }
 

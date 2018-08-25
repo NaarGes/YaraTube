@@ -99,12 +99,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private void fillEditTexts(EditText name, EditText sex, EditText birthDate) {
 
-        if(database.userDao().getName() != null) {
-            UserEntity user = database.userDao().getUser();
-
-            name.setText(user.getName());
-            sex.setText(user.getSex());
-            birthDate.setText(user.getBirthDate());
-        }
+        name.setText(presenter.getUserName());
+        sex.setText(presenter.getUserSex());
+        birthDate.setText(presenter.getUserBirthDate());
     }
 }
