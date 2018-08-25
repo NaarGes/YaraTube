@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                         if(localRepository.isLogin())
                             addFragment(ProfileFragment.newInstance());
                         else
-                            addFragment(LoginMethodFragment.newInstance());
+                            LoginMethodFragment.newInstance().show(getSupportFragmentManager(), "login");
                         return true;
 
                     case R.id.about_nd:
@@ -172,20 +172,14 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     @Override
     public void goToLoginPhone() {
 
-        getSupportFragmentManager().popBackStack();
-
         LoginPhoneFragment loginPhoneFragment = LoginPhoneFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().addToBackStack(loginPhoneFragment.getClass().getName())
-                .add(R.id.main_container, loginPhoneFragment).commit();
+        loginPhoneFragment.show(getSupportFragmentManager(), loginPhoneFragment.getClass().getName());
     }
 
     @Override
     public void goToLoginCode(String phoneNumber) {
 
-        getSupportFragmentManager().popBackStack();
-
         LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance(phoneNumber);
-        getSupportFragmentManager().beginTransaction().addToBackStack(loginCodeFragment.getClass().getName())
-                .add(R.id.main_container, loginCodeFragment).commit();
+        loginCodeFragment.show(getSupportFragmentManager(), loginCodeFragment.getClass().getName());
     }
 }

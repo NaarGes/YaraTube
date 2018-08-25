@@ -1,5 +1,6 @@
 package com.example.asus.yaratube.ui.login;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -98,11 +100,18 @@ public class LoginCodeFragment extends DialogFragment implements LoginCodeContra
         });
     }
 
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        // request a window without the title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
+    }
 
     @Override
     public void activationDone() {
 
-        getActivity().getSupportFragmentManager().popBackStack();
         Toast.makeText(this.getContext(), "ورود شما با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
     }
 
