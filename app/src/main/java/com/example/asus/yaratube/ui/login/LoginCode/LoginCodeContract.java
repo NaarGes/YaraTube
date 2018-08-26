@@ -1,4 +1,4 @@
-package com.example.asus.yaratube.ui.login;
+package com.example.asus.yaratube.ui.login.LoginCode;
 
 import com.example.asus.yaratube.ui.base.BaseView;
 

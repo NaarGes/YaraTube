@@ -8,8 +8,4 @@ public interface TransferBetweenFragments {
     void goFromCategoryToProductList(Category category);
 
     void goToProductDetail(Product product);
-
-    void goToLoginPhone();
-
-    void goToLoginCode(String phoneNumber);
 }

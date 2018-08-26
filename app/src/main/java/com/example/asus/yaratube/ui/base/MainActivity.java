@@ -22,9 +22,7 @@ import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.developerinfo.AboutFragment;
 import com.example.asus.yaratube.ui.developerinfo.ContactFragment;
 import com.example.asus.yaratube.ui.home.BottomHolderFragment;
-import com.example.asus.yaratube.ui.login.LoginCodeFragment;
-import com.example.asus.yaratube.ui.login.LoginMethodFragment;
-import com.example.asus.yaratube.ui.login.LoginPhoneFragment;
+import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 import com.example.asus.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.asus.yaratube.ui.productlist.ProductListFragment;
 import com.example.asus.yaratube.ui.profile.ProfileFragment;
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                         if(localRepository.isLogin())
                             addFragment(ProfileFragment.newInstance());
                         else
-                            LoginMethodFragment.newInstance().show(getSupportFragmentManager(), "login");
+                            LoginDialogFragment.newInstance().show(getSupportFragmentManager(), "login");
                         return true;
 
                     case R.id.about_nd:
@@ -167,19 +165,5 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product);
         getSupportFragmentManager().beginTransaction().addToBackStack(productDetailFragment.getClass().getName())
                 .add(R.id.main_container, productDetailFragment).commit();
-    }
-
-    @Override
-    public void goToLoginPhone() {
-
-        LoginPhoneFragment loginPhoneFragment = LoginPhoneFragment.newInstance();
-        loginPhoneFragment.show(getSupportFragmentManager(), loginPhoneFragment.getClass().getName());
-    }
-
-    @Override
-    public void goToLoginCode(String phoneNumber) {
-
-        LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance(phoneNumber);
-        loginCodeFragment.show(getSupportFragmentManager(), loginCodeFragment.getClass().getName());
     }
 }

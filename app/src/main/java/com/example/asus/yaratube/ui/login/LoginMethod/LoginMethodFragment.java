@@ -1,28 +1,29 @@
-package com.example.asus.yaratube.ui.login;
+package com.example.asus.yaratube.ui.login.LoginMethod;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
+import com.example.asus.yaratube.ui.login.LoginDialogContract;
 
-public class LoginMethodFragment extends DialogFragment {
+public class LoginMethodFragment extends Fragment implements LoginMethodContract.View {
 
-    private Button phoneLogin;
-    private TransferBetweenFragments transferBetweenFragments;
+    private LoginDialogContract.steps listener;
 
-        public LoginMethodFragment() {
+    public LoginMethodFragment() {
 
-        }
+    }
+
+    public void setListener(LoginDialogContract.steps listener) {
+        this.listener = listener;
+    }
 
     public static LoginMethodFragment newInstance() {
 
@@ -35,13 +36,11 @@ public class LoginMethodFragment extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        transferBetweenFragments = (TransferBetweenFragments) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        transferBetweenFragments = null;
     }
 
     @Override
@@ -56,21 +55,13 @@ public class LoginMethodFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        phoneLogin = view.findViewById(R.id.phone_method_butt);
+        Button phoneLogin = view.findViewById(R.id.phone_method_butt);
         phoneLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferBetweenFragments.goToLoginPhone();
+
+                listener.goToLoginPhone();
             }
         });
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
     }
 }

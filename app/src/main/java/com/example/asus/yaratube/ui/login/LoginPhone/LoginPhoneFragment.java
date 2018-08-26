@@ -1,34 +1,35 @@
-package com.example.asus.yaratube.ui.login;
+package com.example.asus.yaratube.ui.login.LoginPhone;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
-import com.example.asus.yaratube.util.Util;
+import com.example.asus.yaratube.ui.login.LoginDialogContract;
 
-public class LoginPhoneFragment extends DialogFragment implements LoginPhoneContract.View {
+
+public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.View {
 
     private EditText phoneNumber;
-    private Button submitPhone;
     private LoginPhonePresenter presenter;
-    private TransferBetweenFragments transferBetweenFragments;
+    private LoginDialogContract.steps listener;
 
     public LoginPhoneFragment() {
 
+    }
+
+    public void setListener(LoginDialogContract.steps listener) {
+        this.listener = listener;
     }
 
     public static LoginPhoneFragment newInstance() {
@@ -43,13 +44,11 @@ public class LoginPhoneFragment extends DialogFragment implements LoginPhoneCont
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        transferBetweenFragments = (TransferBetweenFragments) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        transferBetweenFragments = null;
     }
 
     @Override
@@ -71,7 +70,7 @@ public class LoginPhoneFragment extends DialogFragment implements LoginPhoneCont
         super.onViewCreated(view, savedInstanceState);
 
         phoneNumber = view.findViewById(R.id.phone_number);
-        submitPhone = view.findViewById(R.id.submit_phone_butt);
+        Button submitPhone = view.findViewById(R.id.submit_phone_butt);
 
         final String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         final String deviceModel = Build.MODEL;
@@ -85,16 +84,6 @@ public class LoginPhoneFragment extends DialogFragment implements LoginPhoneCont
             }
         });
     }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }
-
 
     @Override
     public void showProgressBar() {
@@ -116,6 +105,6 @@ public class LoginPhoneFragment extends DialogFragment implements LoginPhoneCont
     @Override
     public void smsReceived(String phoneNumber) {
 
-        transferBetweenFragments.goToLoginCode(phoneNumber);
+        listener.goToLoginCode(phoneNumber);
     }
 }

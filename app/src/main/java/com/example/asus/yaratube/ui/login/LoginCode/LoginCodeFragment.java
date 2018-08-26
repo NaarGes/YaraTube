@@ -1,35 +1,36 @@
-package com.example.asus.yaratube.ui.login;
+package com.example.asus.yaratube.ui.login.LoginCode;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
 import com.example.asus.yaratube.data.local.AppDatabase;
+import com.example.asus.yaratube.ui.login.LoginDialogContract;
 import com.example.asus.yaratube.util.Util;
 
-public class LoginCodeFragment extends DialogFragment implements LoginCodeContract.View {
+public class LoginCodeFragment extends Fragment implements LoginCodeContract.View {
 
     private String phoneNumber;
-    private TransferBetweenFragments transferBetweenFragments;
     private LoginCodeContract.Presenter presenter;
+    private LoginDialogContract.steps listener;
     private static String PHONE_NUMBER = "phone number";
 
     public LoginCodeFragment() {
 
+    }
+
+    public void setListener(LoginDialogContract.steps listener) {
+        this.listener = listener;
     }
 
     public static LoginCodeFragment newInstance(String phoneNumber) {
@@ -50,18 +51,6 @@ public class LoginCodeFragment extends DialogFragment implements LoginCodeContra
         }
         final AppDatabase database = AppDatabase.getAppDatabase(getActivity());
         presenter = new LoginCodePresenter(this, getContext(), database);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        transferBetweenFragments = (TransferBetweenFragments) context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        transferBetweenFragments = null;
     }
 
     @Nullable
@@ -86,27 +75,19 @@ public class LoginCodeFragment extends DialogFragment implements LoginCodeContra
             @Override
             public void onClick(View view) {
 
-                Log.e("request params ", "onClick: "+phoneNumber+" "+deviceId+" "+verificationCode.getText().toString() );
+                assert getParentFragment() != null;
+                ((DialogFragment) getParentFragment()).dismiss();
                 presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(verificationCode.getText().toString()));
-                Util.hideKeyboardFrom(getContext(), view);
+                Util.hideKeyboardFrom(view.getContext(), view);
             }
         });
 
         editPhoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferBetweenFragments.goToLoginPhone();
+                listener.goToLoginPhone();
             }
         });
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
     }
 
     @Override

@@ -1,7 +1,6 @@
-package com.example.asus.yaratube.ui.login;
+package com.example.asus.yaratube.ui.login.LoginCode;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.asus.yaratube.data.LocalRepository;
 import com.example.asus.yaratube.data.UserRepository;
@@ -34,10 +33,11 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
             @Override
             public void onSuccess(Activation result) {
 
+                // FIXME null pointer in context
+                //view.activationDone();
                 UserEntity user = new UserEntity();
                 user.setToken(result.getToken());
                 localRepository.loginUser(user);
-                view.activationDone();
             }
 
             @Override
