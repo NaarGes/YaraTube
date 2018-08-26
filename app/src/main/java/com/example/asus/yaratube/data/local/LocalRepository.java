@@ -1,7 +1,4 @@
-package com.example.asus.yaratube.data;
-
-import com.example.asus.yaratube.data.local.AppDatabase;
-import com.example.asus.yaratube.data.local.UserEntity;
+package com.example.asus.yaratube.data.local;
 
 public class LocalRepository {
 
@@ -27,6 +24,4 @@ public class LocalRepository {
         return database.userDao().getToken() != null;
 
     }
-
-
 }

@@ -1,13 +1,10 @@
-package com.example.asus.yaratube.data;
+package com.example.asus.yaratube.data.remote;
 
 import android.content.Context;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.SmsResponse;
-import com.example.asus.yaratube.data.remote.ApiClient;
-import com.example.asus.yaratube.data.remote.ApiResult;
-import com.example.asus.yaratube.data.remote.ApiService;
 import com.example.asus.yaratube.util.Util;
 
 import retrofit2.Call;

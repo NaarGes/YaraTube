@@ -41,6 +41,16 @@
             android:gravity="center" >
 
             <Button
+                android:id="@+id/edit_phone_butt"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bordered_button"
+                android:text="@string/edit_mobile"
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="@dimen/padding_8dp" />
+
+            <Button
                 android:id="@+id/submit_code_butt"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
@@ -50,14 +60,5 @@
                 android:background="@drawable/filled_button"
                 android:layout_margin="@dimen/padding_8dp" />
 
-            <Button
-                android:id="@+id/edit_phone_butt"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bordered_button"
-                android:text="@string/edit_mobile"
-                android:textColor="@color/colorPrimary"
-                android:layout_margin="@dimen/padding_8dp" />
         </LinearLayout>
 </LinearLayout>

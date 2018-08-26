@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
+import com.example.asus.yaratube.util.Util;
 
 
 public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.View {
@@ -80,7 +81,7 @@ public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.V
             @Override
             public void onClick(View view) {
 
-                presenter.onSendPhoneNumber(phoneNumber.getText().toString(), deviceId, deviceModel, deviceOs);
+                presenter.onSendPhoneNumber(Util.faToEn(phoneNumber.getText().toString()), deviceId, deviceModel, deviceOs);
             }
         });
     }

@@ -3,7 +3,7 @@ package com.example.asus.yaratube.ui.productdetail;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.asus.yaratube.data.Repository;
+import com.example.asus.yaratube.data.remote.Repository;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.remote.ApiResult;

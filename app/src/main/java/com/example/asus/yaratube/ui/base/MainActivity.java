@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.LocalRepository;
+import com.example.asus.yaratube.data.local.LocalRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;

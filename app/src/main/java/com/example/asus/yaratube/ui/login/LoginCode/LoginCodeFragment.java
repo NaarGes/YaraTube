@@ -77,7 +77,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
 
                 assert getParentFragment() != null;
                 ((DialogFragment) getParentFragment()).dismiss();
-                presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(verificationCode.getText().toString()));
+                presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
                 Util.hideKeyboardFrom(view.getContext(), view);
             }
         });

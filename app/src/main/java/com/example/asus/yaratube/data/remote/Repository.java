@@ -1,4 +1,4 @@
-package com.example.asus.yaratube.data;
+package com.example.asus.yaratube.data.remote;
 
 
 import android.content.Context;
@@ -8,9 +8,6 @@ import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.Store;
-import com.example.asus.yaratube.data.remote.ApiClient;
-import com.example.asus.yaratube.data.remote.ApiResult;
-import com.example.asus.yaratube.data.remote.ApiService;
 import com.example.asus.yaratube.util.Util;
 
 import java.util.List;
