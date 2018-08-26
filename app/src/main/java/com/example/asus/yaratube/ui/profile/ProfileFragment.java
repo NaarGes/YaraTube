@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
+import com.example.asus.yaratube.ui.base.DrawerLocker;
 import com.example.asus.yaratube.util.Util;
 
 
@@ -40,7 +41,13 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         super.onCreate(savedInstanceState);
         database = AppDatabase.getAppDatabase(getActivity());
         presenter = new ProfilePresenter(this, database);
+        ((DrawerLocker) getActivity()).setDrawerEnabled(false);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((DrawerLocker) getActivity()).setDrawerEnabled(true);
     }
 
     @Override

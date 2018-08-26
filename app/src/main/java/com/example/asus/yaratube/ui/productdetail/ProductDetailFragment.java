@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
+import com.example.asus.yaratube.ui.base.DrawerLocker;
 
 import org.parceler.Parcels;
 
@@ -64,6 +65,13 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         super.onCreate(savedInstanceState);
 
         this.product = Parcels.unwrap(getArguments().getParcelable(PRODUCT));
+        ((DrawerLocker) getActivity()).setDrawerEnabled(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((DrawerLocker) getActivity()).setDrawerEnabled(true);
     }
 
     @Override

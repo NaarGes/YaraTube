@@ -30,7 +30,7 @@ import com.example.asus.yaratube.ui.profile.ProfileFragment;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements TransferBetweenFragments {
+public class MainActivity extends AppCompatActivity implements TransferBetweenFragments, DrawerLocker {
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
@@ -165,5 +165,14 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product);
         getSupportFragmentManager().beginTransaction().addToBackStack(productDetailFragment.getClass().getName())
                 .add(R.id.main_container, productDetailFragment).commit();
+    }
+
+    @Override
+    public void setDrawerEnabled(boolean enabled) {
+
+        int lockMode = enabled ? DrawerLayout.LOCK_MODE_UNLOCKED :
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+        drawerLayout.setDrawerLockMode(lockMode);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(enabled);
     }
 }
