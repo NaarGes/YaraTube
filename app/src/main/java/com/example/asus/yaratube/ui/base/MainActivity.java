@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // FIXME minimum sdk is 17, use another way
         // change app direction to RTL
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
         database = AppDatabase.getAppDatabase(this);
         localRepository = new LocalRepository(database);
-
     }
 
     public void setDrawer() {

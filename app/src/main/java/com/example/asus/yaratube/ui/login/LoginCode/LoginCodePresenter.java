@@ -43,7 +43,8 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
             @Override
             public void onFail(String errorMessage) {
 
-                view.showErrorMessage(errorMessage);
+                // FIXME null pointer in context
+                //view.showErrorMessage(errorMessage);
             }
         }, phoneNumber, deviceId, verificationCode);
     }
