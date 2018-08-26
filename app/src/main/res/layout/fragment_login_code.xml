@@ -24,37 +24,40 @@
             android:id="@+id/activation_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:hint="@string/verification_code"
             android:layout_margin="@dimen/padding_8dp"
             android:paddingStart="@dimen/padding_8dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dont_receive_code"/>
+            android:text="@string/dont_receive_code"
+            android:layout_margin="@dimen/padding_8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center" >
 
             <Button
                 android:id="@+id/submit_code_butt"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/submit"
                 android:textColor="@color/white"
-                android:background="#3b89d2"
+                android:background="@drawable/filled_button"
                 android:layout_margin="@dimen/padding_8dp" />
 
             <Button
                 android:id="@+id/edit_phone_butt"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bordered_button"
                 android:text="@string/edit_mobile"
-                android:textColor="#3b89d2"
+                android:textColor="@color/colorPrimary"
                 android:layout_margin="@dimen/padding_8dp" />
         </LinearLayout>
 </LinearLayout>

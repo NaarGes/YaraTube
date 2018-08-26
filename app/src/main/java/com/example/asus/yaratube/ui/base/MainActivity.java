@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, bottomHolderFragment).commit();
     }
 
-    // Open the drawer when the button is tapped
+    // Open the drawer when the filled_button is tapped
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return (actionBarDrawerToggle.onOptionsItemSelected(item)) || super.onOptionsItemSelected(item);
     }
 
-    // close the drawer if opened when back button tapped
+    // close the drawer if opened when back filled_button tapped
     @Override
     public void onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {

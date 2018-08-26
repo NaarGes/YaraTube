@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="@string/phone_method"
             android:textColor="@color/white"
-            android:background="#3b89d2"
+            android:background="@color/colorPrimary"
             android:layout_margin="@dimen/padding_8dp"
             android:paddingStart="@dimen/padding_8dp"
             android:drawableStart="@drawable/ic_smartphone"/>

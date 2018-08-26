@@ -25,7 +25,6 @@
             android:id="@+id/phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:hint="@string/enter_mobile"
             android:layout_margin="@dimen/padding_8dp"
             android:paddingStart="@dimen/padding_8dp" />
@@ -36,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="@string/submit"
             android:textColor="@color/white"
-            android:background="#3b89d2"
+            android:background="@drawable/filled_button"
             android:layout_margin="@dimen/padding_8dp"
             android:paddingStart="@dimen/padding_8dp" />
 
