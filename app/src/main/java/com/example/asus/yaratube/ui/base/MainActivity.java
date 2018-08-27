@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     private DrawerLayout drawerLayout;
     private AppDatabase database;
     private UserRepository userRepository;
+    private LoginDialogFragment loginDialogFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         database = AppDatabase.getAppDatabase(this);
         userRepository = new UserRepository(this);
         userRepository.setDatabase(database);
+
+        loginDialogFragment = LoginDialogFragment.newInstance();
     }
 
     public void setDrawer() {
@@ -73,10 +76,12 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.profile_nd:
-                        if(userRepository.isLogin())
+                        if(userRepository.isLogin()) // fixme do it by presenter
                             addFragment(ProfileFragment.newInstance());
-                        else
-                            LoginDialogFragment.newInstance().show(getSupportFragmentManager(), "login");
+                        else {
+                            loginDialogFragment.setCancelable(false);
+                            loginDialogFragment.show(getSupportFragmentManager(), "login");
+                        }
                         return true;
 
                     case R.id.about_nd:
