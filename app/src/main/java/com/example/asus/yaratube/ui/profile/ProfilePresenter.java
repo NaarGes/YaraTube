@@ -22,9 +22,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void updateUserInfo(String name, String sex, String birthDate) {
-
-        UserEntity user = new UserEntity();
-
+        
+        user.setPhoneNumber(database.userDao().getPhoneNumber());
         user.setToken(database.userDao().getToken());
         user.setName(name);
         user.setSex(sex);

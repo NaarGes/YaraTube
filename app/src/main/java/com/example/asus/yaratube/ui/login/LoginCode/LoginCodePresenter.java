@@ -35,9 +35,13 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
 
                 // FIXME null pointer in context
                 //view.activationDone();
-                UserEntity user = new UserEntity();
+                /*UserEntity user = new UserEntity();
                 user.setToken(result.getToken());
-                localRepository.loginUser(user);
+                localRepository.loginUser(user);*/
+                UserEntity userEntity = database.userDao().getUser();
+                userEntity.setToken(result.getToken());
+                userEntity.setPhoneNumber(database.userDao().getPhoneNumber());
+                database.userDao().update(userEntity);
             }
 
             @Override
@@ -47,5 +51,10 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
                 //view.showErrorMessage(errorMessage);
             }
         }, phoneNumber, deviceId, verificationCode);
+    }
+
+    @Override
+    public String phoneNumber() {
+        return database.userDao().getPhoneNumber();
     }
 }

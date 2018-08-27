@@ -22,6 +22,9 @@ public interface UserDao {
     @Query("SELECT birth_date FROM user")
     public String getBirthDate();
 
+    @Query("SELECT phone_number FROM user")
+    public String getPhoneNumber();
+
     @Query("SELECT * FROM user")
     public UserEntity getUser();
 

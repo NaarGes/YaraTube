@@ -12,5 +12,6 @@ public interface LoginPhoneContract {
     interface Presenter {
 
         void onSendPhoneNumber(String phoneNumber, String deviceId, String deviceModel, String deviceOs);
+        void savePhoneNumber(String phoneNumber);
     }
 }

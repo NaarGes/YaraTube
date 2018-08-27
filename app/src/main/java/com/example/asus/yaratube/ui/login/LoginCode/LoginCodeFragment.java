@@ -25,7 +25,6 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     private String phoneNumber;
     private LoginCodeContract.Presenter presenter;
     private LoginDialogContract.steps listener;
-    private static String PHONE_NUMBER = "phone number";
 
     public LoginCodeFragment() {
 
@@ -35,12 +34,11 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
         this.listener = listener;
     }
 
-    public static LoginCodeFragment newInstance(String phoneNumber) {
+    public static LoginCodeFragment newInstance() {
 
         Bundle args = new Bundle();
 
         LoginCodeFragment fragment = new LoginCodeFragment();
-        args.putString(PHONE_NUMBER, phoneNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,11 +46,9 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
-            this.phoneNumber = getArguments().getString(PHONE_NUMBER);
-        }
         final AppDatabase database = AppDatabase.getAppDatabase(getActivity());
         presenter = new LoginCodePresenter(this, getContext(), database);
+        phoneNumber = presenter.phoneNumber();
     }
 
     @Nullable
@@ -77,6 +73,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             @Override
             public void onClick(View view) {
 
+                // fixme boolean validation verification code
                 if(!verificationCode.getText().toString().equals("")) {
                     presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
                     Util.hideKeyboardFrom(view.getContext(), view);

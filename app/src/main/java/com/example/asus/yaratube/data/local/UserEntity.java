@@ -8,9 +8,10 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "user")
 public class UserEntity {
 
-    @PrimaryKey
-    @NonNull
-    private String token = "";
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    private String token = null;
 
     private String name;
     private String sex;
@@ -18,7 +19,17 @@ public class UserEntity {
     @ColumnInfo(name = "birth_date")
     private String birthDate;
 
-    @NonNull
+    @ColumnInfo(name = "phone_number")
+    private String phoneNumber;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getToken() {
         return token;
     }
@@ -49,5 +60,13 @@ public class UserEntity {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

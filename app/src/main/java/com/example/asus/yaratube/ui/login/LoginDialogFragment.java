@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.login.LoginCode.LoginCodeFragment;
 import com.example.asus.yaratube.ui.login.LoginMethod.LoginMethodFragment;
@@ -25,6 +26,8 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
     private SharedPreferences.Editor editor;
     private int loginStep;
 
+    private AppDatabase database;
+
     public static LoginDialogFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -32,6 +35,12 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
         LoginDialogFragment fragment = new LoginDialogFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        database = AppDatabase.getAppDatabase(getActivity());
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -49,7 +58,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
         if(loginStep == 2)
             goToLoginPhone();
         else if(loginStep == 3)
-            goToLoginCode(""); // FIXME here we need to read phone number from database
+            goToLoginCode(database.userDao().getPhoneNumber()); // FIXME here we need to read phone number from database
         else
             goToLoginMethod();
         return result;
@@ -89,7 +98,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
         editor.clear();
         editor.putInt("Login Step", 3);
         editor.commit();
-        LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance(phoneNumber);
+        LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance();
         loginCodeFragment.setListener(this);
         getChildFragmentManager().beginTransaction().addToBackStack(loginCodeFragment.getClass().getName())
                 .replace(R.id.login_container, loginCodeFragment).commit();

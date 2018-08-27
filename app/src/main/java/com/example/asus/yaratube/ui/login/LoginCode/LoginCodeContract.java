@@ -12,5 +12,6 @@ public interface LoginCodeContract {
     interface Presenter {
 
         void onSendVerificationCode(String phoneNumber, String deviceId, int verificationCode);
+        String phoneNumber();
     }
 }

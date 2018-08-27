@@ -9,11 +9,6 @@ public class LocalRepository {
         this.database = database;
     }
 
-    public void loginUser(UserEntity userEntity) {
-
-        database.userDao().insert(userEntity);
-    }
-
     public void updateUser(UserEntity userEntity) {
 
         database.userDao().update(userEntity);

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
 import com.example.asus.yaratube.util.Util;
 
@@ -55,7 +56,8 @@ public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.V
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new LoginPhonePresenter(this, getContext());
+        final AppDatabase database = AppDatabase.getAppDatabase(getActivity());
+        presenter = new LoginPhonePresenter(this, getContext(), database);
     }
 
     @Nullable
