@@ -1,6 +1,8 @@
 package com.example.asus.yaratube.ui.profile;
 
-import com.example.asus.yaratube.data.local.LocalRepository;
+import android.content.Context;
+
+import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
 
@@ -8,14 +10,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     private ProfileContract.View view;
     private AppDatabase database;
-    private LocalRepository localRepository;
+    private UserRepository userRepository;
     private UserEntity user;
 
-    ProfilePresenter(ProfileContract.View view, AppDatabase database) {
+    ProfilePresenter(Context context, ProfileContract.View view, AppDatabase database) {
 
         this.view = view;
         this.database = database;
-        this.localRepository = new LocalRepository(database);
+        this.userRepository = new UserRepository(context);
+        userRepository.setDatabase(database);
 
         user = database.userDao().getUser();
     }
@@ -29,7 +32,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         user.setSex(sex);
         user.setBirthDate(birthDate);
 
-        localRepository.updateUser(user);
+        userRepository.updateUser(user);
 
         view.toast("تغییرات با موفقیت اعمال شد");
     }

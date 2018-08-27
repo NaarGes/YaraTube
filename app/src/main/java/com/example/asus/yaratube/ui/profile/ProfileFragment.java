@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = AppDatabase.getAppDatabase(getActivity());
-        presenter = new ProfilePresenter(this, database);
+        presenter = new ProfilePresenter(getContext(), this, database);
         ((DrawerLocker) getActivity()).setDrawerEnabled(false);
     }
 

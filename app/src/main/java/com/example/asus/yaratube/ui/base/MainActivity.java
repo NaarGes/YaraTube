@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.local.LocalRepository;
+import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
     private AppDatabase database;
-    private LocalRepository localRepository;
+    private UserRepository userRepository;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         setBottomNavigationFragment();
 
         database = AppDatabase.getAppDatabase(this);
-        localRepository = new LocalRepository(database);
+        userRepository = new UserRepository(this);
+        userRepository.setDatabase(database);
     }
 
     public void setDrawer() {
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.profile_nd:
-                        if(localRepository.isLogin())
+                        if(userRepository.isLogin())
                             addFragment(ProfileFragment.newInstance());
                         else
                             LoginDialogFragment.newInstance().show(getSupportFragmentManager(), "login");

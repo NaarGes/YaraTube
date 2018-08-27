@@ -1,10 +1,15 @@
-package com.example.asus.yaratube.data.remote;
+package com.example.asus.yaratube.data;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.asus.yaratube.data.local.AppDatabase;
+import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.SmsResponse;
+import com.example.asus.yaratube.data.remote.ApiClient;
+import com.example.asus.yaratube.data.remote.ApiResult;
+import com.example.asus.yaratube.data.remote.ApiService;
 import com.example.asus.yaratube.util.Util;
 
 import retrofit2.Call;
@@ -15,6 +20,7 @@ public class UserRepository {
 
     private ApiService service;
     private Context context;
+    private AppDatabase database;
 
 
     public UserRepository(Context context) {
@@ -23,6 +29,25 @@ public class UserRepository {
         this.context = context;
     }
 
+    public void setDatabase(AppDatabase database) {
+        this.database = database;
+    }
+
+    public void updateUser(UserEntity userEntity) {
+        database.userDao().update(userEntity);
+    }
+
+    public UserEntity getUser() {
+        return database.userDao().getUser();
+    }
+
+    public boolean isLogin() {
+        return database.userDao().getToken() != null;
+    }
+
+    public String phoneNumber() {
+        return database.userDao().getPhoneNumber();
+    }
 
     public void sendPhoneNumber(final ApiResult<SmsResponse> callback, String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
 

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
-import com.example.asus.yaratube.data.remote.UserRepository;
+import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.remote.ApiResult;
 
