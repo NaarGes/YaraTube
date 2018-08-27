@@ -12,9 +12,8 @@ import com.example.asus.yaratube.data.remote.ApiResult;
 public class LoginCodePresenter implements LoginCodeContract.Presenter {
 
     private LoginCodeContract.View view;
-    private UserRepository repository;
-    private AppDatabase database;
     private Context context;
+    private UserRepository repository;
     private LocalRepository localRepository;
 
     LoginCodePresenter(LoginCodeContract.View view, Context context, AppDatabase database) {
@@ -22,7 +21,6 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
         this.view = view;
         this.context = context;
         repository = new UserRepository(context);
-        this.database = database;
         localRepository = new LocalRepository(database);
     }
 
@@ -33,28 +31,24 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
             @Override
             public void onSuccess(Activation result) {
 
-                // FIXME null pointer in context
-                //view.activationDone();
-                /*UserEntity user = new UserEntity();
-                user.setToken(result.getToken());
-                localRepository.loginUser(user);*/
-                UserEntity userEntity = database.userDao().getUser();
+                view.activationDone();
+                UserEntity userEntity = localRepository.getUser();
                 userEntity.setToken(result.getToken());
-                userEntity.setPhoneNumber(database.userDao().getPhoneNumber());
-                database.userDao().update(userEntity);
+                userEntity.setPhoneNumber(localRepository.phoneNumber());
+                localRepository.updateUser(userEntity);
+                view.dismissDialog();
             }
 
             @Override
             public void onFail(String errorMessage) {
 
-                // FIXME null pointer in context
-                //view.showErrorMessage(errorMessage);
+                view.showErrorMessage(errorMessage);
             }
         }, phoneNumber, deviceId, verificationCode);
     }
 
     @Override
     public String phoneNumber() {
-        return database.userDao().getPhoneNumber();
+        return localRepository.phoneNumber();
     }
 }

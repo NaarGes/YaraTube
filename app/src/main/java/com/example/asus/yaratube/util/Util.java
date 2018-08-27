@@ -39,4 +39,15 @@ public class Util {
                 .replace("۹", "9");
     }
 
+    public static boolean validateActivationCode(String activationCode) {
+
+        if(activationCode.length() == 5)
+            for(int i=0; i<5; i++) {
+                if ((int) activationCode.charAt(i) < 48 && (int) activationCode.charAt(i) > 57) // != 0-9
+                    return false;
+            }
+        else
+            return false;
+        return true;
+    }
 }

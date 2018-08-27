@@ -23,6 +23,7 @@ public class UserRepository {
         this.context = context;
     }
 
+
     public void sendPhoneNumber(final ApiResult<SmsResponse> callback, String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
 
         Call<SmsResponse> call = service.activateStep1(phoneNumber, deviceId, deviceModel, deviceOs);

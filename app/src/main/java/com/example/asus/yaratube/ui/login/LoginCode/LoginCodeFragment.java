@@ -73,15 +73,14 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             @Override
             public void onClick(View view) {
 
-                // fixme boolean validation verification code
-                if(!verificationCode.getText().toString().equals("")) {
-                    presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
+                if(Util.validateActivationCode(verificationCode.getText().toString())) {
+                    // fixme send user instead of fields
+                    presenter.onSendVerificationCode(phoneNumber, deviceId,
+                            Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
                     Util.hideKeyboardFrom(view.getContext(), view);
-                    assert getParentFragment() != null;
-                    ((DialogFragment) getParentFragment()).dismiss();
                 }
                 else
-                    showErrorMessage("لطفا کد فعال سازی را وارد کنید");
+                    showErrorMessage("کد نامعتبر است");
             }
         });
 
@@ -102,6 +101,12 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     public void activationDone() {
 
         Toast.makeText(this.getContext(), "ورود شما با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        assert getParentFragment() != null;
+        ((DialogFragment) getParentFragment()).dismiss();
     }
 
     @Override

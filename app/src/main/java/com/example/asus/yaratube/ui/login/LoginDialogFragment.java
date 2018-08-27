@@ -15,16 +15,13 @@ import android.view.Window;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
-import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.login.LoginCode.LoginCodeFragment;
 import com.example.asus.yaratube.ui.login.LoginMethod.LoginMethodFragment;
 import com.example.asus.yaratube.ui.login.LoginPhone.LoginPhoneFragment;
 
 public class LoginDialogFragment extends DialogFragment implements LoginDialogContract.steps {
 
-    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private int loginStep;
 
     private AppDatabase database;
 
@@ -48,17 +45,13 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View result =  inflater.inflate(R.layout.fragment_login_dialog, container, false);
-        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        loginStep = sharedPreferences.getInt("Login Step", 1);
-        // = 1: select login method
-        // = 2: login mobile, enter phone number
-        // = 3: login mobile, enter verification code
-        // = 4: login google ...
+        int loginStep = sharedPreferences.getInt("Login Step", 1);
         if(loginStep == 2)
             goToLoginPhone();
         else if(loginStep == 3)
-            goToLoginCode(database.userDao().getPhoneNumber()); // FIXME here we need to read phone number from database
+            goToLoginCode(database.userDao().getPhoneNumber());
         else
             goToLoginMethod();
         return result;
@@ -77,8 +70,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
 
         LoginMethodFragment loginMethodFragment = LoginMethodFragment.newInstance();
         loginMethodFragment.setListener(this);
-        getChildFragmentManager().beginTransaction().addToBackStack(loginMethodFragment.getClass().getName())
-                .replace(R.id.login_container, loginMethodFragment).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.login_container, loginMethodFragment).commit();
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -87,8 +79,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
 
         LoginPhoneFragment loginPhoneFragment = LoginPhoneFragment.newInstance();
         loginPhoneFragment.setListener(this);
-        getChildFragmentManager().beginTransaction().addToBackStack(loginPhoneFragment.getClass().getName())
-                .replace(R.id.login_container, loginPhoneFragment).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.login_container, loginPhoneFragment).commit();
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -100,7 +91,6 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
         editor.commit();
         LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance();
         loginCodeFragment.setListener(this);
-        getChildFragmentManager().beginTransaction().addToBackStack(loginCodeFragment.getClass().getName())
-                .replace(R.id.login_container, loginCodeFragment).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.login_container, loginCodeFragment).commit();
     }
 }

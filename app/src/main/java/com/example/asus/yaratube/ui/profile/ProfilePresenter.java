@@ -22,7 +22,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void updateUserInfo(String name, String sex, String birthDate) {
-        
+
         user.setPhoneNumber(database.userDao().getPhoneNumber());
         user.setToken(database.userDao().getToken());
         user.setName(name);

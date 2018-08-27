@@ -7,6 +7,7 @@ public interface LoginCodeContract {
     interface View extends BaseView {
 
         void activationDone();
+        void dismissDialog();
     }
 
     interface Presenter {
