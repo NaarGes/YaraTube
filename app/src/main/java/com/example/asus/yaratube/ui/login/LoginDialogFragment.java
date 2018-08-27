@@ -76,9 +76,6 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
     @Override
     public void goToLoginPhone() {
 
-        editor.clear();
-        editor.putInt("Login Step", 2);
-        editor.commit();
         LoginPhoneFragment loginPhoneFragment = LoginPhoneFragment.newInstance();
         loginPhoneFragment.setListener(this);
         getChildFragmentManager().beginTransaction().addToBackStack(loginPhoneFragment.getClass().getName())

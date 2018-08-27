@@ -1,5 +1,7 @@
 package com.example.asus.yaratube.ui.login.LoginCode;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -75,10 +77,14 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             @Override
             public void onClick(View view) {
 
-                assert getParentFragment() != null;
-                ((DialogFragment) getParentFragment()).dismiss();
-                presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
-                Util.hideKeyboardFrom(view.getContext(), view);
+                if(!verificationCode.getText().toString().equals("")) {
+                    presenter.onSendVerificationCode(phoneNumber, deviceId, Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
+                    Util.hideKeyboardFrom(view.getContext(), view);
+                    assert getParentFragment() != null;
+                    ((DialogFragment) getParentFragment()).dismiss();
+                }
+                else
+                    showErrorMessage("لطفا کد فعال سازی را وارد کنید");
             }
         });
 
@@ -86,6 +92,11 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             @Override
             public void onClick(View view) {
                 listener.goToLoginPhone();
+                SharedPreferences sharedPreferences = (getActivity()).getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.putInt("Login Step", 2);
+                editor.commit();
             }
         });
     }

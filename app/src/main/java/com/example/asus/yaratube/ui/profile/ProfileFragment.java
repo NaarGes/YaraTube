@@ -1,6 +1,8 @@
 package com.example.asus.yaratube.ui.profile;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -91,6 +93,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onClick(View view) {
 
+                SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.putInt("Login Step", 1);
+                editor.commit();
                 Util.hideKeyboardFrom(getContext(), view);
                 getActivity().getSupportFragmentManager().popBackStack();
                 presenter.Logout();
