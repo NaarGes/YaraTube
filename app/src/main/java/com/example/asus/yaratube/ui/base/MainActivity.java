@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                         if(userRepository.isLogin()) // fixme do it by presenter
                             addFragment(ProfileFragment.newInstance());
                         else {
-                            loginDialogFragment.setCancelable(false);
-                            loginDialogFragment.show(getSupportFragmentManager(), "login");
+                            userRepository.login(getSupportFragmentManager());
                         }
                         return true;
 

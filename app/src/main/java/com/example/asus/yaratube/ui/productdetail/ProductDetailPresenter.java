@@ -1,12 +1,16 @@
 package com.example.asus.yaratube.ui.productdetail;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
+import com.example.asus.yaratube.data.UserRepository;
+import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.remote.Repository;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.remote.ApiResult;
+import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 
 import java.util.List;
 
@@ -16,11 +20,14 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
     private ProductDetailContract.View view;
     private Repository repository;
+    private UserRepository userRepository;
 
-    ProductDetailPresenter(ProductDetailContract.View view, Context context) {
+    ProductDetailPresenter(ProductDetailContract.View view, Context context, AppDatabase database) {
 
         this.view = view;
         repository = new Repository(context);
+        userRepository = new UserRepository(context);
+        userRepository.setDatabase(database);
     }
 
     @Override
@@ -61,6 +68,18 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
                 view.showErrorMessage(errorMessage);
             }
         }, productId);
+    }
+
+    @Override
+    public boolean isLogin() {
+
+        return userRepository.isLogin();
+    }
+
+    @Override
+    public void login(FragmentManager fragmentManager) {
+        userRepository.login(fragmentManager);
+
     }
 
 

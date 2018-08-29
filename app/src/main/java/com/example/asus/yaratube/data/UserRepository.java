@@ -1,15 +1,18 @@
 package com.example.asus.yaratube.data;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.Activation;
+import com.example.asus.yaratube.data.model.CommentPostResponse;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.remote.ApiClient;
 import com.example.asus.yaratube.data.remote.ApiResult;
 import com.example.asus.yaratube.data.remote.ApiService;
+import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 import com.example.asus.yaratube.util.Util;
 
 import retrofit2.Call;
@@ -43,6 +46,13 @@ public class UserRepository {
 
     public boolean isLogin() {
         return database.userDao().getToken() != null;
+    }
+
+    public void login(FragmentManager fragmentManager) {
+
+        LoginDialogFragment loginDialogFragment = LoginDialogFragment.newInstance();
+        loginDialogFragment.setCancelable(false);
+        loginDialogFragment.show(fragmentManager, loginDialogFragment.getClass().getName());
     }
 
     public String phoneNumber() {
@@ -92,6 +102,30 @@ public class UserRepository {
 
                 @Override
                 public void onFailure(Call<Activation> call, Throwable t) {
+
+                    callback.onFail(t.getMessage());
+                }
+            });
+        }
+    }
+
+    public void sendUsercomment(final ApiResult<CommentPostResponse> callback, int score, String commentText, int productId, String token) {
+
+        Call<CommentPostResponse> call = service.sendComment("", score, commentText, productId, token);
+
+        if(Util.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<CommentPostResponse>() {
+                @Override
+                public void onResponse(Call<CommentPostResponse> call, Response<CommentPostResponse> response) {
+                    if(response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    } else {
+                        callback.onFail(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommentPostResponse> call, Throwable t) {
 
                     callback.onFail(t.getMessage());
                 }

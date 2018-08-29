@@ -145,9 +145,11 @@
                             android:textSize="@dimen/font_size_17sp"/>
 
                         <Button
+                            android:id="@+id/comment_butt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
+                            android:background="@drawable/filled_button"
                             android:elevation="3dp"
                             android:text="@string/comment"
                             android:textStyle="bold" />

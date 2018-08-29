@@ -3,6 +3,7 @@ package com.example.asus.yaratube.data.remote;
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
+import com.example.asus.yaratube.data.model.CommentPostResponse;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.model.Store;
@@ -13,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -54,4 +56,13 @@ public interface ApiService {
     Call<Activation> activateStep2(@Field("mobile") String phoneNumber,
                                    @Field("device_id") String deviceId,
                                    @Field("verification_code") int verificationCode);
+
+    // send user comment to server
+    @POST("comment/{productId}")
+    @FormUrlEncoded
+    Call<CommentPostResponse> sendComment(@Field("title") String title,
+                                          @Field("score") int score,
+                                          @Field("comment_text") String commnetText,
+                                          @Path("productId") int productId,
+                                          @Header("Authorization") String token);
 }

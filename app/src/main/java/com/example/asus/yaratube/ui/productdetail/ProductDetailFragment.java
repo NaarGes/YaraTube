@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,9 +21,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.base.DrawerLocker;
+import com.example.asus.yaratube.ui.productdetail.comment.CommentFragment;
 
 import org.parceler.Parcels;
 
@@ -89,8 +92,21 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
         spinner = view.findViewById(R.id.comment_progress_bar);
 
-        presenter = new ProductDetailPresenter(this, getContext());
+        AppDatabase database = AppDatabase.getAppDatabase(getContext());
+        presenter = new ProductDetailPresenter(this, getContext(), database);
         presenter.onLoadComments(product);
+
+        Button comment = view.findViewById(R.id.comment_butt);
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(presenter.isLogin())
+                    openCommentDialog(product.getId());
+                else
+                    showErrorMessage("برای ثبت نظر ابتدا باید وارد شوید");
+                    presenter.login(getChildFragmentManager());
+            }
+        });
     }
 
     void setData(View view) {
@@ -129,6 +145,13 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     public void setProductDetails(Product product) {
 
         videoDesc.setText(product.getDescription());
+    }
+
+    @Override
+    public void openCommentDialog(int productId) {
+
+        CommentFragment commentFragment = CommentFragment.newInstance(productId);
+        commentFragment.show(getChildFragmentManager(), commentFragment.getClass().getName());
     }
 
     @Override
