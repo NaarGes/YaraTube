@@ -10,12 +10,14 @@ public interface ProductListContract {
 
     interface View extends BaseView {
 
-        void showProductList(List<Product> products);
+        void loadFirstPage(List<Product> products);
+        void loadNextPage(List<Product> products);
     }
 
     interface Presenter {
 
-        void onLoadProductList(Category category);
+        void onLoadFirstPage(int categoryId, int offset);
+        void onLoadNextPage(int categoryId, int offset);
     }
 
     interface onProductClickListener {

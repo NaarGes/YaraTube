@@ -2,11 +2,14 @@ package com.example.asus.yaratube.ui.productlist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +32,21 @@ public class ProductListFragment extends Fragment implements ProductListContract
     private ProductListAdapter adapter;
     private ProgressBar spinner;
     private Category category;
-    private RecyclerView recyclerView;
+    private ProductListContract.Presenter presenter;
     private final static String CAT = "category";
 
     private TransferBetweenFragments transferBetweenFragments;
 
+    // Index from which pagination should start (0 is 1st page in our case)
+    private static final int PAGE_START = 0;
+    // Indicates if footer ProgressBar is shown (i.e. next page is loading)
+    private boolean isLoading = false;
+    // If current page is the last page (Pagination will stop after this page load)
+    private boolean isLastPage = false;
+    // total no. of pages to load. Initial load is page 0, after which 2 more pages will load.
+    private int TOTAL_PAGES = 10;
+    // indicates the current page which Pagination is fetching.
+    private int currentPage = PAGE_START;
 
     public ProductListFragment() {
     }
@@ -50,8 +63,8 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         category = Parcels.unwrap(getArguments().getParcelable(CAT));
+        adapter = new ProductListAdapter();
     }
 
     @Override
@@ -64,12 +77,10 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ProductListContract.Presenter presenter = new ProductListPresenter(this, getContext());
+        presenter = new ProductListPresenter(this, getContext());
 
         spinner = view.findViewById(R.id.product_list_progress_bar);
         setRecyclerView(view);
-
-        presenter.onLoadProductList(category);
     }
 
     @Override
@@ -86,16 +97,55 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     public void setRecyclerView(View view) {
 
-        recyclerView = view.findViewById(R.id.product_list_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        RecyclerView recyclerView = view.findViewById(R.id.product_list_recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1; // increment page index to load the next one
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.onLoadNextPage(category.getId(), adapter.getItemCount());
+                    }
+                }, 1000);
+            }
 
-        adapter = new ProductListAdapter();
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+
+        // mocking network delay for API call
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                presenter.onLoadFirstPage(category.getId(), adapter.getItemCount());
+            }
+        }, 1000);
     }
 
     @Override
-    public void showProductList(List<Product> products) {
+    public void loadNextPage(List<Product> products) {
 
-        adapter.setProducts(products);
+        adapter.removeLoadingFooter();
+        isLoading = false;
+        adapter.addAll(products);
         adapter.setListener(new ProductListContract.onProductClickListener() {
             @Override
             public void onProductClick(Product product) {
@@ -103,7 +153,28 @@ public class ProductListFragment extends Fragment implements ProductListContract
             }
         });
 
-        recyclerView.setAdapter(adapter);
+        if (currentPage != TOTAL_PAGES)
+            adapter.addLoadingFooter();
+        else
+            isLastPage = true;
+    }
+
+    @Override
+    public void loadFirstPage(List<Product> products) {
+
+        adapter.setProducts(products);
+        adapter.notifyDataSetChanged();
+        adapter.setListener(new ProductListContract.onProductClickListener() {
+            @Override
+            public void onProductClick(Product product) {
+                transferBetweenFragments.goToProductDetail(product);
+            }
+        });
+
+        if(currentPage <= TOTAL_PAGES)
+            adapter.addLoadingFooter();
+        else
+            isLastPage = true;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.asus.yaratube.ui.productlist;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.asus.yaratube.data.remote.Repository;
 import com.example.asus.yaratube.data.model.Category;
@@ -23,21 +24,36 @@ public class ProductListPresenter implements ProductListContract.Presenter {
     }
 
     @Override
-    public void onLoadProductList(Category category) {
+    public void onLoadFirstPage(int categoryId, int offset) {
 
         view.showProgressBar();
-
-        repository.getProductList(category, new ApiResult<List<Product>>() {
+        repository.getProductList(categoryId, offset, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> products) {
 
                 view.hideProgressBar();
-                view.showProductList(products);
+                view.loadFirstPage(products);
             }
 
             @Override
             public void onFail(String errorMessage) {
 
+                view.showErrorMessage(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void onLoadNextPage(int categoryId, int offset) {
+        repository.getProductList(categoryId, offset, new ApiResult<List<Product>>() {
+            @Override
+            public void onSuccess(List<Product> products) {
+
+                view.loadNextPage(products);
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
                 view.showErrorMessage(errorMessage);
             }
         });

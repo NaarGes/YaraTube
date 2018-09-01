@@ -14,10 +14,16 @@ import com.example.asus.yaratube.data.model.Product;
 
 import java.util.List;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
 
     private List<Product> products;
     private ProductListContract.onProductClickListener listener;
+
+    // flag for footer progressbar (i.e. last item of list)
+    private boolean isLoadingAdded = false;
 
     ProductListAdapter() {
 
@@ -36,25 +42,122 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @NonNull
     @Override
-    public ProductListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View result = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_list, parent, false);
-        return new ProductListViewHolder(result);
+        RecyclerView.ViewHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        switch (viewType) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
+                break;
+            case LOADING:
+                View view = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingViewHolder(view);
+                break;
+        }
+        return viewHolder;
+    }
+
+    @NonNull
+    private RecyclerView.ViewHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        RecyclerView.ViewHolder viewHolder;
+        View view = inflater.inflate(R.layout.item_product_list, parent, false);
+        viewHolder = new ProductListViewHolder(view);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        holder.onBind(products.get(position));
+        switch (getItemViewType(position)) {
+            case ITEM:
+                ProductListViewHolder viewHolder = (ProductListViewHolder) holder;
+                viewHolder.onBind(products.get(position));
+                break;
+            case LOADING:
+                // do nothing
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
 
-        if(products == null)
-            return 0;
-        return products.size();
+        return products == null ? 0 : products.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return  (position == products.size() - 1 &&  isLoadingAdded) ? LOADING : ITEM;
+    }
+
+
+    /*
+   Helpers
+   _________________________________________________________________________________________________
+    */
+
+    public void add(Product product) {
+        products.add(product);
+        notifyItemInserted(products.size() - 1);
+    }
+
+    public void addAll(List<Product> products) {
+        int length = products.size();
+        for (int i=0; i<length; i++) {
+            add(products.get(i));
+        }
+    }
+
+    public void remove(Product product) {
+        int position = products.indexOf(product);
+        if(position > -1) {
+            products.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new Product());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = products.size() - 1;
+        Product item = getItem(position);
+
+        if (item != null) {
+            products.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public Product getItem(int position) {
+        return products.get(position);
+    }
+
+    /*
+   View Holders
+   _________________________________________________________________________________________________
+    */
+
+    /**
+     * Main list's content ViewHolder
+     */
 
     class ProductListViewHolder extends RecyclerView.ViewHolder {
 
@@ -85,6 +188,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     listener.onProductClick(product);
                 }
             });
+        }
+    }
+
+    class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+        LoadingViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }

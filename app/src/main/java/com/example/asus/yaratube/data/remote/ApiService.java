@@ -17,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import static com.example.asus.yaratube.util.Util.STORE_ID;
 
@@ -32,7 +33,9 @@ public interface ApiService {
 
     // get all products of a category
     @GET("listproducts/{categoryId}")
-    Call<List<Product>> getProductList(@Path("categoryId") int categoryId);
+    Call<List<Product>> getProductList(@Path("categoryId") int categoryId,
+                                       @Query("limit") int limit,
+                                       @Query("offset") int offset);
 
     // get all comments of a product
     @GET("comment/{productId}")

@@ -82,9 +82,9 @@ public class Repository {
         }
     }
 
-    public void getProductList(Category category, final ApiResult<List<Product>> callback) {
+    public void getProductList(int categoryId, int offset, final ApiResult<List<Product>> callback) {
 
-        Call<List<Product>> call = service.getProductList(category.getId());
+        Call<List<Product>> call = service.getProductList(categoryId, 10, offset);
 
         if(Util.isNetworkAvailable(context)) {
             call.enqueue(new Callback<List<Product>>() {

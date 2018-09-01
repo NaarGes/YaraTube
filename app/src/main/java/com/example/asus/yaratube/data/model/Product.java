@@ -146,7 +146,7 @@ public class Product {
     private Object lastCheckedFile;*/
 
     @ParcelConstructor
-    Product() {
+    public Product() {
 
     }
 
