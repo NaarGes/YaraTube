@@ -31,6 +31,9 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(UserEntity userEntity);
 
+    @Query("UPDATE user SET token = null")
+    void deleteToken();
+
     @Delete
     void delete(UserEntity userEntity);
 

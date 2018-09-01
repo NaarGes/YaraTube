@@ -55,6 +55,10 @@ public class UserRepository {
         loginDialogFragment.show(fragmentManager, loginDialogFragment.getClass().getName());
     }
 
+    public void logout() {
+        database.userDao().deleteToken();
+    }
+
     public String phoneNumber() {
         return database.userDao().getPhoneNumber();
     }

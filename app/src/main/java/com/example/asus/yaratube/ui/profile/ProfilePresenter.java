@@ -40,8 +40,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void Logout() {
 
-        UserEntity user = database.userDao().getUser();
-        database.userDao().delete(user);
+        userRepository.logout();
         view.toast("شما با موفقیت خارج شدید");
     }
 

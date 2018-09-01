@@ -103,6 +103,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                 if(presenter.isLogin())
                     openCommentDialog(product.getId());
                 else
+                    // FIXME after logging in shows both if and else!!
                     showErrorMessage("برای ثبت نظر ابتدا باید وارد شوید");
                     presenter.login(getChildFragmentManager());
             }
