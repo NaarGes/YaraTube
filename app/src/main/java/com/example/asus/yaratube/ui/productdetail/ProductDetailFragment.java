@@ -10,6 +10,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.base.DrawerLocker;
 import com.example.asus.yaratube.ui.productdetail.comment.CommentFragment;
+import com.example.asus.yaratube.util.pagination.GridPaginationScrollListener;
+import com.example.asus.yaratube.util.pagination.LinearPaginationScrollListener;
 
 import org.parceler.Parcels;
 
@@ -34,18 +36,19 @@ import java.util.List;
 
 public class ProductDetailFragment extends Fragment implements ProductDetailContract.View {
 
-    private Product product;
-    private final static String PRODUCT = "product";
 
+    private Product product;
     private CommentAdapter adapter;
-    private RecyclerView commentList;
     private ProgressBar spinner;
     private TextView videoDesc;
-    private ImageView videoPreview;
-    private Context context;
-
+    private final static String PRODUCT = "product";
 
     private ProductDetailContract.Presenter presenter;
+
+    // Indicates if footer ProgressBar is shown (i.e. next page is loading)
+    private boolean isLoading = false;
+    // If current page is the last page (Pagination will stop after this page load)
+    private boolean isLastPage = false;
 
     public ProductDetailFragment() {
 
@@ -66,15 +69,20 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.product = Parcels.unwrap(getArguments().getParcelable(PRODUCT));
         ((DrawerLocker) getActivity()).setDrawerEnabled(false);
+
+        presenter = new ProductDetailPresenter(this, getContext());
+        adapter = new CommentAdapter();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         ((DrawerLocker) getActivity()).setDrawerEnabled(true);
+
+        adapter = null;
+        presenter = null;
     }
 
     @Override
@@ -87,14 +95,9 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        spinner = view.findViewById(R.id.comment_progress_bar);
         setData(view);
         setRecyclerView(view);
-
-        spinner = view.findViewById(R.id.comment_progress_bar);
-
-        AppDatabase database = AppDatabase.getAppDatabase(getContext());
-        presenter = new ProductDetailPresenter(this, getContext(), database);
-        presenter.onLoadComments(product);
 
         Button comment = view.findViewById(R.id.comment_butt);
         comment.setOnClickListener(new View.OnClickListener() {
@@ -112,10 +115,10 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
     void setData(View view) {
 
-        videoPreview = view.findViewById(R.id.video_preview);
+        ImageView videoPreview = view.findViewById(R.id.video_preview);
         TextView videoTitle = view.findViewById(R.id.video_title);
         videoDesc = view.findViewById(R.id.video_desc);
-        context = view.getContext();
+        Context context = view.getContext();
 
         Glide.with(context).load(product.getFeatureAvatarUrl()).into(videoPreview);
 
@@ -124,22 +127,58 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
     void setRecyclerView(View view) {
 
-        commentList = view.findViewById(R.id.comments);
-        commentList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        RecyclerView commentList = view.findViewById(R.id.comments);
+        commentList.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        commentList.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(),
                 DividerItemDecoration.VERTICAL);
         commentList.addItemDecoration(itemDecoration);
         ViewCompat.setNestedScrollingEnabled(commentList, false);
+        commentList.addOnScrollListener((new LinearPaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                if (!isLastPage) {
+                    isLoading = true;
+                    presenter.onLoadNextComments(product.getId(), adapter.getItemCount() - 1);
+                }
+                else
+                    adapter.removeLoadingFooter();
+            }
 
-        adapter = new CommentAdapter();
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        }));
+
+        presenter.onLoadFirstComments(product.getId(), adapter.getItemCount());
     }
 
     @Override
-    public void showComments(List<Comment> comments) {
+    public void showFirstComments(List<Comment> comments) {
 
         adapter.setComments(comments);
-        commentList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        if(!isLastPage)
+            adapter.addLoadingFooter();
+    }
 
+    @Override
+    public void showNextComments(List<Comment> comments) {
+
+        adapter.removeLoadingFooter();
+        if(comments.size() == 0)
+            isLastPage = true;
+        isLoading = false;
+        adapter.addAll(comments);
+        if(!isLastPage)
+            adapter.addLoadingFooter();
     }
 
     @Override

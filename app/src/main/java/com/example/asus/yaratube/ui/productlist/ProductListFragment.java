@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
+import com.example.asus.yaratube.util.pagination.GridPaginationScrollListener;
 
 import org.parceler.Parcels;
 
@@ -57,6 +59,15 @@ public class ProductListFragment extends Fragment implements ProductListContract
         super.onCreate(savedInstanceState);
         category = Parcels.unwrap(getArguments().getParcelable(CAT));
         adapter = new ProductListAdapter();
+        presenter = new ProductListPresenter(this, getContext());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        transferBetweenFragments = null;
+        adapter = null;
+        presenter = null;
     }
 
     @Override
@@ -69,7 +80,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new ProductListPresenter(this, getContext());
         spinner = view.findViewById(R.id.product_list_progress_bar);
         setRecyclerView(view);
     }
@@ -106,12 +116,12 @@ public class ProductListFragment extends Fragment implements ProductListContract
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+        recyclerView.addOnScrollListener(new GridPaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
                 if (!isLastPage) {
                     isLoading = true;
-                    presenter.onLoadNextPage(category.getId(), adapter.getItemCount());
+                    presenter.onLoadNextPage(category.getId(), adapter.getItemCount() - 1);
                 }
                 else
                     adapter.removeLoadingFooter();
@@ -128,7 +138,24 @@ public class ProductListFragment extends Fragment implements ProductListContract
             }
         });
 
+        Log.e("category", "" + category.getId());
         presenter.onLoadFirstPage(category.getId(), adapter.getItemCount());
+    }
+
+    @Override
+    public void loadFirstPage(List<Product> products) {
+
+        adapter.setProducts(products);
+        adapter.notifyDataSetChanged();
+        adapter.setListener(new ProductListContract.onProductClickListener() {
+            @Override
+            public void onProductClick(Product product) {
+                transferBetweenFragments.goToProductDetail(product);
+            }
+        });
+
+        if(!isLastPage)
+            adapter.addLoadingFooter();
     }
 
     @Override
@@ -151,22 +178,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     }
 
     @Override
-    public void loadFirstPage(List<Product> products) {
-
-        adapter.setProducts(products);
-        adapter.notifyDataSetChanged();
-        adapter.setListener(new ProductListContract.onProductClickListener() {
-            @Override
-            public void onProductClick(Product product) {
-                transferBetweenFragments.goToProductDetail(product);
-            }
-        });
-
-        if(!isLastPage)
-            adapter.addLoadingFooter();
-    }
-
-    @Override
     public void showProgressBar() {
 
         spinner.setVisibility(View.VISIBLE);
@@ -181,7 +192,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void showErrorMessage(String errorMessage) {
 
-        hideProgressBar();
         Toast.makeText(this.getContext(),errorMessage , Toast.LENGTH_SHORT).show();
     }
 }

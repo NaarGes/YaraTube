@@ -22,31 +22,48 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     private Repository repository;
     private UserRepository userRepository;
 
-    ProductDetailPresenter(ProductDetailContract.View view, Context context, AppDatabase database) {
+    ProductDetailPresenter(ProductDetailContract.View view, Context context) {
 
         this.view = view;
         repository = new Repository(context);
         userRepository = new UserRepository(context);
-        userRepository.setDatabase(database);
+        userRepository.setDatabase(AppDatabase.getAppDatabase(context));
     }
 
     @Override
-    public void onLoadComments(Product product) {
+    public void onLoadFirstComments(int productId, int offset) {
 
         view.showProgressBar();
-        repository.getComments(product, new ApiResult<List<Comment>>() {
+        repository.getComments(productId, offset, new ApiResult<List<Comment>>() {
             @Override
             public void onSuccess(List<Comment> comments) {
 
                 view.hideProgressBar();
-                Log.d(TAG, "onSuccess() called with: comments = [" + comments + "]");
-                view.showComments(comments);
+                view.showFirstComments(comments);
             }
 
             @Override
             public void onFail(String errorMessage) {
 
-                //view.hideProgressBar();
+                view.hideProgressBar();
+                view.showErrorMessage(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void onLoadNextComments(int productId, int offset) {
+
+        repository.getComments(productId, offset, new ApiResult<List<Comment>>() {
+            @Override
+            public void onSuccess(List<Comment> comments) {
+
+                view.showNextComments(comments);
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+
                 view.showErrorMessage(errorMessage);
             }
         });

@@ -38,6 +38,7 @@ public class ProductListPresenter implements ProductListContract.Presenter {
             @Override
             public void onFail(String errorMessage) {
 
+                view.hideProgressBar();
                 view.showErrorMessage(errorMessage);
             }
         });
@@ -45,6 +46,7 @@ public class ProductListPresenter implements ProductListContract.Presenter {
 
     @Override
     public void onLoadNextPage(int categoryId, int offset) {
+
         repository.getProductList(categoryId, offset, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> products) {
