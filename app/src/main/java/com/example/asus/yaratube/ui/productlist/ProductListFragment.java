@@ -44,7 +44,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     // If current page is the last page (Pagination will stop after this page load)
     private boolean isLastPage = false;
     // total no. of pages to load. Initial load is page 0, after which 2 more pages will load.
-    private int TOTAL_PAGES = 10;
     // indicates the current page which Pagination is fetching.
     private int currentPage = PAGE_START;
 
@@ -107,17 +106,9 @@ public class ProductListFragment extends Fragment implements ProductListContract
             protected void loadMoreItems() {
                 isLoading = true;
                 currentPage += 1; // increment page index to load the next one
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.onLoadNextPage(category.getId(), adapter.getItemCount());
-                    }
-                }, 1000);
-            }
-
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
+                if (!isLastPage()) {
+                    presenter.onLoadNextPage(category.getId(), adapter.getItemCount());
+                }
             }
 
             @Override
@@ -131,19 +122,15 @@ public class ProductListFragment extends Fragment implements ProductListContract
             }
         });
 
-        // mocking network delay for API call
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                presenter.onLoadFirstPage(category.getId(), adapter.getItemCount());
-            }
-        }, 1000);
+        presenter.onLoadFirstPage(category.getId(), adapter.getItemCount());
     }
 
     @Override
     public void loadNextPage(List<Product> products) {
 
         adapter.removeLoadingFooter();
+        if(products == null)
+            isLastPage = true;
         isLoading = false;
         adapter.addAll(products);
         adapter.setListener(new ProductListContract.onProductClickListener() {
@@ -153,10 +140,8 @@ public class ProductListFragment extends Fragment implements ProductListContract
             }
         });
 
-        if (currentPage != TOTAL_PAGES)
+        if (!isLastPage)
             adapter.addLoadingFooter();
-        else
-            isLastPage = true;
     }
 
     @Override
@@ -171,10 +156,8 @@ public class ProductListFragment extends Fragment implements ProductListContract
             }
         });
 
-        if(currentPage <= TOTAL_PAGES)
+        if(!isLastPage)
             adapter.addLoadingFooter();
-        else
-            isLastPage = true;
     }
 
     @Override
