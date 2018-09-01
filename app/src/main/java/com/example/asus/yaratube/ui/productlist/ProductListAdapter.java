@@ -110,7 +110,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public void remove(Product product) {
+    private void remove(Product product) {
         int position = products.indexOf(product);
         if(position > -1) {
             products.remove(position);
@@ -146,7 +146,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public Product getItem(int position) {
+    private Product getItem(int position) {
         return products.get(position);
     }
 
@@ -154,10 +154,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
    View Holders
    _________________________________________________________________________________________________
     */
-
-    /**
-     * Main list's content ViewHolder
-     */
 
     class ProductListViewHolder extends RecyclerView.ViewHolder {
 
