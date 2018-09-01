@@ -57,6 +57,7 @@ public class CommentFragment extends DialogFragment implements CommentContract.V
         Button submitComment = view.findViewById(R.id.comment_submit);
         final EditText comment = view.findViewById(R.id.comment_text);
         final RatingBar rate = view.findViewById(R.id.comment_score);
+        rate.setRating(2.5f);
 
         submitComment.setOnClickListener(new View.OnClickListener() {
             @Override
