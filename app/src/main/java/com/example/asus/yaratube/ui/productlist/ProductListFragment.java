@@ -90,6 +90,19 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
         RecyclerView recyclerView = view.findViewById(R.id.product_list_recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (adapter.getItemViewType(position)) {
+                    case 0:
+                        return 1;
+                    case 1:
+                        return 2;
+                    default:
+                        return -1;
+                }
+            }
+        });
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
