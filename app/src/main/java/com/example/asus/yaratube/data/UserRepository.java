@@ -63,7 +63,8 @@ public class UserRepository {
         return database.userDao().getPhoneNumber();
     }
 
-    public void sendPhoneNumber(final ApiResult<SmsResponse> callback, String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
+    public void sendPhoneNumber(String phoneNumber, String deviceId, String deviceModel, String deviceOs,
+                                final ApiResult<SmsResponse> callback) {
 
         Call<SmsResponse> call = service.activateStep1(phoneNumber, deviceId, deviceModel, deviceOs);
 
@@ -89,7 +90,8 @@ public class UserRepository {
         }
     }
 
-    public void sendVerificationCode(final ApiResult<Activation> callback, String phoneNumber, String deviceId, int verificationCode) {
+    public void sendVerificationCode(String phoneNumber, String deviceId, int verificationCode,
+                                     final ApiResult<Activation> callback) {
 
         Call<Activation> call = service.activateStep2(phoneNumber, deviceId, verificationCode);
 
@@ -113,7 +115,8 @@ public class UserRepository {
         }
     }
 
-    public void sendUsercomment(final ApiResult<CommentPostResponse> callback, int score, String commentText, int productId, String token) {
+    public void sendUsercomment(int score, String commentText, int productId, String token,
+                                final ApiResult<CommentPostResponse> callback) {
 
         Call<CommentPostResponse> call = service.sendComment("", score, commentText, productId, token);
 

@@ -27,12 +27,13 @@ public class LoginPhonePresenter implements LoginPhoneContract.Presenter {
     @Override
     public void onSendPhoneNumber(final String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
 
-        // save phone number
+        // save phone number and create
         UserEntity userEntity = new UserEntity();
         userEntity.setPhoneNumber(phoneNumber);
         database.userDao().insert(userEntity);
 
-        repository.sendPhoneNumber(new ApiResult<SmsResponse>() {
+        repository.sendPhoneNumber(phoneNumber, deviceId, deviceModel, deviceOs,
+                new ApiResult<SmsResponse>() {
             @Override
             public void onSuccess(SmsResponse response) {
 
@@ -45,7 +46,7 @@ public class LoginPhonePresenter implements LoginPhoneContract.Presenter {
 
                 view.showErrorMessage(errorMessage);
             }
-        }, phoneNumber, deviceId, deviceModel, deviceOs);
+        });
     }
 
     @Override

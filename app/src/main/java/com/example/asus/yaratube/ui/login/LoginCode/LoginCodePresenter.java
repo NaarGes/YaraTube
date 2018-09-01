@@ -25,7 +25,8 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
     @Override
     public void onSendVerificationCode(String phoneNumber, String deviceId, int verificationCode) {
 
-        repository.sendVerificationCode(new ApiResult<Activation>() {
+        repository.sendVerificationCode(phoneNumber, deviceId, verificationCode,
+                new ApiResult<Activation>() {
             @Override
             public void onSuccess(Activation result) {
 
@@ -42,7 +43,7 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
 
                 view.showErrorMessage(errorMessage);
             }
-        }, phoneNumber, deviceId, verificationCode);
+        });
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     public void onLoadComments(Product product) {
 
         view.showProgressBar();
-        repository.getComments(new ApiResult<List<Comment>>() {
+        repository.getComments(product, new ApiResult<List<Comment>>() {
             @Override
             public void onSuccess(List<Comment> comments) {
 
@@ -49,13 +49,13 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
                 //view.hideProgressBar();
                 view.showErrorMessage(errorMessage);
             }
-        }, product);
+        });
     }
 
     @Override
     public void onLoadProductDetail(int productId) {
 
-        repository.getProductDetail(new ApiResult<Product>() {
+        repository.getProductDetail(productId, new ApiResult<Product>() {
             @Override
             public void onSuccess(Product product) {
 
@@ -67,7 +67,7 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
                 view.showErrorMessage(errorMessage);
             }
-        }, productId);
+        });
     }
 
     @Override

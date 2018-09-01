@@ -82,7 +82,7 @@ public class Repository {
         }
     }
 
-    public void getProductList(final ApiResult<List<Product>> callback, Category category) {
+    public void getProductList(Category category, final ApiResult<List<Product>> callback) {
 
         Call<List<Product>> call = service.getProductList(category.getId());
 
@@ -111,7 +111,7 @@ public class Repository {
     }
 
 
-    public void getComments(final ApiResult<List<Comment>> callback, Product product) {
+    public void getComments(Product product, final ApiResult<List<Comment>> callback) {
 
         Call<List<Comment>> call = service.getComments(product.getId());
 
@@ -139,7 +139,7 @@ public class Repository {
         }
     }
 
-    public void getProductDetail(final ApiResult<Product> callback, int productId) {
+    public void getProductDetail(int productId, final ApiResult<Product> callback) {
 
         Call<Product> call = service.getProductDetail(productId);
 

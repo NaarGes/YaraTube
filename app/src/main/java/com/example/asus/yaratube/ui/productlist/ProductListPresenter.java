@@ -27,7 +27,7 @@ public class ProductListPresenter implements ProductListContract.Presenter {
 
         view.showProgressBar();
 
-        repository.getProductList(new ApiResult<List<Product>>() {
+        repository.getProductList(category, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> products) {
 
@@ -40,6 +40,6 @@ public class ProductListPresenter implements ProductListContract.Presenter {
 
                 view.showErrorMessage(errorMessage);
             }
-        }, category);
+        });
     }
 }

@@ -22,7 +22,8 @@ public class CommentPresenter implements CommentContract.Presenter {
     @Override
     public void sendCommentToServer(int score, String comment, int productId, String token) {
 
-        repository.sendUsercomment(new ApiResult<CommentPostResponse>() {
+        repository.sendUsercomment(score, comment, productId, token,
+                new ApiResult<CommentPostResponse>() {
             @Override
             public void onSuccess(CommentPostResponse result) {
 
@@ -35,7 +36,7 @@ public class CommentPresenter implements CommentContract.Presenter {
 
                 view.showMessage(errorMessage);
             }
-        }, score, comment, productId, token);
+        });
     }
 
     @Override
