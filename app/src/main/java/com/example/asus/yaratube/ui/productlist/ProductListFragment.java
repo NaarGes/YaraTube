@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
@@ -60,6 +62,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         category = Parcels.unwrap(getArguments().getParcelable(CAT));
         adapter = new ProductListAdapter();
         presenter = new ProductListPresenter(this, getContext());
+        getActivity().setTitle(category.getTitle());
     }
 
     @Override
@@ -67,6 +70,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         super.onDestroy();
         transferBetweenFragments = null;
         presenter = null;
+        getActivity().setTitle(R.string.app_name);
     }
 
     @Override

@@ -22,7 +22,6 @@ import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.developerinfo.AboutFragment;
 import com.example.asus.yaratube.ui.developerinfo.ContactFragment;
 import com.example.asus.yaratube.ui.home.BottomHolderFragment;
-import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 import com.example.asus.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.asus.yaratube.ui.productlist.ProductListFragment;
 import com.example.asus.yaratube.ui.profile.ProfileFragment;
@@ -34,9 +33,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private DrawerLayout drawerLayout;
-    private AppDatabase database;
     private UserRepository userRepository;
-    private LoginDialogFragment loginDialogFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -51,11 +48,9 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         setDrawer();
         setBottomNavigationFragment();
 
-        database = AppDatabase.getAppDatabase(this);
+        AppDatabase database = AppDatabase.getAppDatabase(this);
         userRepository = new UserRepository(this);
         userRepository.setDatabase(database);
-
-        loginDialogFragment = LoginDialogFragment.newInstance();
     }
 
     public void setDrawer() {

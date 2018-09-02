@@ -81,7 +81,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         super.onDestroy();
         ((DrawerLocker) getActivity()).setDrawerEnabled(true);
 
-        adapter = null;
         presenter = null;
     }
 

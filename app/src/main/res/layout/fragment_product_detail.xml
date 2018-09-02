@@ -5,27 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-<!--
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_height="192dp"
-        android:layout_width="match_parent">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:toolbarId="@+id/toolbar"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-            app:contentScrim="?attr/colorPrimary">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent"/>
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-    </android.support.design.widget.AppBarLayout>
--->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,6 +49,8 @@
                             android:layout_margin="@dimen/padding_8dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/font_size_18sp"
+                            android:layout_toStartOf="@+id/video_play_button"
+                            android:layout_alignParentStart="true"
                             />
 
                         <Button
