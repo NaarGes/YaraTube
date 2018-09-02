@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
@@ -22,11 +22,11 @@ import com.example.asus.yaratube.ui.login.LoginCode.LoginCodeFragment;
 import com.example.asus.yaratube.ui.login.LoginMethod.LoginMethodFragment;
 import com.example.asus.yaratube.ui.login.LoginPhone.LoginPhoneFragment;
 
-public class LoginDialogFragment extends DialogFragment implements LoginDialogContract.steps {
+public class LoginDialogFragment extends DialogFragment implements LoginDialogContract.steps, LoginDialogContract.View {
 
     private SharedPreferences.Editor editor;
 
-    private AppDatabase database;
+    private LoginDialogPresenter presenter;
 
     public static LoginDialogFragment newInstance() {
 
@@ -40,36 +40,49 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database = AppDatabase.getAppDatabase(getActivity());
+        presenter = new LoginDialogPresenter(this, getContext());
     }
 
     @SuppressLint("CommitPrefEdits")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View result =  inflater.inflate(R.layout.fragment_login_dialog, container, false);
-        addButtonToDialogTitle(getDialog());
-        //getDialog().setCancelable(false);
+
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         int loginStep = sharedPreferences.getInt("Login Step", 1);
         if(loginStep == 2)
             goToLoginPhone();
         else if(loginStep == 3)
-            goToLoginCode(database.userDao().getPhoneNumber());
+            goToLoginCode(presenter.phoneNumber());
         else
             goToLoginMethod();
         return result;
     }
 
-/*    @NonNull
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button close = view.findViewById(R.id.close_butt);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDialog().dismiss();
+            }
+        });
+    }
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return dialog;
-    }*/
+    }
 
     public void goToLoginMethod() {
 
@@ -97,31 +110,5 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
         LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance();
         loginCodeFragment.setListener(this);
         getChildFragmentManager().beginTransaction().replace(R.id.login_container, loginCodeFragment).commit();
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    public static void addButtonToDialogTitle(final Dialog mdialog) {
-
-
-        final TextView title = mdialog.findViewById(android.R.id.title);
-
-        Log.e("xxxxxx", "addButtonToDialogTitle: "+title );
-        title.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.ic_delete, 0);
-
-        title.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= title.getRight() - title.getTotalPaddingRight()) {
-                        mdialog.cancel();
-
-                        return true;
-                    }
-                }
-                return true;
-            }
-        });
-
-
     }
 }

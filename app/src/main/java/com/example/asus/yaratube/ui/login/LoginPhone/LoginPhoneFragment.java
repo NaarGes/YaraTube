@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
 import com.example.asus.yaratube.util.Util;
 
@@ -56,8 +55,7 @@ public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.V
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final AppDatabase database = AppDatabase.getAppDatabase(getActivity());
-        presenter = new LoginPhonePresenter(this, getContext(), database);
+        presenter = new LoginPhonePresenter(this, getContext());
     }
 
     @Nullable
@@ -83,25 +81,15 @@ public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.V
             @Override
             public void onClick(View view) {
 
+                presenter.savePhoneNumber(phoneNumber.getText().toString());
                 presenter.onSendPhoneNumber(Util.faToEn(phoneNumber.getText().toString()), deviceId, deviceModel, deviceOs);
             }
         });
     }
 
     @Override
-    public void showProgressBar() {
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-
-    }
-
-    @Override
     public void showErrorMessage(String errorMessage) {
 
-        hideProgressBar();
         Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 

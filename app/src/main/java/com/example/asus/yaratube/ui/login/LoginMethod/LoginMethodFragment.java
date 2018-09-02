@@ -1,6 +1,5 @@
 package com.example.asus.yaratube.ui.login.LoginMethod;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +12,7 @@ import android.widget.Button;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
 
-public class LoginMethodFragment extends Fragment implements LoginMethodContract.View {
+public class LoginMethodFragment extends Fragment  {
 
     private LoginDialogContract.steps listener;
 
@@ -31,16 +30,6 @@ public class LoginMethodFragment extends Fragment implements LoginMethodContract
         LoginMethodFragment fragment = new LoginMethodFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override

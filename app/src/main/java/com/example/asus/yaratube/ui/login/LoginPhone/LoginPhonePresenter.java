@@ -1,6 +1,7 @@
 package com.example.asus.yaratube.ui.login.LoginPhone;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
@@ -13,31 +14,24 @@ public class LoginPhonePresenter implements LoginPhoneContract.Presenter {
 
     private LoginPhoneContract.View view;
     private UserRepository repository;
-    private Context context;
     private AppDatabase database;
 
-    LoginPhonePresenter(LoginPhoneContract.View view, Context context, AppDatabase database) {
+    LoginPhonePresenter(LoginPhoneContract.View view, Context context) {
 
         this.view = view;
-        this.context = context;
-        this.database = database;
+        this.database = AppDatabase.getAppDatabase(context);
         repository = new UserRepository(context);
+        repository.setDatabase(database);
     }
 
     @Override
     public void onSendPhoneNumber(final String phoneNumber, String deviceId, String deviceModel, String deviceOs) {
-
-        // save phone number and create
-        UserEntity userEntity = new UserEntity();
-        userEntity.setPhoneNumber(phoneNumber);
-        database.userDao().insert(userEntity);
 
         repository.sendPhoneNumber(phoneNumber, deviceId, deviceModel, deviceOs,
                 new ApiResult<SmsResponse>() {
             @Override
             public void onSuccess(SmsResponse response) {
 
-                // TODO show progressbar and "please wait for SMS
                 view.smsReceived(phoneNumber);
             }
 
@@ -51,8 +45,15 @@ public class LoginPhonePresenter implements LoginPhoneContract.Presenter {
 
     @Override
     public void savePhoneNumber(String phoneNumber) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setPhoneNumber(phoneNumber);
-        database.userDao().insert(userEntity);
+
+        Log.e("user in db", ""+database.userDao().getUser());
+
+        if(database.userDao().getUser() == null) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setPhoneNumber(phoneNumber);
+            database.userDao().insert(userEntity);
+        } else {
+            Log.e("phone number in db", ""+database.userDao().getUser().getPhoneNumber());
+        }
     }
 }

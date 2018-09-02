@@ -1,11 +1,10 @@
 package com.example.asus.yaratube.ui.login.LoginPhone;
 
-import com.example.asus.yaratube.ui.base.BaseView;
-
 public interface LoginPhoneContract {
 
-    interface View extends BaseView {
+    interface View {
 
+        void showErrorMessage(String errorMessage);
         void smsReceived(String phoneNumber);
     }
 

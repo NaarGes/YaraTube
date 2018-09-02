@@ -16,13 +16,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
 import com.example.asus.yaratube.util.Util;
 
 public class LoginCodeFragment extends Fragment implements LoginCodeContract.View {
 
-    private String phoneNumber;
     private LoginCodeContract.Presenter presenter;
     private LoginDialogContract.steps listener;
 
@@ -37,7 +35,6 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     public static LoginCodeFragment newInstance() {
 
         Bundle args = new Bundle();
-
         LoginCodeFragment fragment = new LoginCodeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -46,9 +43,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final AppDatabase database = AppDatabase.getAppDatabase(getActivity());
-        presenter = new LoginCodePresenter(this, getContext(), database);
-        phoneNumber = presenter.phoneNumber();
+        presenter = new LoginCodePresenter(this, getContext());
     }
 
     @Nullable
@@ -75,7 +70,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
 
                 if(Util.validateActivationCode(verificationCode.getText().toString())) {
                     // fixme send user instead of fields
-                    presenter.onSendVerificationCode(phoneNumber, deviceId,
+                    presenter.onSendVerificationCode(presenter.phoneNumber(), deviceId,
                             Integer.parseInt(Util.faToEn(verificationCode.getText().toString())));
                     Util.hideKeyboardFrom(view.getContext(), view);
                 }
@@ -91,7 +86,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
                 SharedPreferences sharedPreferences = (getActivity()).getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
-                editor.putInt("Login Step", 2);
+                editor.putInt("Login Step", 1);
                 editor.commit();
             }
         });
@@ -110,19 +105,8 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     }
 
     @Override
-    public void showProgressBar() {
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-
-    }
-
-    @Override
     public void showErrorMessage(String errorMessage) {
 
-        hideProgressBar();
         Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

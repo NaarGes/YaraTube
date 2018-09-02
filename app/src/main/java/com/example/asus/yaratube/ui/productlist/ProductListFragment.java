@@ -66,7 +66,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onDestroy() {
         super.onDestroy();
         transferBetweenFragments = null;
-        adapter = null;
         presenter = null;
     }
 

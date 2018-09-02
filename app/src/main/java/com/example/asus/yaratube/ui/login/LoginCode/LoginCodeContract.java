@@ -1,13 +1,12 @@
 package com.example.asus.yaratube.ui.login.LoginCode;
 
-import com.example.asus.yaratube.ui.base.BaseView;
-
 public interface LoginCodeContract {
 
-    interface View extends BaseView {
+    interface View {
 
         void activationDone();
         void dismissDialog();
+        void showErrorMessage(String errorMessage);
     }
 
     interface Presenter {

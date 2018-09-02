@@ -11,15 +11,13 @@ import com.example.asus.yaratube.data.remote.ApiResult;
 public class LoginCodePresenter implements LoginCodeContract.Presenter {
 
     private LoginCodeContract.View view;
-    private Context context;
     private UserRepository repository;
 
-    LoginCodePresenter(LoginCodeContract.View view, Context context, AppDatabase database) {
+    LoginCodePresenter(LoginCodeContract.View view, Context context) {
 
         this.view = view;
-        this.context = context;
         repository = new UserRepository(context);
-        repository.setDatabase(database);
+        repository.setDatabase(AppDatabase.getAppDatabase(context));
     }
 
     @Override
