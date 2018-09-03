@@ -1,6 +1,7 @@
 package com.example.asus.yaratube.ui.productlist;
 
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,11 +104,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyItemInserted(products.size() - 1);
     }
 
-    public void addAll(List<Product> products) {
-        int length = products.size();
-        for (int i=0; i<length; i++) {
-            add(products.get(i));
-        }
+    public void updateList(List<Product> productList) {
+        this.products.addAll(productList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(this.products, products));
+        diffResult.dispatchUpdatesTo(this);
     }
 
     private void remove(Product product) {
@@ -171,8 +171,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         void onBind(final Product product) {
 
-            if(product.getAvatar() != null) {
-                Glide.with(itemView.getContext()).load(product.getAvatarUrl()).into(productImage);
+            if(product.getFeatureAvatar() != null) {
+                Glide.with(itemView.getContext()).load(product.getFeatureAvatarUrl()).into(productImage);
             }
 
             productName.setText(product.getName());

@@ -166,7 +166,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         if(products.size() == 0)
             isLastPage = true;
         isLoading = false;
-        adapter.addAll(products);
+        adapter.updateList(products);
         adapter.setListener(new ProductListContract.onProductClickListener() {
             @Override
             public void onProductClick(Product product) {

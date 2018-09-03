@@ -1,6 +1,5 @@
 package com.example.asus.yaratube.ui.login.LoginPhone;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -40,16 +39,6 @@ public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.V
         LoginPhoneFragment fragment = new LoginPhoneFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override
