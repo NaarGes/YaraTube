@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -105,9 +106,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void updateList(List<Product> productList) {
+
+        int size = products.size();
+        products.addAll(productList);
+        notifyItemRangeInserted(size, productList.size());
+
+        // use Diffutil instead of notify
+        /*List<Product> temp = new ArrayList<>(this.products);
         this.products.addAll(productList);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(this.products, products));
-        diffResult.dispatchUpdatesTo(this);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(products, temp));
+        diffResult.dispatchUpdatesTo(this);*/
     }
 
     private void remove(Product product) {
