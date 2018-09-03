@@ -10,7 +10,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,7 @@ import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.base.DrawerLocker;
 import com.example.asus.yaratube.ui.productdetail.comment.CommentFragment;
-import com.example.asus.yaratube.util.pagination.GridPaginationScrollListener;
-import com.example.asus.yaratube.util.pagination.LinearPaginationScrollListener;
+import com.example.asus.yaratube.util.PaginationScrollListener;
 
 import org.parceler.Parcels;
 
@@ -134,7 +132,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                 DividerItemDecoration.VERTICAL);
         commentList.addItemDecoration(itemDecoration);
         ViewCompat.setNestedScrollingEnabled(commentList, false);
-        commentList.addOnScrollListener((new LinearPaginationScrollListener(layoutManager) {
+        commentList.addOnScrollListener((new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
                 if (!isLastPage) {

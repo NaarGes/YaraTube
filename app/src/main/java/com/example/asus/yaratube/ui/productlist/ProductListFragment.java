@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.base.TransferBetweenFragments;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
-import com.example.asus.yaratube.util.pagination.GridPaginationScrollListener;
+import com.example.asus.yaratube.util.PaginationScrollListener;
 
 import org.parceler.Parcels;
 
@@ -119,7 +117,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new GridPaginationScrollListener(layoutManager) {
+        recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
                 if (!isLastPage) {

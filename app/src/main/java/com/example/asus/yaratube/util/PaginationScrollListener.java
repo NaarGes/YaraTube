@@ -1,13 +1,13 @@
-package com.example.asus.yaratube.util.pagination;
+package com.example.asus.yaratube.util;
 
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public abstract class GridPaginationScrollListener extends RecyclerView.OnScrollListener {
+public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
-    private GridLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
 
-    public GridPaginationScrollListener(GridLayoutManager layoutManager) {
+    protected PaginationScrollListener(LinearLayoutManager layoutManager) {
         this.layoutManager = layoutManager;
     }
 
