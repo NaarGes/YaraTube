@@ -31,39 +31,17 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     }
 
     @Override
-    public void onLoadFirstComments(int productId, int offset) {
-
+    public void onLoadComments(Product product) {
         view.showProgressBar();
-        repository.getComments(productId, offset, new ApiResult<List<Comment>>() {
+        repository.getComments(product.getId(), new ApiResult<List<Comment>>() {
             @Override
             public void onSuccess(List<Comment> comments) {
-
                 view.hideProgressBar();
-                view.showFirstComments(comments);
+                view.showComments(comments);
             }
 
             @Override
             public void onFail(String errorMessage) {
-
-                view.hideProgressBar();
-                view.showErrorMessage(errorMessage);
-            }
-        });
-    }
-
-    @Override
-    public void onLoadNextComments(int productId, int offset) {
-
-        repository.getComments(productId, offset, new ApiResult<List<Comment>>() {
-            @Override
-            public void onSuccess(List<Comment> comments) {
-
-                view.showNextComments(comments);
-            }
-
-            @Override
-            public void onFail(String errorMessage) {
-
                 view.showErrorMessage(errorMessage);
             }
         });

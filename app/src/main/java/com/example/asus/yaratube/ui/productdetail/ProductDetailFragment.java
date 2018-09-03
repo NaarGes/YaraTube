@@ -34,19 +34,14 @@ import java.util.List;
 
 public class ProductDetailFragment extends Fragment implements ProductDetailContract.View {
 
-
     private Product product;
     private CommentAdapter adapter;
     private ProgressBar spinner;
     private TextView videoDesc;
+    private RecyclerView commentList;
     private final static String PRODUCT = "product";
-
     private ProductDetailContract.Presenter presenter;
 
-    // Indicates if footer ProgressBar is shown (i.e. next page is loading)
-    private boolean isLoading = false;
-    // If current page is the last page (Pagination will stop after this page load)
-    private boolean isLastPage = false;
 
     public ProductDetailFragment() {
 
@@ -93,8 +88,10 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         super.onViewCreated(view, savedInstanceState);
 
         spinner = view.findViewById(R.id.comment_progress_bar);
+        commentList = view.findViewById(R.id.comments);
         setData(view);
         setRecyclerView(view);
+        presenter.onLoadComments(product);
 
         Button comment = view.findViewById(R.id.comment_butt);
         comment.setOnClickListener(new View.OnClickListener() {
@@ -132,50 +129,12 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                 DividerItemDecoration.VERTICAL);
         commentList.addItemDecoration(itemDecoration);
         ViewCompat.setNestedScrollingEnabled(commentList, false);
-        commentList.addOnScrollListener((new PaginationScrollListener(layoutManager) {
-            @Override
-            protected void loadMoreItems() {
-                if (!isLastPage) {
-                    isLoading = true;
-                    presenter.onLoadNextComments(product.getId(), adapter.getItemCount() - 1);
-                }
-                else
-                    adapter.removeLoadingFooter();
-            }
-
-            @Override
-            public boolean isLastPage() {
-                return isLastPage;
-            }
-
-            @Override
-            public boolean isLoading() {
-                return isLoading;
-            }
-        }));
-
-        presenter.onLoadFirstComments(product.getId(), adapter.getItemCount());
     }
 
     @Override
-    public void showFirstComments(List<Comment> comments) {
-
+    public void showComments(List<Comment> comments) {
         adapter.setComments(comments);
-        adapter.notifyDataSetChanged();
-        if(!isLastPage)
-            adapter.addLoadingFooter();
-    }
-
-    @Override
-    public void showNextComments(List<Comment> comments) {
-
-        adapter.removeLoadingFooter();
-        if(comments.size() == 0)
-            isLastPage = true;
-        isLoading = false;
-        adapter.addAll(comments);
-        if(!isLastPage)
-            adapter.addLoadingFooter();
+        commentList.setAdapter(adapter);
     }
 
     @Override

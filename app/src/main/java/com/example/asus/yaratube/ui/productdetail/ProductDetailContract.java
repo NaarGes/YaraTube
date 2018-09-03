@@ -12,16 +12,14 @@ public interface ProductDetailContract {
 
     interface View extends BaseView {
 
-        void showFirstComments(List<Comment> comments);
-        void showNextComments(List<Comment> comments);
+        void showComments(List<Comment> comments);
         void setProductDetails(Product product);
         void openCommentDialog(int productId);
     }
 
     interface Presenter {
 
-        void onLoadFirstComments(int productId, int offset);
-        void onLoadNextComments(int productId, int offset);
+        void onLoadComments(Product product);
         void onLoadProductDetail(int productId);
         boolean isLogin();
         void login(FragmentManager fragmentManager);

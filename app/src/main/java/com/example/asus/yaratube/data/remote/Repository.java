@@ -111,9 +111,9 @@ public class Repository {
     }
 
 
-    public void getComments(int productId, int offset, final ApiResult<List<Comment>> callback) {
+    public void getComments(int productId, final ApiResult<List<Comment>> callback) {
 
-        Call<List<Comment>> call = service.getComments(productId, 5, offset);
+        Call<List<Comment>> call = service.getComments(productId);
 
         if(Util.isNetworkAvailable(context)) {
             call.enqueue(new Callback<List<Comment>>() {

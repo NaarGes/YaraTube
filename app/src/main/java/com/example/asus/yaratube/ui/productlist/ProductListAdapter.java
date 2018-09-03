@@ -1,7 +1,6 @@
 package com.example.asus.yaratube.ui.productlist;
 
 import android.support.annotation.NonNull;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
