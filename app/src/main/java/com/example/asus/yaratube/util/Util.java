@@ -2,9 +2,12 @@ package com.example.asus.yaratube.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.example.asus.yaratube.ui.base.MainActivity;
 
 
 public class Util {
@@ -42,5 +45,20 @@ public class Util {
     public static boolean validateActivationCode(String activationCode) {
 
         return activationCode.length() == 5;
+    }
+
+    public static void setLoginStep(MainActivity activity, int step) {
+
+        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putInt("Login Step", step);
+        editor.apply();
+    }
+
+    public static int getLoginStep(MainActivity activity) {
+        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        return sharedPreferences.getInt("Login Step", 1);
     }
 }

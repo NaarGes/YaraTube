@@ -67,6 +67,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
         presenter = new ProductDetailPresenter(this, getContext());
         adapter = new CommentAdapter();
+        getActivity().setTitle(product.getName());
     }
 
     @Override
@@ -75,6 +76,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         ((DrawerLocker) getActivity()).setDrawerEnabled(true);
 
         presenter = null;
+        getActivity().setTitle(R.string.app_name);
+
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.asus.yaratube.ui.login.LoginCode;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
+import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
 import com.example.asus.yaratube.util.Util;
 
@@ -83,11 +83,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             @Override
             public void onClick(View view) {
                 listener.goToLoginPhone();
-                SharedPreferences sharedPreferences = (getActivity()).getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.putInt("Login Step", 1);
-                editor.commit();
+                Util.setLoginStep((MainActivity) getActivity(), 1);
             }
         });
     }

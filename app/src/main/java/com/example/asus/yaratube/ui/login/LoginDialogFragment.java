@@ -18,9 +18,11 @@ import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
+import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.login.LoginCode.LoginCodeFragment;
 import com.example.asus.yaratube.ui.login.LoginMethod.LoginMethodFragment;
 import com.example.asus.yaratube.ui.login.LoginPhone.LoginPhoneFragment;
+import com.example.asus.yaratube.util.Util;
 
 public class LoginDialogFragment extends DialogFragment implements LoginDialogContract.steps, LoginDialogContract.View {
 
@@ -52,7 +54,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
 
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        int loginStep = sharedPreferences.getInt("Login Step", 1);
+        int loginStep = Util.getLoginStep((MainActivity) getActivity());
         if(loginStep == 2)
             goToLoginPhone();
         else if(loginStep == 3)
@@ -104,9 +106,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
     @Override
     public void goToLoginCode(String phoneNumber) {
 
-        editor.clear();
-        editor.putInt("Login Step", 3);
-        editor.commit();
+        Util.setLoginStep((MainActivity) getActivity(), 3);
         LoginCodeFragment loginCodeFragment = LoginCodeFragment.newInstance();
         loginCodeFragment.setListener(this);
         getChildFragmentManager().beginTransaction().replace(R.id.login_container, loginCodeFragment).commit();
