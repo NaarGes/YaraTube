@@ -117,7 +117,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             adapter.setListener(new DashboardContract.onHomeItemClickListener() {
                 @Override
                 public void onProductClick(Product product) {
-                    transferBetweenFragments.goToProductDetail(product);
+                    transferBetweenFragments.goToProductDetail(product, "");
                 }
             });
             homeRecyclerView.setAdapter(adapter);

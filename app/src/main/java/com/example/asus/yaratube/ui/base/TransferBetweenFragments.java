@@ -7,5 +7,5 @@ public interface TransferBetweenFragments {
 
     void goFromCategoryToProductList(Category category);
 
-    void goToProductDetail(Product product);
+    void goToProductDetail(Product product, String categoryName);
 }

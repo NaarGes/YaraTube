@@ -27,7 +27,6 @@ import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.base.DrawerLocker;
 import com.example.asus.yaratube.ui.player.PlayerActivity;
 import com.example.asus.yaratube.ui.productdetail.comment.CommentFragment;
-import com.example.asus.yaratube.util.PaginationScrollListener;
 
 import org.parceler.Parcels;
 
@@ -43,8 +42,9 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     private TextView videoDesc;
     private RecyclerView commentList;
     private final static String PRODUCT = "product";
+    private final static String CATEGORY_TITLE = "category title";
     private ProductDetailContract.Presenter presenter;
-
+    private String categoryTitle;
 
     public ProductDetailFragment() {
 
@@ -54,10 +54,11 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         this.product = product;
     }
 
-    public static ProductDetailFragment newInstance(Product product) {
+    public static ProductDetailFragment newInstance(Product product, String categoryTitle) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(PRODUCT, Parcels.wrap(product));
+        args.putString(CATEGORY_TITLE, categoryTitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,6 +67,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.product = Parcels.unwrap(getArguments().getParcelable(PRODUCT));
+        this.categoryTitle = getArguments().getString(CATEGORY_TITLE);
         ((DrawerLocker) getActivity()).setDrawerEnabled(false);
 
         presenter = new ProductDetailPresenter(this, getContext());
@@ -79,8 +81,11 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         ((DrawerLocker) getActivity()).setDrawerEnabled(true);
 
         presenter = null;
-        getActivity().setTitle(R.string.app_name);
 
+        if(categoryTitle.equals(""))
+            getActivity().setTitle(R.string.app_name);
+        else
+            getActivity().setTitle(categoryTitle);
     }
 
     @Override

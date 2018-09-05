@@ -84,7 +84,7 @@ public class HeaderFragment extends Fragment {
         imageHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferBetweenFragments.goToProductDetail(headeritem);
+                transferBetweenFragments.goToProductDetail(headeritem, "");
             }
         });
     }

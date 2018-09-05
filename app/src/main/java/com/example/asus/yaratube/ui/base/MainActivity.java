@@ -158,9 +158,9 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     }
 
     @Override
-    public void goToProductDetail(Product product) {
+    public void goToProductDetail(Product product, String categoryName) {
 
-        ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product);
+        ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product, categoryName);
         getSupportFragmentManager().beginTransaction().addToBackStack(productDetailFragment.getClass().getName())
                 .add(R.id.main_container, productDetailFragment).commit();
     }
