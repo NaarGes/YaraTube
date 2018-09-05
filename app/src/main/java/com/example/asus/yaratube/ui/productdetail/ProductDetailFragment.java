@@ -2,6 +2,7 @@ package com.example.asus.yaratube.ui.productdetail;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.ui.base.DrawerLocker;
+import com.example.asus.yaratube.ui.player.PlayerActivity;
 import com.example.asus.yaratube.ui.productdetail.comment.CommentFragment;
 import com.example.asus.yaratube.util.PaginationScrollListener;
 
@@ -35,6 +37,7 @@ import java.util.List;
 public class ProductDetailFragment extends Fragment implements ProductDetailContract.View {
 
     private Product product;
+    private Product productDetail;
     private CommentAdapter adapter;
     private ProgressBar spinner;
     private TextView videoDesc;
@@ -95,6 +98,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         setData(view);
         setRecyclerView(view);
         presenter.onLoadComments(product);
+        presenter.onLoadProductDetail(product.getId());
 
         Button comment = view.findViewById(R.id.comment_butt);
         comment.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +112,24 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                 }
             }
         });
+
+        Button play = view.findViewById(R.id.video_play_button);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(presenter.isLogin()) {
+                    playVideo();
+                }
+                else {
+                    showErrorMessage("برای مشاهده ویدیو ابتدا باید وارد شوید");
+                    presenter.login(getChildFragmentManager());
+                }
+            }
+        });
     }
 
-    void setData(View view) {
+    private void setData(View view) {
 
         ImageView videoPreview = view.findViewById(R.id.video_preview);
         TextView videoTitle = view.findViewById(R.id.video_title);
@@ -122,7 +141,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         videoTitle.setText(product.getName());
     }
 
-    void setRecyclerView(View view) {
+    private void setRecyclerView(View view) {
 
         RecyclerView commentList = view.findViewById(R.id.comments);
         commentList.setAdapter(adapter);
@@ -134,8 +153,17 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         ViewCompat.setNestedScrollingEnabled(commentList, false);
     }
 
+    private void playVideo() {
+
+        PlayerActivity playerActivity = new PlayerActivity();
+        Intent i = new Intent(getContext(), playerActivity.getClass());
+        i.putExtra("file", productDetail.getFiles().get(0).getFile());
+        startActivity(i);
+    }
+
     @Override
     public void showComments(List<Comment> comments) {
+
         adapter.setComments(comments);
         commentList.setAdapter(adapter);
     }
@@ -143,7 +171,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     @Override
     public void setProductDetails(Product product) {
 
-        videoDesc.setText(product.getDescription());
+        productDetail = product;
+        videoDesc.setText(productDetail.getDescription());
     }
 
     @Override

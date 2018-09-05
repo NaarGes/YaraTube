@@ -26,8 +26,6 @@ import com.example.asus.yaratube.util.Util;
 
 public class LoginDialogFragment extends DialogFragment implements LoginDialogContract.steps, LoginDialogContract.View {
 
-    private SharedPreferences.Editor editor;
-
     private LoginDialogPresenter presenter;
 
     public static LoginDialogFragment newInstance() {
@@ -52,8 +50,6 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
 
         View result =  inflater.inflate(R.layout.fragment_login_dialog, container, false);
 
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         int loginStep = Util.getLoginStep((MainActivity) getActivity());
         if(loginStep == 2)
             goToLoginPhone();

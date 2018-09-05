@@ -42,7 +42,7 @@ public interface ApiService {
     Call<List<Comment>> getComments(@Path("productId") int productId);
 
     // get product detail
-    @GET("product/{productId}")
+    @GET("product/{productId}?device_os=ios")
     Call<Product> getProductDetail(@Path("productId") int productId);
 
     // send phone number and get response

@@ -21,6 +21,7 @@ android {
 
 repositories {
     mavenCentral()
+    jcenter()
     google()
 }
 
@@ -50,4 +51,7 @@ dependencies {
     // room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+
+    // exo player
+    implementation "com.google.android.exoplayer:exoplayer:2.8.4"
 }

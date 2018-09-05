@@ -76,6 +76,4 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
         userRepository.login(fragmentManager);
 
     }
-
-
 }
