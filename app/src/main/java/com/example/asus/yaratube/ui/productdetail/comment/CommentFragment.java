@@ -63,11 +63,17 @@ public class CommentFragment extends DialogFragment implements CommentContract.V
             @Override
             public void onClick(View view) {
 
-                presenter.sendCommentToServer(rate.getNumStars(), comment.getText().toString(), productId, "token " + presenter.getToken());
+                if(!comment.getText().toString().equals("")) {
+                    presenter.sendCommentToServer(rate.getNumStars(), comment.getText().toString(),
+                            productId, "token " + presenter.getToken());
+                } else {
+                    Toast.makeText(getContext(), "لطفا متن نظر را وارد کنید", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

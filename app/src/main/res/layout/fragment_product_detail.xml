@@ -133,6 +133,7 @@
                             android:background="@drawable/filled_button"
                             android:elevation="3dp"
                             android:text="@string/comment"
+                            android:textColor="@color/white"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
