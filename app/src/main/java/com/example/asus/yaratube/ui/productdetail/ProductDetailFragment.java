@@ -104,6 +104,16 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         setRecyclerView(view);
         presenter.onLoadComments(product);
         presenter.onLoadProductDetail(product.getId());
+    }
+
+    private void setData(View view) {
+
+        ImageView videoPreview = view.findViewById(R.id.video_preview);
+        TextView videoTitle = view.findViewById(R.id.video_title);
+        videoDesc = view.findViewById(R.id.video_desc);
+        Context context = view.getContext();
+        Glide.with(context).load(product.getFeatureAvatarUrl()).into(videoPreview);
+        videoTitle.setText(product.getName());
 
         Button comment = view.findViewById(R.id.comment_butt);
         comment.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +123,20 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                     openCommentDialog(product.getId());
                 else {
                     showErrorMessage("برای ثبت نظر ابتدا باید وارد شوید");
+                    presenter.login(getChildFragmentManager());
+                }
+            }
+        });
+
+        videoPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(presenter.isLogin()) {
+                    playVideo();
+                }
+                else {
+                    showErrorMessage("برای مشاهده ویدیو ابتدا باید وارد شوید");
                     presenter.login(getChildFragmentManager());
                 }
             }
@@ -132,18 +156,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                 }
             }
         });
-    }
-
-    private void setData(View view) {
-
-        ImageView videoPreview = view.findViewById(R.id.video_preview);
-        TextView videoTitle = view.findViewById(R.id.video_title);
-        videoDesc = view.findViewById(R.id.video_desc);
-        Context context = view.getContext();
-
-        Glide.with(context).load(product.getFeatureAvatarUrl()).into(videoPreview);
-
-        videoTitle.setText(product.getName());
     }
 
     private void setRecyclerView(View view) {
