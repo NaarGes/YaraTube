@@ -14,4 +14,8 @@ public interface LoginCodeContract {
         void onSendVerificationCode(String phoneNumber, String deviceId, int verificationCode);
         String phoneNumber();
     }
+
+    interface OTPListener {
+        void onOTPReceived(String otp);
+    }
 }

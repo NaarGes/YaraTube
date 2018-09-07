@@ -1,10 +1,12 @@
 package com.example.asus.yaratube.ui.login.LoginCode;
 
 
+import android.Manifest;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
 
     private LoginCodeContract.Presenter presenter;
     private LoginDialogContract.steps listener;
+    final int REQUEST_CODE_READ_SMS = 100;
 
     public LoginCodeFragment() {
 
@@ -44,6 +47,13 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new LoginCodePresenter(this, getContext());
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECEIVE_SMS}, REQUEST_CODE_READ_SMS);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SMSReceiver.unbindListener();
     }
 
     @Nullable
@@ -63,6 +73,13 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
         final EditText verificationCode = view.findViewById(R.id.activation_code);
 
         final String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        SMSReceiver.bindListener(new LoginCodeContract.OTPListener() {
+            @Override
+            public void onOTPReceived(String otp) {
+                verificationCode.setText(otp);
+            }
+        });
 
         submitCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override

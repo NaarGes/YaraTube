@@ -15,6 +15,7 @@ public class Util {
     public static final String BASE_URL = "https://api.vasapi.click/";
     public static final String STORE_ID = "16";
     public static final String INTERNET_ERROR_MESSAGE = "لطفا اتصال به اینترنت را مجددا بررسی کنید.";
+    public static final String OTP_SENDER_NUMBER = "+98200049103";
 
     public static boolean isNetworkAvailable(Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));

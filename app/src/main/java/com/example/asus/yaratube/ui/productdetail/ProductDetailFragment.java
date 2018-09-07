@@ -80,8 +80,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         super.onDestroy();
         ((DrawerLocker) getActivity()).setDrawerEnabled(true);
 
-        presenter = null;
-
         if(categoryTitle.equals(""))
             getActivity().setTitle(R.string.app_name);
         else
@@ -172,10 +170,13 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
     private void playVideo() {
 
-        PlayerActivity playerActivity = new PlayerActivity();
-        Intent i = new Intent(getContext(), playerActivity.getClass());
-        i.putExtra("file", productDetail.getFiles().get(0).getFile());
-        startActivity(i);
+        // FIXME wait till product detail is catch
+        if(productDetail != null) {
+            PlayerActivity playerActivity = new PlayerActivity();
+            Intent i = new Intent(getContext(), playerActivity.getClass());
+            i.putExtra("file", productDetail.getFiles().get(0).getFile());
+            startActivity(i);
+        }
     }
 
     @Override

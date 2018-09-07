@@ -2,22 +2,17 @@ package com.example.asus.yaratube.ui.login;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.ui.login.LoginCode.LoginCodeFragment;
 import com.example.asus.yaratube.ui.login.LoginMethod.LoginMethodFragment;
