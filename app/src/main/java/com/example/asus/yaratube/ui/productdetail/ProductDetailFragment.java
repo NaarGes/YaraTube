@@ -114,31 +114,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         videoTitle.setText(product.getName());
 
         Button comment = view.findViewById(R.id.comment_butt);
-        comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(presenter.isLogin())
-                    openCommentDialog(product.getId());
-                else {
-                    showErrorMessage("برای ثبت نظر ابتدا باید وارد شوید");
-                    presenter.login(getChildFragmentManager());
-                }
-            }
-        });
-
-        videoPreview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(presenter.isLogin()) {
-                    playVideo();
-                }
-                else {
-                    showErrorMessage("برای مشاهده ویدیو ابتدا باید وارد شوید");
-                    presenter.login(getChildFragmentManager());
-                }
-            }
-        });
+        comment.setOnClickListener(new PlayOnClickListener());
+        videoPreview.setOnClickListener(new PlayOnClickListener());
 
         Button play = view.findViewById(R.id.video_play_button);
         play.setOnClickListener(new View.OnClickListener() {
@@ -216,5 +193,19 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     public void showErrorMessage(String errorMessage) {
 
         Toast.makeText(getContext(), errorMessage , Toast.LENGTH_SHORT).show();
+    }
+
+    private class PlayOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            if(presenter.isLogin()) {
+                playVideo();
+            }
+            else {
+                showErrorMessage("برای مشاهده ویدیو ابتدا باید وارد شوید");
+                presenter.login(getChildFragmentManager());
+            }
+        }
     }
 }
