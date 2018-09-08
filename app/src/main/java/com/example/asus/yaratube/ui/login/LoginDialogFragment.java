@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.base.MainActivity;
@@ -52,20 +51,17 @@ public class LoginDialogFragment extends DialogFragment implements LoginDialogCo
             goToLoginCode(presenter.phoneNumber());
         else
             goToLoginMethod();
+
+        if (getDialog() != null)
+            getDialog().setCanceledOnTouchOutside(false);
+
+
         return result;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Button close = view.findViewById(R.id.close_butt);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
-            }
-        });
     }
 
     @NonNull

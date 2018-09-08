@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
+    android:id="@+id/login_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/_300dp"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <Button
-        android:id="@+id/close_butt"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@android:drawable/ic_delete"
-        android:layout_marginTop="@dimen/padding_8dp"
-        android:layout_marginStart="@dimen/padding_8dp"/>
-
-    <FrameLayout
-        android:id="@+id/login_container"
-        android:layout_width="@dimen/_300dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        />
-
-</LinearLayout>
+    android:background="@color/white"/>

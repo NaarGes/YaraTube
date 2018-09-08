@@ -51,7 +51,6 @@ public class UserRepository {
     public void login(FragmentManager fragmentManager) {
 
         LoginDialogFragment loginDialogFragment = LoginDialogFragment.newInstance();
-        loginDialogFragment.setCancelable(false);
         loginDialogFragment.show(fragmentManager, loginDialogFragment.getClass().getName());
     }
 

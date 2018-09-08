@@ -10,7 +10,8 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:layout_marginBottom="@dimen/padding_8dp">
+    android:layout_marginBottom="@dimen/padding_8dp"
+    android:padding="@dimen/padding_16dp">
 
         <TextView
             android:layout_width="250dp"
