@@ -1,8 +1,11 @@
 package com.example.asus.yaratube.ui.player;
 
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.example.asus.yaratube.R;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -31,7 +34,14 @@ public class PlayerActivity extends AppCompatActivity {
 
         mediaSource = getIntent().getExtras().getString("file");
 
+        fullScreen();
         exoPlayerSetup();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        player.release();
     }
 
     private void exoPlayerSetup() {
@@ -62,10 +72,23 @@ public class PlayerActivity extends AppCompatActivity {
         player.setPlayWhenReady(true);
     }
 
+    private void fullScreen() {
+
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        getSupportActionBar().hide();
+    }
+
     @Override
-    protected void onStop() {
-        super.onStop();
-        player.release();
+    protected void onResume() {
+        super.onResume();
+        fullScreen();
+        player.setPlayWhenReady(true);
+        player.getPlaybackState();
     }
 
     @Override
@@ -74,13 +97,6 @@ public class PlayerActivity extends AppCompatActivity {
         player.setPlayWhenReady(false);
         player.getPlaybackState();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        player.setPlayWhenReady(true);
-        player.getPlaybackState();
     }
 
     private class PlayerEventListener extends Player.DefaultEventListener {
