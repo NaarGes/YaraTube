@@ -114,23 +114,22 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         videoTitle.setText(product.getName());
 
         Button comment = view.findViewById(R.id.comment_butt);
-        comment.setOnClickListener(new PlayOnClickListener());
-        videoPreview.setOnClickListener(new PlayOnClickListener());
-
-        Button play = view.findViewById(R.id.video_play_button);
-        play.setOnClickListener(new View.OnClickListener() {
+        comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(presenter.isLogin()) {
-                    playVideo();
-                }
+                if(presenter.isLogin())
+                    openCommentDialog(product.getId());
                 else {
-                    showErrorMessage("برای مشاهده ویدیو ابتدا باید وارد شوید");
+                    showErrorMessage("برای ثبت نظر ابتدا باید وارد شوید");
                     presenter.login(getChildFragmentManager());
                 }
             }
         });
+
+        videoPreview.setOnClickListener(new PlayOnClickListener());
+
+        Button play = view.findViewById(R.id.video_play_button);
+        play.setOnClickListener(new PlayOnClickListener());
     }
 
     private void setRecyclerView(View view) {

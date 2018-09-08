@@ -2,9 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    //buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "com.example.asus.test"
+        applicationId "com.yaratech.yaratube"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
@@ -54,4 +53,7 @@ dependencies {
 
     // exo player
     implementation "com.google.android.exoplayer:exoplayer:2.8.4"
+
+    // google play service
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 }

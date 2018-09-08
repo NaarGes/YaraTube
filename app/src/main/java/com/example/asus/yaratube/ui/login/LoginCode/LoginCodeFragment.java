@@ -2,6 +2,7 @@ package com.example.asus.yaratube.ui.login.LoginCode;
 
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -121,5 +122,19 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     public void showErrorMessage(String errorMessage) {
 
         Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_CODE_READ_SMS:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+
+                    showErrorMessage("Permission Granted");
+                else
+                    showErrorMessage("Permission Denied");
+        }
     }
 }
