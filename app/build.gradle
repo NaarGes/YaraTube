@@ -57,3 +57,4 @@ dependencies {
     // google play service
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

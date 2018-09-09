@@ -2,7 +2,6 @@ package com.example.asus.yaratube.ui.productdetail;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 
 import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
@@ -10,11 +9,8 @@ import com.example.asus.yaratube.data.remote.Repository;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.remote.ApiResult;
-import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class ProductDetailPresenter implements ProductDetailContract.Presenter {
 

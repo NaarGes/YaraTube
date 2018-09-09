@@ -13,9 +13,9 @@ import android.view.Window;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.base.MainActivity;
-import com.example.asus.yaratube.ui.login.LoginCode.LoginCodeFragment;
+import com.example.asus.yaratube.ui.login.phone.LoginCode.LoginCodeFragment;
 import com.example.asus.yaratube.ui.login.LoginMethod.LoginMethodFragment;
-import com.example.asus.yaratube.ui.login.LoginPhone.LoginPhoneFragment;
+import com.example.asus.yaratube.ui.login.phone.LoginPhone.LoginPhoneFragment;
 import com.example.asus.yaratube.util.Util;
 
 public class LoginDialogFragment extends DialogFragment implements LoginDialogContract.steps, LoginDialogContract.View {

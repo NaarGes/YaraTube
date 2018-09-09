@@ -1,4 +1,4 @@
-package com.example.asus.yaratube.ui.login.LoginCode;
+package com.example.asus.yaratube.ui.login.phone.LoginCode;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

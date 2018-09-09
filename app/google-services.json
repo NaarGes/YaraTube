@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "738452048677",
+    "firebase_url": "https://yaratube-37199.firebaseio.com",
+    "project_id": "yaratube-37199",
+    "storage_bucket": "yaratube-37199.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738452048677:android:15b54b1d8dd79d0b",
+        "android_client_info": {
+          "package_name": "com.yaratech.yaratube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738452048677-fo0sl17trgghrt4ugcn8gp5ss1togjip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yaratech.yaratube",
+            "certificate_hash": "fd157f1109a88c60e3699906e6c8da475eb23df5"
+          }
+        },
+        {
+          "client_id": "738452048677-1cav8dooqecnn136vmh6gllr3r7fhu1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDccvaBUBJAjesoQFDi321TGzf6cG8oNPo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738452048677-1cav8dooqecnn136vmh6gllr3r7fhu1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

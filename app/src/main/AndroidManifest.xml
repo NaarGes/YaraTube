@@ -28,7 +28,7 @@
 
         </activity>
         <receiver
-            android:name=".ui.login.LoginCode.SMSReceiver"
+            android:name=".ui.login.phone.LoginCode.SMSReceiver"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

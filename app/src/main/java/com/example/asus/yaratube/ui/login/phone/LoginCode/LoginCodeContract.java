@@ -1,4 +1,4 @@
-package com.example.asus.yaratube.ui.login.LoginCode;
+package com.example.asus.yaratube.ui.login.phone.LoginCode;
 
 public interface LoginCodeContract {
 
