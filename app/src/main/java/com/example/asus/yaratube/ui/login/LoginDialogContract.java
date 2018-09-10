@@ -4,6 +4,7 @@ public interface LoginDialogContract {
 
     interface View {
 
+
     }
 
     interface Presenter {

@@ -8,6 +8,7 @@ import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.CommentPostResponse;
+import com.example.asus.yaratube.data.model.GoogleLoginResponse;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.remote.ApiClient;
 import com.example.asus.yaratube.data.remote.ApiResult;
@@ -44,6 +45,10 @@ public class UserRepository {
         return database.userDao().getUser();
     }
 
+    public void createUser(UserEntity userEntity) {
+        database.userDao().insert(userEntity);
+    }
+
     public boolean isLogin() {
         return database.userDao().getToken() != null;
     }
@@ -60,6 +65,10 @@ public class UserRepository {
 
     public String phoneNumber() {
         return database.userDao().getPhoneNumber();
+    }
+
+    public String token() {
+        return database.userDao().getToken();
     }
 
     public void sendPhoneNumber(String phoneNumber, String deviceId, String deviceModel, String deviceOs,
@@ -132,6 +141,31 @@ public class UserRepository {
 
                 @Override
                 public void onFailure(Call<CommentPostResponse> call, Throwable t) {
+
+                    callback.onFail(t.getMessage());
+                }
+            });
+        }
+    }
+
+    public void googleLogin(String tokenId, String deviceId, String deviceOs, String deviceModel,
+                            final ApiResult<GoogleLoginResponse> callback) {
+
+        Call<GoogleLoginResponse> call = service.googleLogin(tokenId, deviceId, deviceOs, deviceModel);
+
+        if(Util.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<GoogleLoginResponse>() {
+                @Override
+                public void onResponse(Call<GoogleLoginResponse> call, Response<GoogleLoginResponse> response) {
+                    if(response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    } else {
+                        callback.onFail(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
 
                     callback.onFail(t.getMessage());
                 }

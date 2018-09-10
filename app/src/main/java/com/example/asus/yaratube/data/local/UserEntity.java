@@ -3,7 +3,6 @@ package com.example.asus.yaratube.data.local;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 @Entity(tableName = "user")
 public class UserEntity {
@@ -14,6 +13,7 @@ public class UserEntity {
     private String token = null;
 
     private String name;
+
     private String sex;
 
     @ColumnInfo(name = "birth_date")
@@ -21,6 +21,11 @@ public class UserEntity {
 
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
+
+    private String email;
+
+    private String photoUrl;
+
 
     public int getId() {
         return id;
@@ -68,5 +73,21 @@ public class UserEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

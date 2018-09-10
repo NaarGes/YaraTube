@@ -4,6 +4,7 @@ import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.CommentPostResponse;
+import com.example.asus.yaratube.data.model.GoogleLoginResponse;
 import com.example.asus.yaratube.data.model.Product;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.model.Store;
@@ -68,4 +69,11 @@ public interface ApiService {
                                           @Field("comment_text") String commnetText,
                                           @Path("productId") int productId,
                                           @Header("Authorization") String token);
+
+    @POST("login_google/" + STORE_ID)
+    @FormUrlEncoded
+    Call<GoogleLoginResponse> googleLogin(@Field("token_id") String tokenId,
+                                          @Field("device_id") String deviceId,
+                                          @Field("device_os") String deviceOs,
+                                          @Field("device_model") String deviceModel);
 }

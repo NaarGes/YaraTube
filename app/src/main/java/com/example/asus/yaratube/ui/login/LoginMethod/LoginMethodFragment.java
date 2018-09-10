@@ -1,7 +1,9 @@
 package com.example.asus.yaratube.ui.login.LoginMethod;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -24,11 +26,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
+public class LoginMethodFragment extends Fragment implements LoginMethodContract.View,
+                                                        GoogleApiClient.OnConnectionFailedListener {
 
     private LoginDialogContract.steps listener;
     private GoogleApiClient googleApiClient;
     private static final int REQUEST_CODE = 9001;
+    private LoginMethodPresenter presenter;
 
     public LoginMethodFragment() {
 
@@ -47,21 +51,36 @@ public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnC
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        presenter = new LoginMethodPresenter(this, getContext());
+
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build();
+        googleApiClient = new GoogleApiClient.Builder(getContext()).enableAutoManage(getActivity(), this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        googleApiClient.stopAutoManage(getActivity());
+        googleApiClient.disconnect();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View result = inflater.inflate(R.layout.fragment_login_method, container, false);
-
-        return result;
+        return inflater.inflate(R.layout.fragment_login_method, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().build();
-        googleApiClient = new GoogleApiClient.Builder(getContext()).enableAutoManage(getActivity(), this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
 
         Button phoneLogin = view.findViewById(R.id.phone_method_butt);
         phoneLogin.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +95,7 @@ public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnC
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 signIn();
             }
         });
@@ -84,13 +104,13 @@ public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+        // todo
     }
 
     private void signIn() {
 
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(intent, REQUEST_CODE);
-
     }
 
     private void signOut() {
@@ -98,7 +118,7 @@ public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnC
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                updateUI(false);
+                // TODO
             }
         });
     }
@@ -112,19 +132,17 @@ public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnC
             String name = account.getDisplayName();
             String email = account.getEmail();
             String photoUrl = account.getPhotoUrl().toString();
-            // TODO save it to database
-            Log.e("narges", "handleResult: "+name+" "+email+" "+photoUrl );
-            updateUI(true);
-            ((DialogFragment) getParentFragment()).dismiss();
-        }
-        else { // login fail or user logout
-            updateUI(false);
-        }
-    }
+            Log.e("profile info", "handleResult: "+name+" "+email+" "+photoUrl+ " "+account.getIdToken() );
 
-    private void updateUI(boolean isLogin) {
+            final String deviceId = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+            final String deviceModel = Build.MODEL;
+            final String deviceOs = "Android " + Build.VERSION.SDK_INT;
 
-        // todo to everything u want
+            presenter.onSendGoogleToken(account.getIdToken(), deviceId, deviceOs, deviceModel
+                                            , name, email, photoUrl);
+        } else { // login fail
+            showErrorMessage("لطفا مجددا تلاش کنید");
+        }
     }
 
     @Override
@@ -134,11 +152,27 @@ public class LoginMethodFragment extends Fragment implements GoogleApiClient.OnC
         if(requestCode == REQUEST_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             int statusCode = result.getStatus().getStatusCode();
-            String statusMessage = result.getStatus().getStatusMessage();
-            Log.e("result status code", "onActivityResult: "+statusCode + " "+ statusMessage);
-            // developer error; status: 10
-            // SHA-1 doesn't set up correctly
+            Log.e("result status code", "onActivityResult: "+statusCode);
+            Log.e("result", "onActivityResult: "+result);
             handleResult(result);
         }
+    }
+
+    @Override
+    public void activationDone() {
+
+        Toast.makeText(this.getContext(), "ورود شما با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        assert getParentFragment() != null;
+        ((DialogFragment) getParentFragment()).dismiss();
+    }
+
+    @Override
+    public void showErrorMessage(String errorMessage) {
+
+        Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

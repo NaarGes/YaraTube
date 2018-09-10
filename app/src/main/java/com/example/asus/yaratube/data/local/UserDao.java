@@ -28,11 +28,14 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     public UserEntity getUser();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(UserEntity userEntity);
+    @Query("SELECT COUNT(*) FROM user")
+    public int getNumberOfUsers();
 
     @Query("UPDATE user SET token = null")
     void deleteToken();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(UserEntity userEntity);
 
     @Delete
     void delete(UserEntity userEntity);
