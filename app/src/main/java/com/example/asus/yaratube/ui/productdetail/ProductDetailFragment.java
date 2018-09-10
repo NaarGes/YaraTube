@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.Product;
-import com.example.asus.yaratube.ui.base.DrawerLocker;
 import com.example.asus.yaratube.ui.player.PlayerActivity;
 import com.example.asus.yaratube.ui.productdetail.comment.CommentFragment;
 
@@ -68,7 +67,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         super.onCreate(savedInstanceState);
         this.product = Parcels.unwrap(getArguments().getParcelable(PRODUCT));
         this.categoryTitle = getArguments().getString(CATEGORY_TITLE);
-        ((DrawerLocker) getActivity()).setDrawerEnabled(false);
 
         presenter = new ProductDetailPresenter(this, getContext());
         adapter = new CommentAdapter();
@@ -78,7 +76,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((DrawerLocker) getActivity()).setDrawerEnabled(true);
 
         if(categoryTitle.equals(""))
             getActivity().setTitle(R.string.app_name);

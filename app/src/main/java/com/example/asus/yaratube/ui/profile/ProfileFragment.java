@@ -1,8 +1,5 @@
 package com.example.asus.yaratube.ui.profile;
 
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,15 +13,12 @@ import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
-import com.example.asus.yaratube.data.local.UserEntity;
-import com.example.asus.yaratube.ui.base.DrawerLocker;
 import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.util.Util;
 
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
-    private AppDatabase database;
     private ProfileContract.Presenter presenter;
 
     public ProfileFragment() {
@@ -42,15 +36,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database = AppDatabase.getAppDatabase(getActivity());
+        AppDatabase database = AppDatabase.getAppDatabase(getActivity());
         presenter = new ProfilePresenter(getContext(), this, database);
-        ((DrawerLocker) getActivity()).setDrawerEnabled(false);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ((DrawerLocker) getActivity()).setDrawerEnabled(true);
     }
 
     @Override
