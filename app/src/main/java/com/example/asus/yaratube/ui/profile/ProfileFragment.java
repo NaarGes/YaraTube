@@ -18,6 +18,7 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.ui.base.DrawerLocker;
+import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.util.Util;
 
 
@@ -93,11 +94,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onClick(View view) {
 
-                SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.putInt("Login Step", 1);
-                editor.commit();
+                Util.setLoginStep((MainActivity) getActivity(), 1);
                 Util.hideKeyboardFrom(getContext(), view);
                 getActivity().getSupportFragmentManager().popBackStack();
                 presenter.Logout();

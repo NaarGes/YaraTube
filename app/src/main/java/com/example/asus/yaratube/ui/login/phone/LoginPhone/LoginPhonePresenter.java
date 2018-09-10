@@ -49,13 +49,8 @@ public class LoginPhonePresenter implements LoginPhoneContract.Presenter {
         Log.e("number of users", "savePhoneNumber: "+database.userDao().getNumberOfUsers());
         Log.e("user in db", ""+database.userDao().getUser());
 
-        if(database.userDao().getUser() == null) {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setPhoneNumber(phoneNumber);
-            repository.createUser(userEntity);
-        } else {
-            Log.e("phone number in db", ""+database.userDao().getUser().getPhoneNumber()
-            +" "+ database.userDao().getUser().getId()+" "+ database.userDao().getUser().getName());
-        }
+        UserEntity userEntity = new UserEntity();
+        userEntity.setPhoneNumber(phoneNumber);
+        repository.createUser(userEntity);
     }
 }

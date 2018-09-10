@@ -2,6 +2,7 @@ package com.example.asus.yaratube.data;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.asus.yaratube.data.local.AppDatabase;
@@ -55,12 +56,13 @@ public class UserRepository {
 
     public void login(FragmentManager fragmentManager) {
 
+        Log.e("number of users in db", "login: "+database.userDao().getNumberOfUsers() );
         LoginDialogFragment loginDialogFragment = LoginDialogFragment.newInstance();
         loginDialogFragment.show(fragmentManager, loginDialogFragment.getClass().getName());
     }
 
-    public void logout() {
-        database.userDao().deleteToken();
+    public void logout(UserEntity userEntity) {
+        database.userDao().delete(userEntity);
     }
 
     public String phoneNumber() {

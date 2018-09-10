@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.profile_nd:
+                        if(userRepository.getUser()!= null)
+                            Log.e("user in db", "onNavigationItemSelected: "+userRepository.getUser().getToken());
                         if(userRepository.isLogin()) // fixme do it by presenter
                             addFragment(ProfileFragment.newInstance());
                         else {

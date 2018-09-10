@@ -40,7 +40,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void Logout() {
 
-        userRepository.logout();
+        userRepository.logout(userRepository.getUser());
         view.toast("شما با موفقیت خارج شدید");
     }
 
