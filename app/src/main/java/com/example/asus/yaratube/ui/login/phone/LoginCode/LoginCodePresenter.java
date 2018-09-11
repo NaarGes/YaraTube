@@ -28,7 +28,7 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
             @Override
             public void onSuccess(Activation result) {
 
-                view.activationDone();
+                view.toast("خوش آمدید");
                 UserEntity userEntity = repository.getUser();
                 userEntity.setToken(result.getToken());
                 userEntity.setPhoneNumber(repository.phoneNumber());
@@ -39,7 +39,7 @@ public class LoginCodePresenter implements LoginCodeContract.Presenter {
             @Override
             public void onFail(String errorMessage) {
 
-                view.showErrorMessage(errorMessage);
+                view.toast(errorMessage);
             }
         });
     }

@@ -20,7 +20,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         this.userRepository = new UserRepository(context);
         userRepository.setDatabase(database);
 
-        user = database.userDao().getUser();
+        user = userRepository.getUser();
     }
 
     @Override
@@ -47,16 +47,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public String getUserName() {
 
-        if(database.userDao().getName() != null) {
+        if(user.getName() != null)
             return user.getName();
-        }
         return "";
     }
 
     @Override
     public String getUserSex() {
 
-        if(database.userDao().getSex() != null)
+        if(user.getSex() != null)
             return user.getSex();
         return "";
     }
@@ -64,8 +63,16 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public String getUserBirthDate() {
 
-        if(database.userDao().getBirthDate() != null)
+        if(user.getBirthDate() != null)
             return user.getBirthDate();
+        return "";
+    }
+
+    @Override
+    public String getProfileUrl() {
+
+        if(user.getPhotoUrl() != null)
+            return user.getPhotoUrl();
         return "";
     }
 }

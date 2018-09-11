@@ -16,5 +16,6 @@ public interface ProfileContract {
         String getUserName();
         String getUserSex();
         String getUserBirthDate();
+        String getProfileUrl();
     }
 }

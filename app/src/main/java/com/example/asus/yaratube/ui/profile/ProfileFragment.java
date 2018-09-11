@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.base.MainActivity;
@@ -52,12 +54,14 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         Button submitInfo = view.findViewById(R.id.submit_user_info_butt);
         Button cancel = view.findViewById(R.id.cancel_user_info_butt);
         Button logout = view.findViewById(R.id.logout_butt);
+        ImageView profileImage = view.findViewById(R.id.profile_image);
 
         final EditText name = view.findViewById(R.id.user_name);
         final EditText sex = view.findViewById(R.id.user_sex);
         final EditText birthDate = view.findViewById(R.id.user_birth_date);
 
-        fillEditTexts(name, sex, birthDate);
+
+        fillProfile(name, sex, birthDate, profileImage);
 
         submitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,10 +99,14 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void fillEditTexts(EditText name, EditText sex, EditText birthDate) {
+    private void fillProfile(EditText name, EditText sex, EditText birthDate, ImageView profileImage) {
 
         name.setText(presenter.getUserName());
         sex.setText(presenter.getUserSex());
         birthDate.setText(presenter.getUserBirthDate());
+
+        String photoUrl = presenter.getProfileUrl();
+        if(!photoUrl.equals(""))
+            Glide.with(getContext()).load(photoUrl).into(profileImage);
     }
 }

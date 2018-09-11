@@ -24,6 +24,7 @@ public class UserEntity {
 
     private String email;
 
+    @ColumnInfo(name = "photo_url")
     private String photoUrl;
 
 

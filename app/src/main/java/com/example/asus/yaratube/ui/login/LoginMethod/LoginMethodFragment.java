@@ -96,7 +96,7 @@ public class LoginMethodFragment extends Fragment implements LoginMethodContract
             @Override
             public void onClick(View view) {
 
-                showErrorMessage("لطفا کمی صبر کنید...");
+                toast("لطفا کمی صبر کنید...");
                 signIn();
             }
         });
@@ -142,7 +142,7 @@ public class LoginMethodFragment extends Fragment implements LoginMethodContract
             presenter.onSendGoogleToken(account.getIdToken(), deviceId, deviceOs, deviceModel
                                             , name, email, photoUrl);
         } else { // login fail
-            showErrorMessage("لطفا مجددا تلاش کنید");
+            toast("لطفا مجددا تلاش کنید");
         }
     }
 
@@ -160,20 +160,13 @@ public class LoginMethodFragment extends Fragment implements LoginMethodContract
     }
 
     @Override
-    public void activationDone() {
-
-        Toast.makeText(this.getContext(), "ورود شما با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void dismissDialog() {
         assert getParentFragment() != null;
         ((DialogFragment) getParentFragment()).dismiss();
     }
 
     @Override
-    public void showErrorMessage(String errorMessage) {
-
-        Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+    public void toast(String message) {
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

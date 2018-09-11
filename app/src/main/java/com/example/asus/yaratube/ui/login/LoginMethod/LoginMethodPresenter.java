@@ -30,7 +30,7 @@ public class LoginMethodPresenter implements LoginMethodContract.Presenter {
                     @Override
                     public void onSuccess(GoogleLoginResponse result) {
 
-                        view.activationDone();
+                        view.toast("خوش آمدید");
                         UserEntity userEntity = new UserEntity();
                         userEntity.setToken(result.getToken());
                         userEntity.setName(name);
@@ -49,7 +49,7 @@ public class LoginMethodPresenter implements LoginMethodContract.Presenter {
                     @Override
                     public void onFail(String errorMessage) {
 
-                        view.showErrorMessage(errorMessage);
+                        view.toast(errorMessage);
                     }
                 }
         );

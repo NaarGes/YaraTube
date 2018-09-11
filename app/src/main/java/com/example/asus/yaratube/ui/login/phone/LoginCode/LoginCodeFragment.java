@@ -93,7 +93,7 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
                     Util.hideKeyboardFrom(view.getContext(), view);
                 }
                 else
-                    showErrorMessage("کد نامعتبر است");
+                    toast("کد نامعتبر است");
             }
         });
 
@@ -107,21 +107,15 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
     }
 
     @Override
-    public void activationDone() {
-
-        Toast.makeText(this.getContext(), "ورود شما با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void dismissDialog() {
         assert getParentFragment() != null;
         ((DialogFragment) getParentFragment()).dismiss();
     }
 
     @Override
-    public void showErrorMessage(String errorMessage) {
+    public void toast(String message) {
 
-        Toast.makeText(this.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -132,9 +126,9 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             case REQUEST_CODE_READ_SMS:
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
 
-                    showErrorMessage("Permission Granted");
+                    toast("Permission Granted");
                 else
-                    showErrorMessage("Permission Denied");
+                    toast("Permission Denied");
         }
     }
 }

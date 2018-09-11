@@ -25,6 +25,9 @@ public interface UserDao {
     @Query("SELECT phone_number FROM user")
     public String getPhoneNumber();
 
+    @Query("SELECT photo_url FROM user")
+    public String getPhotoUrl();
+
     @Query("SELECT * FROM user")
     public UserEntity getUser();
 

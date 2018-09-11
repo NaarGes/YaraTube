@@ -4,9 +4,8 @@ public interface LoginCodeContract {
 
     interface View {
 
-        void activationDone();
         void dismissDialog();
-        void showErrorMessage(String errorMessage);
+        void toast(String message);
     }
 
     interface Presenter {
