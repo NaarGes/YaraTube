@@ -1,14 +1,18 @@
 package com.example.asus.yaratube.data.remote;
 
+import android.media.Image;
+
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.CommentPostResponse;
 import com.example.asus.yaratube.data.model.GoogleLoginResponse;
 import com.example.asus.yaratube.data.model.Product;
+import com.example.asus.yaratube.data.model.Profile;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.model.Store;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,10 +74,31 @@ public interface ApiService {
                                           @Path("productId") int productId,
                                           @Header("Authorization") String token);
 
+    // login user with google
     @POST("login_google/" + STORE_ID)
     @FormUrlEncoded
     Call<GoogleLoginResponse> googleLogin(@Field("token_id") String tokenId,
                                           @Field("device_id") String deviceId,
                                           @Field("device_os") String deviceOs,
                                           @Field("device_model") String deviceModel);
+
+    // get profile from server
+    @GET("profile")
+    Call<Profile> getProfile();
+
+    // send profile to server
+    // FIXME image should send separately
+    @POST("profile")
+    @FormUrlEncoded
+    Call<Profile> sendProfile(@Field("nickname") String nickname,
+                              @Field("date_of_birth") Date birthDate,
+                              @Field("gender") String gender,
+                              @Field("avatar")Image avatar,
+                              @Field("mobile") String mobile,
+                              @Field("email") String email,
+                              @Field("device_id") String deviceId,
+                              @Field("device_os") String deviceOs,
+                              @Field("device_model") String deviceModel,
+                              @Field("password") String password);
+
 }

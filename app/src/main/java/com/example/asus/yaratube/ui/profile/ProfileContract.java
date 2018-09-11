@@ -9,10 +9,11 @@ public interface ProfileContract {
 
     interface Presenter {
 
-        void updateUserInfo(String name, String sex, String birthDate);
+        void updateUserInfo(String nickname, String name, String sex, String birthDate);
 
         void Logout();
 
+        String getNickname();
         String getUserName();
         String getUserSex();
         String getUserBirthDate();

@@ -56,18 +56,22 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         Button logout = view.findViewById(R.id.logout_butt);
         ImageView profileImage = view.findViewById(R.id.profile_image);
 
+        final EditText nickname = view.findViewById(R.id.nickname);
         final EditText name = view.findViewById(R.id.user_name);
         final EditText sex = view.findViewById(R.id.user_sex);
         final EditText birthDate = view.findViewById(R.id.user_birth_date);
 
 
-        fillProfile(name, sex, birthDate, profileImage);
+        fillProfile(nickname, name, sex, birthDate, profileImage);
 
         submitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                presenter.updateUserInfo(name.getText().toString(), sex.getText().toString(), birthDate.getText().toString());
+                // TODO update photo url if user manually set
+                // TODO send these to server
+                presenter.updateUserInfo(nickname.getText().toString(), name.getText().toString(),
+                        sex.getText().toString(), birthDate.getText().toString());
                 Util.hideKeyboardFrom(getContext(), view);
             }
         });
@@ -99,8 +103,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void fillProfile(EditText name, EditText sex, EditText birthDate, ImageView profileImage) {
+    private void fillProfile(EditText nickname, EditText name, EditText sex, EditText birthDate,
+                             ImageView profileImage) {
 
+        nickname.setText(presenter.getNickname());
         name.setText(presenter.getUserName());
         sex.setText(presenter.getUserSex());
         birthDate.setText(presenter.getUserBirthDate());

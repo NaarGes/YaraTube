@@ -24,10 +24,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void updateUserInfo(String name, String sex, String birthDate) {
+    public void updateUserInfo(String nickname, String name, String sex, String birthDate) {
 
         user.setPhoneNumber(database.userDao().getPhoneNumber());
         user.setToken(database.userDao().getToken());
+        user.setNickname(nickname);
         user.setName(name);
         user.setSex(sex);
         user.setBirthDate(birthDate);
@@ -43,6 +44,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         userRepository.logout(userRepository.getUser());
         view.toast("شما با موفقیت خارج شدید");
     }
+
+    @Override
+    public String getNickname() {
+
+        if(user.getNickname() != null)
+            return user.getNickname();
+        return "";
+    }
+
 
     @Override
     public String getUserName() {

@@ -11,28 +11,25 @@ import android.arch.persistence.room.Update;
 public interface UserDao {
 
     @Query("SELECT token FROM user")
-    public String getToken();
+    String getToken();
 
     @Query("SELECT name FROM user")
-    public String getName();
+    String getName();
 
     @Query("SELECT sex FROM user")
-    public String getSex();
+    String getSex();
 
     @Query("SELECT birth_date FROM user")
-    public String getBirthDate();
+    String getBirthDate();
 
     @Query("SELECT phone_number FROM user")
-    public String getPhoneNumber();
-
-    @Query("SELECT photo_url FROM user")
-    public String getPhotoUrl();
+    String getPhoneNumber();
 
     @Query("SELECT * FROM user")
-    public UserEntity getUser();
+    UserEntity getUser();
 
     @Query("SELECT COUNT(*) FROM user")
-    public int getNumberOfUsers();
+    int getNumberOfUsers();
 
     @Query("UPDATE user SET token = null")
     void deleteToken();

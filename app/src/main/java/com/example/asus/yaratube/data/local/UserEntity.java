@@ -12,6 +12,8 @@ public class UserEntity {
 
     private String token = null;
 
+    private String nickname;
+
     private String name;
 
     private String sex;
@@ -42,6 +44,14 @@ public class UserEntity {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getName() {
