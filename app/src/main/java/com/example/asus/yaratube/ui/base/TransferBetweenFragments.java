@@ -8,4 +8,8 @@ public interface TransferBetweenFragments {
     void goFromCategoryToProductList(Category category);
 
     void goToProductDetail(Product product, String categoryName);
+
+    void goToProfile();
+    void goToAbout();
+    void goToContact();
 }

@@ -96,6 +96,7 @@ public class LoginMethodFragment extends Fragment implements LoginMethodContract
             @Override
             public void onClick(View view) {
 
+                showErrorMessage("لطفا کمی صبر کنید...");
                 signIn();
             }
         });

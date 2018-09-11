@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/padding_16dp">
+
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        android:textSize="@dimen/font_size_16sp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingTop="@dimen/padding_16dp"
+        android:paddingEnd="@dimen/padding_8dp"
+        android:paddingStart="@dimen/padding_8dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999"/>
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_developer"
+        android:textSize="@dimen/font_size_16sp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingTop="@dimen/padding_16dp"
+        android:paddingEnd="@dimen/padding_8dp"
+        android:paddingStart="@dimen/padding_8dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999"/>
+
+    <TextView
+        android:id="@+id/contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_developer"
+        android:textSize="@dimen/font_size_16sp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingTop="@dimen/padding_16dp"
+        android:paddingEnd="@dimen/padding_8dp"
+        android:paddingStart="@dimen/padding_8dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999"/>
+</LinearLayout>

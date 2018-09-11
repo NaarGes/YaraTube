@@ -10,10 +10,10 @@
 
     <string name="category">دسته بندی ها</string>
     <string name="home">صفحه اصلی</string>
-    <string name="about_developer">درباره توسعه دهنده</string>
+    <string name="about_developer">درباره ما</string>
     <string name="about_developer_desc"> نرگس صادقی \n کارآموز برنامه نویسی اندروید شرکت یارا \n تابستان سال 1397</string>
 
-    <string name="contact_developer">ارتباط با توسعه دهنده</string>
+    <string name="contact_developer">ارتباط با ما</string>
     <string name="developer_github">https://github.com/NaarGes</string>
     <string name="developer_email">mailto:nargessadeghi@ut.ac.ir?subject=Contact%20to%20Yaratube%20developer\</string>
     <string name="developer_linkedin">https://www.linkedin.com//in/nargessadeghi</string>
@@ -46,5 +46,6 @@
     <string name="dont_receive_code">کد را دریافت نکردید؟</string>
     <string name="edit_mobile">تصحیح شماره</string>
     <string name="Comment">نظر</string>
+    <string name="more">بیشتر</string>
 
 </resources>

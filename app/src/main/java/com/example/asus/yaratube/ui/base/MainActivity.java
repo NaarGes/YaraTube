@@ -2,6 +2,7 @@ package com.example.asus.yaratube.ui.base;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +12,13 @@ import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Product;
+import com.example.asus.yaratube.ui.developerinfo.AboutFragment;
+import com.example.asus.yaratube.ui.developerinfo.ContactFragment;
 import com.example.asus.yaratube.ui.home.BottomHolderFragment;
 import com.example.asus.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.asus.yaratube.ui.productlist.ProductListFragment;
-import java.util.Objects;
+import com.example.asus.yaratube.ui.profile.ProfileFragment;
+import com.google.android.exoplayer2.C;
 
 public class MainActivity extends AppCompatActivity implements TransferBetweenFragments {
 
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
         // change app direction to RTL
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        // clickable home button
         //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         setBottomNavigationFragment();
@@ -46,15 +51,41 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
     public void goFromCategoryToProductList(Category category) {
 
         ProductListFragment productListFragment = ProductListFragment.newInstance(category);
-        getSupportFragmentManager().beginTransaction().addToBackStack(productListFragment.getClass().getName())
-                .add(R.id.main_container, productListFragment).commit();
+        addFragment(productListFragment);
     }
 
     @Override
     public void goToProductDetail(Product product, String categoryName) {
 
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product, categoryName);
-        getSupportFragmentManager().beginTransaction().addToBackStack(productDetailFragment.getClass().getName())
-                .add(R.id.main_container, productDetailFragment).commit();
+        addFragment(productDetailFragment);
+    }
+
+    @Override
+    public void goToProfile() {
+
+        ProfileFragment profileFragment = ProfileFragment.newInstance();
+        addFragment(profileFragment);
+
+    }
+
+    @Override
+    public void goToAbout() {
+
+        AboutFragment aboutFragment = AboutFragment.newInstance();
+        addFragment(aboutFragment);
+    }
+
+    @Override
+    public void goToContact() {
+
+        ContactFragment contactFragment = ContactFragment.newInstance();
+        addFragment(contactFragment);
+    }
+
+    private void addFragment(Fragment fragment) {
+
+        getSupportFragmentManager().beginTransaction().addToBackStack(fragment.getClass().getName())
+                .add(R.id.main_container, fragment).commit();
     }
 }

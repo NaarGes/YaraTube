@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.home.category.CategoryFragment;
 import com.example.asus.yaratube.ui.home.dashboard.DashboardFragment;
+import com.example.asus.yaratube.ui.home.more.MoreFragment;
 
 public class BottomHolderFragment extends Fragment {
 
     private DashboardFragment dashboardFragment;
     private CategoryFragment categoryFragment;
+    private MoreFragment moreFragment;
+    private Fragment active;
 
     public BottomHolderFragment() {
     }
@@ -37,6 +40,7 @@ public class BottomHolderFragment extends Fragment {
         if (savedInstanceState == null) {
             dashboardFragment = DashboardFragment.newInstance();
             categoryFragment = CategoryFragment.newInstance();
+            moreFragment = MoreFragment.newInstance();
         }
     }
 
@@ -70,8 +74,11 @@ public class BottomHolderFragment extends Fragment {
         getChildFragmentManager().beginTransaction()
                 .add(R.id.home_category_fragment_container, dashboardFragment)
                 .add(R.id.home_category_fragment_container, categoryFragment)
+                .add(R.id.home_category_fragment_container, moreFragment)
                 .hide(categoryFragment)
+                .hide(moreFragment)
                 .commit();
+        active = dashboardFragment;
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -80,19 +87,33 @@ public class BottomHolderFragment extends Fragment {
 
                         switch (item.getItemId()) {
                             case R.id.home_bn:
-                                if(!dashboardFragment.isVisible())
+                                if(dashboardFragment != active) {
                                     getChildFragmentManager().beginTransaction()
-                                            .hide(categoryFragment)
+                                            .hide(active)
                                             .show(dashboardFragment)
                                             .commit();
+                                    active = dashboardFragment;
+                                }
                                 return true;
 
                             case R.id.category_bn:
-                                if(!categoryFragment.isVisible())
+                                if(categoryFragment != active) {
                                     getChildFragmentManager().beginTransaction()
-                                            .hide(dashboardFragment)
+                                            .hide(active)
                                             .show(categoryFragment)
                                             .commit();
+                                    active = categoryFragment;
+                                }
+                                return true;
+
+                            case R.id.more_bn:
+                                if(moreFragment != active) {
+                                    getChildFragmentManager().beginTransaction()
+                                            .hide(active)
+                                            .show(moreFragment)
+                                            .commit();
+                                    active = moreFragment;
+                                }
                                 return true;
 
                             default:

@@ -66,7 +66,6 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public void onDestroy() {
         super.onDestroy();
-        transferBetweenFragments = null;
         presenter = null;
         getActivity().setTitle(R.string.app_name);
     }

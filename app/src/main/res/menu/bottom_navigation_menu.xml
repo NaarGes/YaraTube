@@ -13,5 +13,11 @@
         android:icon="@drawable/ic_menu_black_24dp"
         android:title="@string/category"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/more_bn"
+        android:enabled="true"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title="@string/more"
+        app:showAsAction="ifRoom" />
 
 </menu>

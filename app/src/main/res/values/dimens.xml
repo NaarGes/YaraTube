@@ -14,4 +14,5 @@
     <dimen name="font_size_12sp">12sp</dimen>
     <dimen name="font_size_17sp">17sp</dimen>
     <dimen name="_3dp">3dp</dimen>
+    <dimen name="font_size_16sp">16sp</dimen>
 </resources>
