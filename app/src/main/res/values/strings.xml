@@ -47,5 +47,7 @@
     <string name="edit_mobile">تصحیح شماره</string>
     <string name="Comment">نظر</string>
     <string name="more">بیشتر</string>
+    <string name="choose_from_gallery">انتخاب تصویر از گالری</string>
+    <string name="take_camera">گرفتن تصویر جدید</string>
 
 </resources>

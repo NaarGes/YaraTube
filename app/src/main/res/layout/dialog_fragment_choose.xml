@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_16dp">
+
+    <TextView
+        android:id="@+id/choose_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@android:drawable/ic_menu_gallery"
+        android:text="@string/choose_from_gallery"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_size_16sp"
+        android:paddingBottom="@dimen/padding_16dp"
+        android:paddingRight="@dimen/padding_16dp"
+        android:paddingLeft="@dimen/padding_16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999"/>
+
+
+    <TextView
+        android:id="@+id/choose_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@android:drawable/ic_menu_camera"
+        android:text="@string/take_camera"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_size_16sp"
+        android:paddingTop="@dimen/padding_16dp"
+        android:paddingRight="@dimen/padding_16dp"
+        android:paddingLeft="@dimen/padding_16dp"/>
+
+</LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.asus.yaratube.ui.profile;
 
+import android.net.Uri;
+
 public interface ProfileContract {
 
     interface View {
@@ -18,5 +20,10 @@ public interface ProfileContract {
         String getUserSex();
         String getUserBirthDate();
         String getProfileUrl();
+    }
+
+    interface onChoosePhotoListener {
+
+        void choosePhoto(Uri photoUri);
     }
 }
