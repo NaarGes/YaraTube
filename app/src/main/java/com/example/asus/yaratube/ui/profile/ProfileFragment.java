@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -17,7 +18,8 @@ import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.util.Util;
-
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
@@ -59,10 +61,38 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         final EditText nickname = view.findViewById(R.id.nickname);
         final EditText name = view.findViewById(R.id.user_name);
         final EditText sex = view.findViewById(R.id.user_sex);
-        final EditText birthDate = view.findViewById(R.id.user_birth_date);
+        final TextView birthDate = view.findViewById(R.id.user_birth_date);
 
-
+        final PersianCalendar persianCalendar = new PersianCalendar();
         fillProfile(nickname, name, sex, birthDate, profileImage);
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+                persianCalendar.set(PersianCalendar.YEAR, year);
+                persianCalendar.set(PersianCalendar.MONTH, monthOfYear);
+                persianCalendar.set(PersianCalendar.DAY_OF_MONTH, dayOfMonth);
+
+                String showDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
+                birthDate.setText(showDate);
+            }
+        };
+
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                        date,
+                        persianCalendar.getPersianYear(),
+                        persianCalendar.getPersianMonth(),
+                        persianCalendar.getPersianDay()
+                );
+
+                datePickerDialog.show(getActivity().getFragmentManager(), "persian calendar");
+            }
+        });
 
         submitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,14 +133,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void fillProfile(EditText nickname, EditText name, EditText sex, EditText birthDate,
-                             ImageView profileImage) {
+    private void fillProfile(EditText nickname, EditText name, EditText sex, TextView birthDate, ImageView profileImage) {
 
         nickname.setText(presenter.getNickname());
         name.setText(presenter.getUserName());
         sex.setText(presenter.getUserSex());
         birthDate.setText(presenter.getUserBirthDate());
-
         String photoUrl = presenter.getProfileUrl();
         if(!photoUrl.equals(""))
             Glide.with(getContext()).load(photoUrl).into(profileImage);

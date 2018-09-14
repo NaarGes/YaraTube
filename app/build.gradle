@@ -64,5 +64,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
     // google play service
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    // persian date picker
+    implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,7 +1,6 @@
 package com.example.asus.yaratube.ui.player;
 
 import android.net.Uri;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,11 +29,11 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fullScreen();
         setContentView(R.layout.activity_player);
 
         mediaSource = getIntent().getExtras().getString("file");
 
-        fullScreen();
         exoPlayerSetup();
     }
 
@@ -74,10 +73,9 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void fullScreen() {
 
-        View decorView = getWindow().getDecorView();
         // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Remember that you should never show the action bar if the
         // status bar is hidden, so hide that too if necessary.
         getSupportActionBar().hide();

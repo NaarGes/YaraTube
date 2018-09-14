@@ -126,7 +126,7 @@
                 android:layout_marginEnd="@dimen/padding_8dp"/>
         </RelativeLayout>
 
-        <EditText
+        <TextView
             android:id="@+id/user_birth_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,8 +135,9 @@
             android:hint="@string/default_date"
             android:textStyle="bold"
             android:textSize="@dimen/font_size_18sp"
-            android:inputType="date"
             android:gravity="end"
+            android:clickable="true"
+            android:focusable="false"
             />
 
         <LinearLayout

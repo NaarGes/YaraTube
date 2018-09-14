@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.player.PlayerActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:configChanges="screenSize|orientation|keyboardHidden">
 
         </activity>
