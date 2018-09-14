@@ -1,7 +1,5 @@
 package com.example.asus.yaratube.data.remote;
 
-import android.media.Image;
-
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.Category;
 import com.example.asus.yaratube.data.model.Comment;
@@ -87,13 +85,11 @@ public interface ApiService {
     Call<Profile> getProfile();
 
     // send profile to server
-    // FIXME image should send separately
     @POST("profile")
     @FormUrlEncoded
     Call<Profile> sendProfile(@Field("nickname") String nickname,
                               @Field("date_of_birth") Date birthDate,
                               @Field("gender") String gender,
-                              @Field("avatar")Image avatar,
                               @Field("mobile") String mobile,
                               @Field("email") String email,
                               @Field("device_id") String deviceId,
@@ -101,4 +97,5 @@ public interface ApiService {
                               @Field("device_model") String deviceModel,
                               @Field("password") String password);
 
+    // TODO send image using multipart
 }

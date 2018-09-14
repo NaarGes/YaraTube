@@ -1,6 +1,8 @@
 package com.example.asus.yaratube.ui.profile;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 
 import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
@@ -24,7 +26,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void updateUserInfo(String nickname, String name, String sex, String birthDate) {
+    public void updateUserInfo(String nickname, String name, String sex, String birthDate, Uri profileUri) {
 
         user.setPhoneNumber(database.userDao().getPhoneNumber());
         user.setToken(database.userDao().getToken());
@@ -32,6 +34,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         user.setName(name);
         user.setSex(sex);
         user.setBirthDate(birthDate);
+        Log.e("photo is saving", "updateUserInfo: "+profileUri );
+        if(profileUri != null)
+            user.setPhotoUri(profileUri.toString());
 
         userRepository.updateUser(user);
 
@@ -81,8 +86,16 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public String getProfileUrl() {
 
-        if(user.getPhotoUrl() != null)
-            return user.getPhotoUrl();
+        if(user.getGooglePhotoUrl() != null)
+            return user.getGooglePhotoUrl();
         return "";
+    }
+
+    @Override
+    public Uri getProfileUri() {
+
+        if(user.getPhotoUri() != null)
+            return Uri.parse(user.getPhotoUri());
+        return null;
     }
 }

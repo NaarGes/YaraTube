@@ -3,6 +3,7 @@ package com.example.asus.yaratube.data.local;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.net.Uri;
 
 @Entity(tableName = "user")
 public class UserEntity {
@@ -26,8 +27,11 @@ public class UserEntity {
 
     private String email;
 
-    @ColumnInfo(name = "photo_url")
-    private String photoUrl;
+    @ColumnInfo(name = "google_photo_url")
+    private String googlePhotoUrl;
+
+    @ColumnInfo(name = "photo_uri")
+    private String photoUri;
 
 
     public int getId() {
@@ -94,11 +98,19 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
+    public String getGooglePhotoUrl() {
+        return googlePhotoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setGooglePhotoUrl(String googlePhotoUrl) {
+        this.googlePhotoUrl = googlePhotoUrl;
+    }
+
+    public String  getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 }

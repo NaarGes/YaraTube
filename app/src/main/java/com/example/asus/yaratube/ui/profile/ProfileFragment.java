@@ -1,6 +1,6 @@
 package com.example.asus.yaratube.ui.profile;
 
-import android.content.Intent;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,9 +24,11 @@ import com.example.asus.yaratube.util.Util;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
+
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private ProfileContract.Presenter presenter;
+    private Uri profileUri;
 
     public ProfileFragment() {
 
@@ -78,7 +80,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 // TODO update photo url if user manually set
                 // TODO send these to server
                 presenter.updateUserInfo(nickname.getText().toString(), name.getText().toString(),
-                        sex.getText().toString(), birthDate.getText().toString());
+                        sex.getText().toString(), birthDate.getText().toString(), profileUri);
                 Util.hideKeyboardFrom(getContext(), view);
             }
         });
@@ -116,9 +118,16 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         name.setText(presenter.getUserName());
         sex.setText(presenter.getUserSex());
         birthDate.setText(presenter.getUserBirthDate());
-        String photoUrl = presenter.getProfileUrl();
-        if(!photoUrl.equals(""))
-            Glide.with(getContext()).load(photoUrl).into(profileImage);
+
+        if(presenter.getProfileUri() == null) {
+            Log.e("filling", "fillProfile: profile uri is null" );
+            if (!presenter.getProfileUrl().equals(""))
+                Log.e("filling", "fillProfile: profile google is not null" + presenter.getProfileUrl() );
+                Glide.with(getContext()).load(presenter.getProfileUrl()).into(profileImage);
+        } else {
+            Log.e("filling", "fillProfile: profile uri is not null" + presenter.getProfileUri() );
+            profileImage.setImageURI(presenter.getProfileUri());
+        }
     }
 
     private void editPhoto(final ImageView profileImage) {
@@ -132,7 +141,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                     @Override
                     public void choosePhoto(Uri photoUri) {
 
+                        Log.e("photo selected", "choosePhoto: "+photoUri );
                         profileImage.setImageURI(photoUri);
+                        profileUri = photoUri;
                     }
                 });
                 choose.show(getChildFragmentManager(), choose.getTag());

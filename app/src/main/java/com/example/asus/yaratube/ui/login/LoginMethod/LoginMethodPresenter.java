@@ -35,7 +35,7 @@ public class LoginMethodPresenter implements LoginMethodContract.Presenter {
                         userEntity.setToken(result.getToken());
                         userEntity.setName(name);
                         userEntity.setEmail(email);
-                        userEntity.setPhotoUrl(photoUrl);
+                        userEntity.setGooglePhotoUrl(photoUrl);
 
                         if(repository.getUser() != null)
                             repository.updateUser(userEntity);

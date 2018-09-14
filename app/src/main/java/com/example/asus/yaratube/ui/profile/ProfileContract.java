@@ -11,7 +11,7 @@ public interface ProfileContract {
 
     interface Presenter {
 
-        void updateUserInfo(String nickname, String name, String sex, String birthDate);
+        void updateUserInfo(String nickname, String name, String sex, String birthDate, Uri profileUri);
 
         void Logout();
 
@@ -20,6 +20,7 @@ public interface ProfileContract {
         String getUserSex();
         String getUserBirthDate();
         String getProfileUrl();
+        Uri getProfileUri();
     }
 
     interface onChoosePhotoListener {
