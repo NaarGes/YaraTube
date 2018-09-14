@@ -2,7 +2,9 @@ package com.example.asus.yaratube.ui.profile;
 
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,11 +26,14 @@ import com.example.asus.yaratube.util.Util;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
+import java.util.Date;
+
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private ProfileContract.Presenter presenter;
     private Uri profileUri;
+    private Date bdate;
 
     public ProfileFragment() {
 
@@ -77,11 +82,18 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onClick(View view) {
 
-                // TODO update photo url if user manually set
-                // TODO send these to server
+                // save data in database
                 presenter.updateUserInfo(nickname.getText().toString(), name.getText().toString(),
                         sex.getText().toString(), birthDate.getText().toString(), profileUri);
                 Util.hideKeyboardFrom(getContext(), view);
+
+                // sent data to server
+                final String deviceId = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                final String deviceModel = Build.MODEL;
+                final String deviceOs = "Android " + Build.VERSION.SDK_INT;
+
+                presenter.sendProfileToServer(nickname.getText().toString(), bdate, sex.getText().toString(),
+                        "", "", deviceId, deviceOs, deviceModel);
             }
         });
 
@@ -161,6 +173,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 persianCalendar.set(PersianCalendar.YEAR, year);
                 persianCalendar.set(PersianCalendar.MONTH, monthOfYear);
                 persianCalendar.set(PersianCalendar.DAY_OF_MONTH, dayOfMonth);
+                bdate = persianCalendar.getTime();
 
                 String showDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
                 birthDate.setText(showDate);

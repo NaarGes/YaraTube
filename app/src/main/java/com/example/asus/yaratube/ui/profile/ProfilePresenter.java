@@ -7,6 +7,10 @@ import android.util.Log;
 import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
+import com.example.asus.yaratube.data.model.ProfilePostResponse;
+import com.example.asus.yaratube.data.remote.ApiResult;
+
+import java.util.Date;
 
 public class ProfilePresenter implements ProfileContract.Presenter {
 
@@ -41,6 +45,27 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         userRepository.updateUser(user);
 
         view.toast("تغییرات با موفقیت اعمال شد");
+    }
+
+    @Override
+    public void sendProfileToServer(String nickname, Date birthDate, String gender, String mobile,
+                                    String email, String deviceId, String deviceOs, String deviceModel) {
+
+        userRepository.sendProfile(nickname, birthDate, gender, mobile, email, deviceId, deviceOs,
+                deviceModel, new ApiResult<ProfilePostResponse>() {
+            @Override
+            public void onSuccess(ProfilePostResponse result) {
+
+                Log.d("Data successfully sent", "onSuccess: " + result.getError() + " " + result.getMessage());
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+
+                // fixme UNAUTHORIZED
+                Log.d("Data sent failed", "onFail: " + errorMessage);
+            }
+        });
     }
 
     @Override

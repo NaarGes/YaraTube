@@ -2,6 +2,8 @@ package com.example.asus.yaratube.ui.profile;
 
 import android.net.Uri;
 
+import java.util.Date;
+
 public interface ProfileContract {
 
     interface View {
@@ -12,6 +14,8 @@ public interface ProfileContract {
     interface Presenter {
 
         void updateUserInfo(String nickname, String name, String sex, String birthDate, Uri profileUri);
+        void sendProfileToServer(String nickname, Date birthDate, String gender, String mobile,
+                                 String email, String deviceId, String deviceOs, String deviceModel);
 
         void Logout();
 

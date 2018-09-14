@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-public class Profile {
+public class ProfileGetResponse {
 
     @SerializedName("credit")
     @Expose
@@ -21,7 +21,7 @@ public class Profile {
     private int id;
     @SerializedName("friends")
     @Expose
-    private List<Profile> friends = null;
+    private List<ProfileGetResponse> friends = null;
     @SerializedName("error")
     @Expose
     private String error;
@@ -68,11 +68,11 @@ public class Profile {
         this.id = id;
     }
 
-    public List<Profile> getFriends() {
+    public List<ProfileGetResponse> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Profile> friends) {
+    public void setFriends(List<ProfileGetResponse> friends) {
         this.friends = friends;
     }
 

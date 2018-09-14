@@ -10,12 +10,15 @@ import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.CommentPostResponse;
 import com.example.asus.yaratube.data.model.GoogleLoginResponse;
+import com.example.asus.yaratube.data.model.ProfilePostResponse;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.remote.ApiClient;
 import com.example.asus.yaratube.data.remote.ApiResult;
 import com.example.asus.yaratube.data.remote.ApiService;
 import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 import com.example.asus.yaratube.util.Util;
+
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -169,6 +172,32 @@ public class UserRepository {
                 @Override
                 public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
 
+                    callback.onFail(t.getMessage());
+                }
+            });
+        }
+    }
+
+    public void sendProfile(String nickname, Date birthDate, String gender, String mobile,
+                            String email, String deviceId, String deviceOs, String deviceModel,
+                            final ApiResult<ProfilePostResponse> callback) {
+
+        Call<ProfilePostResponse> call = service.sendProfile(nickname, birthDate, gender, mobile,
+                email, deviceId, deviceOs, deviceModel, "");
+
+        if (Util.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<ProfilePostResponse>() {
+                @Override
+                public void onResponse(Call<ProfilePostResponse> call, Response<ProfilePostResponse> response) {
+                    if(response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    } else {
+                        callback.onFail(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfilePostResponse> call, Throwable t) {
                     callback.onFail(t.getMessage());
                 }
             });

@@ -6,7 +6,8 @@ import com.example.asus.yaratube.data.model.Comment;
 import com.example.asus.yaratube.data.model.CommentPostResponse;
 import com.example.asus.yaratube.data.model.GoogleLoginResponse;
 import com.example.asus.yaratube.data.model.Product;
-import com.example.asus.yaratube.data.model.Profile;
+import com.example.asus.yaratube.data.model.ProfileGetResponse;
+import com.example.asus.yaratube.data.model.ProfilePostResponse;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.model.Store;
 
@@ -82,20 +83,20 @@ public interface ApiService {
 
     // get profile from server
     @GET("profile")
-    Call<Profile> getProfile();
+    Call<ProfileGetResponse> getProfile();
 
     // send profile to server
     @POST("profile")
     @FormUrlEncoded
-    Call<Profile> sendProfile(@Field("nickname") String nickname,
-                              @Field("date_of_birth") Date birthDate,
-                              @Field("gender") String gender,
-                              @Field("mobile") String mobile,
-                              @Field("email") String email,
-                              @Field("device_id") String deviceId,
-                              @Field("device_os") String deviceOs,
-                              @Field("device_model") String deviceModel,
-                              @Field("password") String password);
+    Call<ProfilePostResponse> sendProfile(@Field("nickname") String nickname,
+                                          @Field("date_of_birth") Date birthDate,
+                                          @Field("gender") String gender,
+                                          @Field("mobile") String mobile,
+                                          @Field("email") String email,
+                                          @Field("device_id") String deviceId,
+                                          @Field("device_os") String deviceOs,
+                                          @Field("device_model") String deviceModel,
+                                          @Field("password") String password);
 
     // TODO send image using multipart
 }
