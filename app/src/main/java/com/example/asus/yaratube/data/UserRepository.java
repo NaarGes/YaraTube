@@ -178,12 +178,11 @@ public class UserRepository {
         }
     }
 
-    public void sendProfile(String nickname, Date birthDate, String gender, String mobile,
-                            String email, String deviceId, String deviceOs, String deviceModel,
-                            final ApiResult<ProfilePostResponse> callback) {
+    public void sendProfile(String nickname, Date birthDate, String gender,
+                            String tokenId, final ApiResult<ProfilePostResponse> callback) {
 
-        Call<ProfilePostResponse> call = service.sendProfile(nickname, birthDate, gender, mobile,
-                email, deviceId, deviceOs, deviceModel, "");
+        Call<ProfilePostResponse> call = service.sendProfile(nickname, birthDate, gender, "Token " + tokenId);
+        Log.d("info sent to server", "sendProfile: "+nickname+" "+birthDate+ " "+gender+" "+tokenId);
 
         if (Util.isNetworkAvailable(context)) {
             call.enqueue(new Callback<ProfilePostResponse>() {

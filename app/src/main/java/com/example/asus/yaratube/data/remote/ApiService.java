@@ -91,12 +91,7 @@ public interface ApiService {
     Call<ProfilePostResponse> sendProfile(@Field("nickname") String nickname,
                                           @Field("date_of_birth") Date birthDate,
                                           @Field("gender") String gender,
-                                          @Field("mobile") String mobile,
-                                          @Field("email") String email,
-                                          @Field("device_id") String deviceId,
-                                          @Field("device_os") String deviceOs,
-                                          @Field("device_model") String deviceModel,
-                                          @Field("password") String password);
+                                          @Header("Authorization") String tokenId);
 
     // TODO send image using multipart
 }

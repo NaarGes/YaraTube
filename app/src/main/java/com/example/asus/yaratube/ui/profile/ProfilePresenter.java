@@ -48,15 +48,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void sendProfileToServer(String nickname, Date birthDate, String gender, String mobile,
-                                    String email, String deviceId, String deviceOs, String deviceModel) {
+    public void sendProfileToServer(String nickname, Date birthDate, String gender) {
 
-        userRepository.sendProfile(nickname, birthDate, gender, mobile, email, deviceId, deviceOs,
-                deviceModel, new ApiResult<ProfilePostResponse>() {
+        userRepository.sendProfile(nickname, birthDate, gender, getTokenId(), new ApiResult<ProfilePostResponse>() {
             @Override
             public void onSuccess(ProfilePostResponse result) {
 
-                Log.d("Data successfully sent", "onSuccess: " + result.getError() + " " + result.getMessage());
+                Log.d("message get in res", "onSuccess: " + result.getMessage());
+                Log.d("nickname get in res", "onSuccess: " + result.getNickname());
+                Log.d("gender get in res", "onSuccess: " + result.getGender());
+                Log.d("date get in res", "onSuccess: " + result.getDateOfBirth());
+
             }
 
             @Override
@@ -122,5 +124,10 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         if(user.getPhotoUri() != null)
             return Uri.parse(user.getPhotoUri());
         return null;
+    }
+
+    private String getTokenId () {
+
+        return user.getToken();
     }
 }

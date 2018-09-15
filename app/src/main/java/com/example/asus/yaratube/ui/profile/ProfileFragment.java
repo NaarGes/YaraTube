@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private ProfileContract.Presenter presenter;
     private Uri profileUri;
-    private Date bdate;
+    private Date bdate = null;
 
     public ProfileFragment() {
 
@@ -92,8 +92,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 final String deviceModel = Build.MODEL;
                 final String deviceOs = "Android " + Build.VERSION.SDK_INT;
 
-                presenter.sendProfileToServer(nickname.getText().toString(), bdate, sex.getText().toString(),
-                        "", "", deviceId, deviceOs, deviceModel);
+                presenter.sendProfileToServer(nickname.getText().toString(), bdate, sex.getText().toString());
             }
         });
 
