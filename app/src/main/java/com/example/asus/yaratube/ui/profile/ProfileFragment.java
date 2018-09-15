@@ -1,10 +1,6 @@
 package com.example.asus.yaratube.ui.profile;
 
-
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,17 +16,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.asus.yaratube.R;
-import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.util.Util;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
+import java.io.File;
+
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private ProfileContract.Presenter presenter;
-    private Uri profileUri;
+    private String profileImagePath;
     private String dateOfBirth;
 
     public ProfileFragment() {
@@ -48,8 +45,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppDatabase database = AppDatabase.getAppDatabase(getActivity());
-        presenter = new ProfilePresenter(getContext(), this, database);
+        presenter = new ProfilePresenter(getContext(), this);
     }
 
     @Override
@@ -82,7 +78,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
                 // save data in database
                 presenter.updateUserInfo(nickname.getText().toString(), name.getText().toString(),
-                        sex.getText().toString(), birthDate.getText().toString(), profileUri);
+                        sex.getText().toString(), birthDate.getText().toString(), profileImagePath);
                 Util.hideKeyboardFrom(getContext(), view);
 
                 presenter.sendProfileToServer(nickname.getText().toString(), dateOfBirth, sex.getText().toString());
@@ -130,7 +126,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 Glide.with(getContext()).load(presenter.getProfileUrl()).into(profileImage);
         } else {
             Log.e("filling", "fillProfile: profile uri is not null" + presenter.getProfileUri() );
-            profileImage.setImageURI(presenter.getProfileUri());
+            Glide.with(getContext()).load(presenter.getProfileUri()).into(profileImage);
         }
     }
 
@@ -143,11 +139,18 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 ChooseDialog choose = ChooseDialog.newInstance();
                 choose.setListener(new ProfileContract.onChoosePhotoListener() {
                     @Override
-                    public void choosePhoto(Uri photoUri) {
+                    public void choosePhoto(String filePath) {
 
-                        Log.e("photo selected", "choosePhoto: "+photoUri );
-                        profileImage.setImageURI(photoUri);
-                        profileUri = photoUri;
+                        profileImagePath = filePath;
+                        Log.e("file path", "choosePhoto: "+filePath);
+                        Glide.with(getContext()).load(filePath).into(profileImage);
+                        File file = new File(filePath);
+                        long imageSize = file.length() /1024;
+                        if(imageSize > 1000)
+                            Toast.makeText(getContext(), "image more than 1000", Toast.LENGTH_SHORT).show();
+                        else {
+                            presenter.sendProfileImageToServer(file);
+                        }
                     }
                 });
                 choose.show(getChildFragmentManager(), choose.getTag());
@@ -192,16 +195,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         dateOfBirth = year + "-";
 
-        if (month < 10) {
-            dateOfBirth += "0" + month + "-";
+        if (month + 1 < 10) {
+            dateOfBirth += "0" + (month + 1) + "-";
         }
-        else dateOfBirth += "" + month + "-";
+        else dateOfBirth += "" + (month + 1) + "-";
 
         if (day < 10) {
             dateOfBirth += "0" + day;
         }
         else dateOfBirth += "" + day;
-
 
         Log.d("date of birth", "setDateOfBirth: " + dateOfBirth);
     }

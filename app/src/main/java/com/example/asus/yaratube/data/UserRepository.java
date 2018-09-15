@@ -19,8 +19,12 @@ import com.example.asus.yaratube.data.remote.ApiService;
 import com.example.asus.yaratube.ui.login.LoginDialogFragment;
 import com.example.asus.yaratube.util.Util;
 
-import java.util.Date;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -126,6 +130,8 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
+        } else {
+            toastNetworkNotAvailable(context);
         }
     }
 
@@ -151,6 +157,8 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
+        } else {
+            toastNetworkNotAvailable(context);
         }
     }
 
@@ -176,6 +184,8 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
+        } else {
+            toastNetworkNotAvailable(context);
         }
     }
 
@@ -201,6 +211,8 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
+        } else {
+            toastNetworkNotAvailable(context);
         }
         return null;
     }
@@ -227,10 +239,39 @@ public class UserRepository {
                     callback.onFail(t.getMessage());
                 }
             });
+        } else {
+            toastNetworkNotAvailable(context);
         }
     }
 
+    public void sendProfileImage(File image, String token, final ApiResult<ProfilePostResponse> callback) {
 
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), image);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("avatar", image.getName(), reqFile);
+
+        Call<ProfilePostResponse> call = service.sendProfileImage(body, "Token " + token);
+        Log.e("info sent to server", "sendProfileImage: " + body + " " + token);
+
+        if (Util.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<ProfilePostResponse>() {
+                @Override
+                public void onResponse(Call<ProfilePostResponse> call, Response<ProfilePostResponse> response) {
+                    if (response.isSuccessful())
+                        callback.onSuccess(response.body());
+                    else
+                        callback.onFail(response.message());
+                }
+
+                @Override
+                public void onFailure(Call<ProfilePostResponse> call, Throwable t) {
+
+                    callback.onFail(t.getMessage());
+                }
+            });
+        } else {
+            toastNetworkNotAvailable(context);
+        }
+    }
 
     private void toastNetworkNotAvailable(Context context) {
 

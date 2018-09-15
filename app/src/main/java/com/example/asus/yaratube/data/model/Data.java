@@ -3,7 +3,6 @@ package com.example.asus.yaratube.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 
 public class Data {
 
@@ -18,7 +17,7 @@ public class Data {
     private String mobile;
     @SerializedName("avatar")
     @Expose
-    private Object avatar; // todo multipart
+    private String avatar;
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -39,5 +38,9 @@ public class Data {
 
     public String getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 }

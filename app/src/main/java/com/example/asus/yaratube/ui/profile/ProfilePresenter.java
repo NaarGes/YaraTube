@@ -10,7 +10,10 @@ import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.ProfilePostResponse;
 import com.example.asus.yaratube.data.remote.ApiResult;
 
-import java.util.Date;
+import java.io.File;
+
+import static com.example.asus.yaratube.util.Util.BASE_URL;
+
 
 public class ProfilePresenter implements ProfileContract.Presenter {
 
@@ -19,18 +22,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     private UserRepository userRepository;
     private UserEntity user;
 
-    ProfilePresenter(Context context, ProfileContract.View view, AppDatabase database) {
+    ProfilePresenter(Context context, ProfileContract.View view) {
 
         this.view = view;
-        this.database = database;
         this.userRepository = new UserRepository(context);
+        this.database = AppDatabase.getAppDatabase(context);
         userRepository.setDatabase(database);
-
         user = userRepository.getUser();
     }
 
     @Override
-    public void updateUserInfo(String nickname, String name, String sex, String birthDate, Uri profileUri) {
+    public void updateUserInfo(String nickname, String name, String sex, String birthDate, String profileImagePath) {
 
         user.setPhoneNumber(database.userDao().getPhoneNumber());
         user.setToken(database.userDao().getToken());
@@ -38,9 +40,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         user.setName(name);
         user.setSex(sex);
         user.setBirthDate(birthDate);
-        Log.e("photo is saving", "updateUserInfo: "+profileUri );
-        if(profileUri != null)
-            user.setPhotoUri(profileUri.toString());
+        Log.e("photo is saving", "updateUserInfo: "+profileImagePath );
+        user.setPhotoUri(profileImagePath);
 
         userRepository.updateUser(user);
 
@@ -63,6 +64,24 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             public void onFail(String errorMessage) {
 
                 Log.d("Data sent failed", "onFail: " + errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void sendProfileImageToServer(File image) {
+
+        userRepository.sendProfileImage(image, getTokenId(), new ApiResult<ProfilePostResponse>() {
+            @Override
+            public void onSuccess(ProfilePostResponse result) {
+
+                Log.e("image", "onSuccess: " + BASE_URL + result.getData().getAvatar());
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+
+                Log.e("send image failed", "onFail: error: " + errorMessage);
             }
         });
     }
@@ -116,11 +135,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public Uri getProfileUri() {
+    public String getProfileUri() {
 
         if(user.getPhotoUri() != null)
-            return Uri.parse(user.getPhotoUri());
-        return null;
+            return user.getPhotoUri();
+        return "";
     }
 
     private String getTokenId () {

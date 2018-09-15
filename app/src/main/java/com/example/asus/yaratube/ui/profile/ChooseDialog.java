@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,71 +115,38 @@ public class ChooseDialog extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-
         switch (requestCode) {
             case CAMERA_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImage = data.getData();
-                    //try {
-                        //Bitmap bitmap = getThumbnail(imageUri);
-                        listener.choosePhoto(selectedImage);
-                    /*} catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
+                    listener.choosePhoto(createFilePath(selectedImage));
+                    Log.d("uri", "onActivityResult: "+selectedImage);
                 }
                 getDialog().dismiss();
                 break;
             case GALLERY_CODE:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
-                    //try {
-                        //Bitmap bitmap = getThumbnail(imageUri);
-                        listener.choosePhoto(selectedImage);
-                    /*} catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
+                    listener.choosePhoto(createFilePath(selectedImage));
                 }
                 getDialog().dismiss();
                 break;
         }
     }
 
-    /*public Bitmap getThumbnail(Uri uri) throws FileNotFoundException, IOException {
-        assert getParentFragment() != null;
-        InputStream input = getActivity().getContentResolver().openInputStream(uri);
+    private String createFilePath(Uri uri) {
 
-        BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
-        onlyBoundsOptions.inJustDecodeBounds = true;
-        onlyBoundsOptions.inDither=true;//optional
-        onlyBoundsOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//optional
-        BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
-        input.close();
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-        if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1)) {
-            return null;
-        }
-
-        int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ?
-                onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
-
-        double ratio = (originalSize > THUMBNAIL_SIZE) ? (originalSize / THUMBNAIL_SIZE) : 1.0;
-
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
-        bitmapOptions.inDither = true; //optional
-        bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;//
-        input = getActivity().getContentResolver().openInputStream(uri);
-        Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
-        input.close();
-        return bitmap;
+        Cursor cursor = getContext().getContentResolver().query(
+                uri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String filePath = cursor.getString(columnIndex);
+        cursor.close();
+        return filePath;
     }
 
-    private static int getPowerOfTwoForSampleRatio(double ratio){
-        int k = Integer.highestOneBit((int)Math.floor(ratio));
-        if(k==0) return 1;
-        else return k;
-    }*/
 /*
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {

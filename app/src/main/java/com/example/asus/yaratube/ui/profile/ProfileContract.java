@@ -1,8 +1,7 @@
 package com.example.asus.yaratube.ui.profile;
 
-import android.net.Uri;
+import java.io.File;
 
-import java.util.Date;
 
 public interface ProfileContract {
 
@@ -13,8 +12,9 @@ public interface ProfileContract {
 
     interface Presenter {
 
-        void updateUserInfo(String nickname, String name, String sex, String birthDate, Uri profileUri);
+        void updateUserInfo(String nickname, String name, String sex, String birthDate, String profileImagePath);
         void sendProfileToServer(String nickname, String birthDate, String gender);
+        void sendProfileImageToServer(File image);
 
         void Logout();
 
@@ -23,11 +23,11 @@ public interface ProfileContract {
         String getUserSex();
         String getUserBirthDate();
         String getProfileUrl();
-        Uri getProfileUri();
+        String getProfileUri();
     }
 
     interface onChoosePhotoListener {
 
-        void choosePhoto(Uri photoUri);
+        void choosePhoto(String filePath);
     }
 }
