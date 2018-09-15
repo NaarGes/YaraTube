@@ -26,14 +26,12 @@ import com.example.asus.yaratube.util.Util;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
-import java.util.Date;
-
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private ProfileContract.Presenter presenter;
     private Uri profileUri;
-    private Date bdate = null;
+    private String dateOfBirth;
 
     public ProfileFragment() {
 
@@ -87,12 +85,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                         sex.getText().toString(), birthDate.getText().toString(), profileUri);
                 Util.hideKeyboardFrom(getContext(), view);
 
-                // sent data to server
-                final String deviceId = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-                final String deviceModel = Build.MODEL;
-                final String deviceOs = "Android " + Build.VERSION.SDK_INT;
-
-                presenter.sendProfileToServer(nickname.getText().toString(), bdate, sex.getText().toString());
+                presenter.sendProfileToServer(nickname.getText().toString(), dateOfBirth, sex.getText().toString());
             }
         });
 
@@ -172,8 +165,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 persianCalendar.set(PersianCalendar.YEAR, year);
                 persianCalendar.set(PersianCalendar.MONTH, monthOfYear);
                 persianCalendar.set(PersianCalendar.DAY_OF_MONTH, dayOfMonth);
-                bdate = persianCalendar.getTime();
 
+                setDateOfBirth(dayOfMonth, monthOfYear, year);
                 String showDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
                 birthDate.setText(showDate);
             }
@@ -193,5 +186,23 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 datePickerDialog.show(getActivity().getFragmentManager(), datePickerDialog.getTag());
             }
         });
+    }
+
+    private void setDateOfBirth(int day, int month, int year) {
+
+        dateOfBirth = year + "-";
+
+        if (month < 10) {
+            dateOfBirth += "0" + month + "-";
+        }
+        else dateOfBirth += "" + month + "-";
+
+        if (day < 10) {
+            dateOfBirth += "0" + day;
+        }
+        else dateOfBirth += "" + day;
+
+
+        Log.d("date of birth", "setDateOfBirth: " + dateOfBirth);
     }
 }

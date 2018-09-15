@@ -13,21 +13,8 @@ public class ProfilePostResponse {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("nickname")
-    @Expose
-    private String nickname;
-    @SerializedName("email")
-    @Expose
-    private String mobile;
-    @SerializedName("avatar")
-    @Expose
-    private Object avatar; // todo multipart
-    @SerializedName("gender")
-    @Expose
-    private String gender;
-    @SerializedName("date_of_birth")
-    @Expose
-    private Date dateOfBirth;
+    @SerializedName("data")
+    private Data data;
 
     public String getError() {
         return error;
@@ -45,15 +32,11 @@ public class ProfilePostResponse {
         this.message = message;
     }
 
-    public String getNickname() {
-        return nickname;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public Data getData() {
+        return data;
     }
 }

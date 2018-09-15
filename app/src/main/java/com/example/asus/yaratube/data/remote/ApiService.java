@@ -83,13 +83,13 @@ public interface ApiService {
 
     // get profile from server
     @GET("profile")
-    Call<ProfileGetResponse> getProfile();
+    Call<ProfileGetResponse> getProfile(@Header("Authorization") String tokenId);
 
     // send profile to server
     @POST("profile")
     @FormUrlEncoded
     Call<ProfilePostResponse> sendProfile(@Field("nickname") String nickname,
-                                          @Field("date_of_birth") Date birthDate,
+                                          @Field("date_of_birth") String birthDate,
                                           @Field("gender") String gender,
                                           @Header("Authorization") String tokenId);
 

@@ -14,7 +14,7 @@ public interface ProfileContract {
     interface Presenter {
 
         void updateUserInfo(String nickname, String name, String sex, String birthDate, Uri profileUri);
-        void sendProfileToServer(String nickname, Date birthDate, String gender);
+        void sendProfileToServer(String nickname, String birthDate, String gender);
 
         void Logout();
 

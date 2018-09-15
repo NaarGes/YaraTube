@@ -48,23 +48,20 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void sendProfileToServer(String nickname, Date birthDate, String gender) {
+    public void sendProfileToServer(String nickname, String birthDate, String gender) {
 
         userRepository.sendProfile(nickname, birthDate, gender, getTokenId(), new ApiResult<ProfilePostResponse>() {
             @Override
             public void onSuccess(ProfilePostResponse result) {
 
-                Log.d("message get in res", "onSuccess: " + result.getMessage());
-                Log.d("nickname get in res", "onSuccess: " + result.getNickname());
-                Log.d("gender get in res", "onSuccess: " + result.getGender());
-                Log.d("date get in res", "onSuccess: " + result.getDateOfBirth());
-
+                Log.d("nickname get in res", "onSuccess: " + result.getData().getNickname());
+                Log.d("gender get in res", "onSuccess: " + result.getData().getGender());
+                Log.d("date get in res", "onSuccess: " + result.getData().getDateOfBirth());
             }
 
             @Override
             public void onFail(String errorMessage) {
 
-                // fixme UNAUTHORIZED
                 Log.d("Data sent failed", "onFail: " + errorMessage);
             }
         });

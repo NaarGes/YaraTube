@@ -10,6 +10,7 @@ import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.Activation;
 import com.example.asus.yaratube.data.model.CommentPostResponse;
 import com.example.asus.yaratube.data.model.GoogleLoginResponse;
+import com.example.asus.yaratube.data.model.ProfileGetResponse;
 import com.example.asus.yaratube.data.model.ProfilePostResponse;
 import com.example.asus.yaratube.data.model.SmsResponse;
 import com.example.asus.yaratube.data.remote.ApiClient;
@@ -178,7 +179,33 @@ public class UserRepository {
         }
     }
 
-    public void sendProfile(String nickname, Date birthDate, String gender,
+    public ProfileGetResponse getProfile(String token, final ApiResult<ProfileGetResponse> callback) {
+
+        Call<ProfileGetResponse> call = service.getProfile("Token " + token);
+        Log.d("token for get profile", "getProfile: "+token);
+
+        if (Util.isNetworkAvailable(context)) {
+            call.enqueue(new Callback<ProfileGetResponse>() {
+                @Override
+                public void onResponse(Call<ProfileGetResponse> call, Response<ProfileGetResponse> response) {
+                    if (response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    } else {
+                        callback.onFail(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfileGetResponse> call, Throwable t) {
+
+                    callback.onFail(t.getMessage());
+                }
+            });
+        }
+        return null;
+    }
+
+    public void sendProfile(String nickname, String birthDate, String gender,
                             String tokenId, final ApiResult<ProfilePostResponse> callback) {
 
         Call<ProfilePostResponse> call = service.sendProfile(nickname, birthDate, gender, "Token " + tokenId);
@@ -202,6 +229,8 @@ public class UserRepository {
             });
         }
     }
+
+
 
     private void toastNetworkNotAvailable(Context context) {
 
