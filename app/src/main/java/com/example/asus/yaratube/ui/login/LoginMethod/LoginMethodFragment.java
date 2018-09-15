@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.login.LoginDialogContract;
+import com.example.asus.yaratube.util.Util;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -135,12 +136,8 @@ public class LoginMethodFragment extends Fragment implements LoginMethodContract
             String photoUrl = account.getPhotoUrl().toString();
             Log.e("profile info", "handleResult: "+name+" "+email+" "+photoUrl+ " "+account.getIdToken() );
 
-            final String deviceId = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-            final String deviceModel = Build.MODEL;
-            final String deviceOs = "Android " + Build.VERSION.SDK_INT;
-
-            presenter.onSendGoogleToken(account.getIdToken(), deviceId, deviceOs, deviceModel
-                                            , name, email, photoUrl);
+            presenter.onSendGoogleToken(account.getIdToken(), Util.getDeviceId(getContext()),
+                    Util.DEVICE_OS, Util.DEVICE_MODEL, name, email, photoUrl);
         } else { // login fail
             toast("لطفا مجددا تلاش کنید");
         }

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -59,7 +61,14 @@ public class Util {
 
     public static int getLoginStep(MainActivity activity) {
         SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         return sharedPreferences.getInt("Login Step", 1);
     }
+
+    // Device info
+    public static String getDeviceId(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public static final String DEVICE_MODEL = Build.MODEL;
+    public static final String DEVICE_OS = "Android " + Build.VERSION.SDK_INT;
 }

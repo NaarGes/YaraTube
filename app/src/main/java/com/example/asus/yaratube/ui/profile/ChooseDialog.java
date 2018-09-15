@@ -2,9 +2,7 @@ package com.example.asus.yaratube.ui.profile;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +11,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +20,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,7 +32,7 @@ public class ChooseDialog extends DialogFragment {
 
     private static final int CAMERA_CODE = 0;
     private static final int GALLERY_CODE = 1;
-    //private static final int THUMBNAIL_SIZE = 400;
+    private static final int THUMBNAIL_SIZE = 1024;
 
     private static final int PERMISSION_GALLERY = 2;
     private static final int PERMISSION_CAMERA = 3;
@@ -128,6 +126,7 @@ public class ChooseDialog extends DialogFragment {
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
                     listener.choosePhoto(createFilePath(selectedImage));
+                    Log.d("uri", "onActivityResult: "+selectedImage);
                 }
                 getDialog().dismiss();
                 break;
@@ -147,6 +146,20 @@ public class ChooseDialog extends DialogFragment {
         return filePath;
     }
 
+    /*public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                                   boolean filter) {
+        float ratio = Math.min(
+                maxImageSize / realImage.getWidth(),
+                maxImageSize / realImage.getHeight());
+        int width = Math.round( ratio * realImage.getWidth());
+        int height = Math.round( ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
+    }
+    // call: Bitmap scaledBitmap = scaleDown(realImage, MAX_IMAGE_SIZE, true);
+*/
 /*
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {

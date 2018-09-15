@@ -30,13 +30,13 @@ public class ProfileGetResponse {
     private String nickname;
     @SerializedName("date_of_birth")
     @Expose
-    private Date dateOfBirth;
+    private String dateOfBirth;
     @SerializedName("gender")
     @Expose
     private String gender;
     @SerializedName("avatar")
     @Expose
-    private Image avatar;
+    private String avatar;
     @SerializedName("mobile")
     @Expose
     private String mobile;
@@ -92,11 +92,11 @@ public class ProfileGetResponse {
         this.nickname = nickname;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -108,11 +108,11 @@ public class ProfileGetResponse {
         this.gender = gender;
     }
 
-    public Image getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Image avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

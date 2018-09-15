@@ -16,12 +16,13 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/padding_16dp">
 
             <ImageView
                 android:id="@+id/profile_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
                 android:contentDescription="@string/nav_header_desc"
                 android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/ic_launcher_round"
@@ -33,13 +34,13 @@
                 android:background="@drawable/ic_pencil_edit_button"
                 android:layout_alignBottom="@+id/profile_image"
                 android:layout_alignEnd="@+id/profile_image"/>
-
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/padding_16dp">
 
             <EditText
                 android:id="@+id/nickname"
@@ -53,6 +54,8 @@
                 android:textSize="@dimen/font_size_18sp"
                 android:inputType="text"
                 android:gravity="end"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/edit_name_butt"
                 />
 
             <Button
@@ -68,7 +71,7 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_8dp"
+            android:layout_margin="@dimen/padding_16dp"
             android:background="@null"
             android:hint="@string/first_last_name"
             android:textStyle="bold"
@@ -81,9 +84,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/padding_16dp">
+            android:layout_margin="@dimen/padding_16dp">
 
             <TextView
+                android:id="@+id/gender_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -91,6 +95,13 @@
                 android:text="@string/sex"
                 android:textStyle="bold"
                 android:textSize="@dimen/font_size_18sp" />
+
+            <Spinner
+                android:id="@+id/user_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/gender_tv"
+                android:layout_margin="@dimen/padding_8dp"/>
 
             <Button
                 android:id="@+id/edit_sex_butt"
@@ -101,34 +112,36 @@
                 android:layout_margin="@dimen/padding_8dp" />
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/user_sex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_8dp"
-            android:paddingEnd="@dimen/padding_8dp"
-            android:background="@null"
-            android:hint="@string/male"
-            android:textStyle="bold"
-            android:textSize="@dimen/font_size_18sp"
-            android:inputType="text"
-            android:gravity="end"
-            />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/padding_16dp">
+            android:layout_margin="@dimen/padding_16dp">
 
             <TextView
+                android:id="@+id/user_bd_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/padding_8dp"
                 android:text="@string/birth_date"
                 android:textStyle="bold"
-                android:textSize="@dimen/font_size_18sp" />
+                android:textSize="@dimen/font_size_18sp"/>
+
+            <TextView
+                android:id="@+id/user_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_8dp"
+                android:background="@null"
+                android:hint="@string/default_date"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_18sp"
+                android:gravity="start"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_toEndOf="@id/user_bd_tv"
+                />
 
             <Button
                 android:id="@+id/edit_birthdate_butt"
@@ -140,33 +153,20 @@
                 android:layout_marginEnd="@dimen/padding_8dp"/>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/user_birth_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_8dp"
-            android:background="@null"
-            android:hint="@string/default_date"
-            android:textStyle="bold"
-            android:textSize="@dimen/font_size_18sp"
-            android:gravity="end"
-            android:clickable="true"
-            android:focusable="false"
-            />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_margin="@dimen/padding_8dp">
+            android:layout_marginTop="24dp">
 
             <Button
                 android:id="@+id/submit_user_info_butt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/submit_changes"
+                android:textColor="@color/white"
                 android:layout_marginEnd="@dimen/padding_8dp"
-                android:background="@drawable/filled_button"
+                android:background="@drawable/button_gradient"
                 />
 
             <Button

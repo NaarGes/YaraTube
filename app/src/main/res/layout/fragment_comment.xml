@@ -27,7 +27,7 @@
             android:id="@+id/comment_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/filled_button"
+            android:background="@drawable/button_gradient"
             android:text="@string/submit"
             android:textColor="@color/white"
             android:layout_margin="@dimen/padding_8dp"/>

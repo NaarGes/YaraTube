@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="@dimen/padding_16dp">
+    android:layout_margin="@dimen/padding_16dp"
+    android:weightSum="3">
 
     <TextView
         android:id="@+id/profile"
@@ -12,15 +13,16 @@
         android:layout_height="wrap_content"
         android:text="@string/profile"
         android:textSize="@dimen/font_size_16sp"
-        android:paddingBottom="@dimen/padding_8dp"
-        android:paddingTop="@dimen/padding_16dp"
-        android:paddingEnd="@dimen/padding_8dp"
-        android:paddingStart="@dimen/padding_8dp"/>
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#999"/>
+        android:padding="1dp"
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/about"
@@ -28,15 +30,16 @@
         android:layout_height="wrap_content"
         android:text="@string/about_developer"
         android:textSize="@dimen/font_size_16sp"
-        android:paddingBottom="@dimen/padding_8dp"
-        android:paddingTop="@dimen/padding_16dp"
-        android:paddingEnd="@dimen/padding_8dp"
-        android:paddingStart="@dimen/padding_8dp"/>
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#999"/>
+        android:padding="1dp"
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/contact"
@@ -44,13 +47,8 @@
         android:layout_height="wrap_content"
         android:text="@string/contact_developer"
         android:textSize="@dimen/font_size_16sp"
-        android:paddingBottom="@dimen/padding_8dp"
-        android:paddingTop="@dimen/padding_16dp"
-        android:paddingEnd="@dimen/padding_8dp"
-        android:paddingStart="@dimen/padding_8dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#999"/>
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"/>
 </LinearLayout>

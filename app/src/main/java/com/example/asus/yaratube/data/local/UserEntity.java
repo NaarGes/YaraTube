@@ -27,9 +27,6 @@ public class UserEntity {
 
     private String email;
 
-    @ColumnInfo(name = "google_photo_url")
-    private String googlePhotoUrl;
-
     @ColumnInfo(name = "photo_uri")
     private String photoUri;
 
@@ -96,14 +93,6 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getGooglePhotoUrl() {
-        return googlePhotoUrl;
-    }
-
-    public void setGooglePhotoUrl(String googlePhotoUrl) {
-        this.googlePhotoUrl = googlePhotoUrl;
     }
 
     public String  getPhotoUri() {

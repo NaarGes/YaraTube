@@ -62,16 +62,13 @@ public class LoginPhoneFragment extends Fragment implements LoginPhoneContract.V
         phoneNumber = view.findViewById(R.id.phone_number);
         Button submitPhone = view.findViewById(R.id.submit_phone_butt);
 
-        final String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        final String deviceModel = Build.MODEL;
-        final String deviceOs = "Android " + Build.VERSION.SDK_INT;
-
         submitPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 presenter.savePhoneNumber(phoneNumber.getText().toString());
-                presenter.onSendPhoneNumber(Util.faToEn(phoneNumber.getText().toString()), deviceId, deviceModel, deviceOs);
+                presenter.onSendPhoneNumber(Util.faToEn(phoneNumber.getText().toString()), Util.getDeviceId(view.getContext()),
+                        Util.DEVICE_MODEL, Util.DEVICE_OS);
             }
         });
     }

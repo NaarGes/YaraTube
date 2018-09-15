@@ -6,7 +6,7 @@
     android:gravity="center|top"
     android:padding="@dimen/padding_16dp"
     tools:context=".ui.developerinfo.ContactFragment"
-    android:background="@color/white">
+    android:background="@drawable/background_gradient">
 
 
     <TextView
@@ -15,7 +15,8 @@
         android:text="@string/contact_developer"
         android:textSize="@dimen/font_size_20sp"
         android:textStyle="bold"
-        android:layout_margin="@dimen/padding_16dp"/>
+        android:layout_margin="50dp"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <GridLayout
         android:layout_width="wrap_content"
@@ -30,10 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_github_character"
-            android:background="@drawable/filled_button"
+            android:background="@drawable/button_gradient"
             android:contentDescription="@string/developer_github"
-            android:padding="@dimen/padding_25dp"
-            android:layout_margin="@dimen/padding_16dp"
+            android:padding="40dp"
+            android:layout_margin="@dimen/padding_8dp"
             />
 
         <ImageButton
@@ -41,20 +42,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_mail"
-            android:background="@drawable/filled_button"
+            android:background="@drawable/button_gradient"
             android:contentDescription="@string/developer_email"
-            android:padding="@dimen/padding_25dp"
-            android:layout_margin="@dimen/padding_16dp"
+            android:padding="40dp"
+            android:layout_margin="@dimen/padding_8dp"
             />
 
         <ImageButton
             android:id="@+id/developer_linkedin_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_16dp"
-            android:background="@drawable/filled_button"
+            android:layout_margin="@dimen/padding_8dp"
+            android:background="@drawable/button_gradient"
             android:contentDescription="@string/developer_linkedin"
-            android:padding="@dimen/padding_25dp"
+            android:padding="40dp"
             android:src="@drawable/ic_linkedin"
             />
 
@@ -62,10 +63,10 @@
             android:id="@+id/developer_telegram_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_16dp"
-            android:background="@drawable/filled_button"
+            android:layout_margin="@dimen/padding_8dp"
+            android:background="@drawable/button_gradient"
             android:contentDescription="@string/developer_telegram"
-            android:padding="@dimen/padding_25dp"
+            android:padding="40dp"
             android:src="@drawable/ic_telegram"
             />
 

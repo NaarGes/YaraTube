@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/submit"
                 android:textColor="@color/white"
-                android:background="@drawable/filled_button"
+                android:background="@drawable/button_gradient"
                 android:layout_margin="@dimen/padding_8dp" />
 
         </LinearLayout>

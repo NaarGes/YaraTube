@@ -8,13 +8,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.base.MainActivity;
 import com.example.asus.yaratube.util.Util;
@@ -29,6 +33,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private ProfileContract.Presenter presenter;
     private String profileImagePath;
     private String dateOfBirth;
+    private String gender;
 
     public ProfileFragment() {
 
@@ -64,10 +69,37 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         final EditText nickname = view.findViewById(R.id.nickname);
         final EditText name = view.findViewById(R.id.user_name);
-        final EditText sex = view.findViewById(R.id.user_sex);
         final TextView birthDate = view.findViewById(R.id.user_birth_date);
 
-        fillProfile(nickname, name, sex, birthDate, profileImage);
+        final Spinner dropdown = view.findViewById(R.id.user_gender);
+        String[] items = new String[]{"خانم", "آقا"};
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+                switch (position) {
+                    case 0:
+                        Log.e("item 1", "onItemSelected: " );
+                        gender = "Female";
+                        break;
+                    case 1:
+                        Log.e("item 2", "onItemSelected: " );
+                        gender = "Male";
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                // no-op
+            }
+        });
+
+        presenter.fillProfile(nickname, name, gender, birthDate, profileImage);
 
         editPhoto(profileImage);
         editBirthDate(birthDate);
@@ -77,11 +109,25 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             public void onClick(View view) {
 
                 // save data in database
-                presenter.updateUserInfo(nickname.getText().toString(), name.getText().toString(),
-                        sex.getText().toString(), birthDate.getText().toString(), profileImagePath);
-                Util.hideKeyboardFrom(getContext(), view);
+                presenter.updateUserInDatabase(nickname.getText().toString(), name.getText().toString(),
+                        gender, birthDate.getText().toString(), profileImagePath);
 
-                presenter.sendProfileToServer(nickname.getText().toString(), dateOfBirth, sex.getText().toString());
+                // send data to server
+                presenter.sendProfileToServer(nickname.getText().toString(), dateOfBirth, gender);
+
+                // send profile image to server
+                if (profileImagePath != null) { // if user select an image for profile
+                    Log.e("image sending to server", "onClick: "+profileImagePath );
+                    File file = new File(profileImagePath);
+                    long imageWidth = file.length() / 1024;
+                    if (imageWidth > 1024) {
+                        // TODO resize image
+                        Log.e("imag size is big", "onClick: image size more than 1024*1024" );
+                    } else {
+                        presenter.sendProfileImageToServer(file);
+                    }
+                }
+                Util.hideKeyboardFrom(getContext(), view);
             }
         });
 
@@ -112,24 +158,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void fillProfile(EditText nickname, EditText name, EditText sex, TextView birthDate, ImageView profileImage) {
-
-        nickname.setText(presenter.getNickname());
-        name.setText(presenter.getUserName());
-        sex.setText(presenter.getUserSex());
-        birthDate.setText(presenter.getUserBirthDate());
-
-        if(presenter.getProfileUri() == null) {
-            Log.e("filling", "fillProfile: profile uri is null" );
-            if (!presenter.getProfileUrl().equals(""))
-                Log.e("filling", "fillProfile: profile google is not null" + presenter.getProfileUrl() );
-                Glide.with(getContext()).load(presenter.getProfileUrl()).into(profileImage);
-        } else {
-            Log.e("filling", "fillProfile: profile uri is not null" + presenter.getProfileUri() );
-            Glide.with(getContext()).load(presenter.getProfileUri()).into(profileImage);
-        }
-    }
-
     private void editPhoto(final ImageView profileImage) {
 
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -142,15 +170,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                     public void choosePhoto(String filePath) {
 
                         profileImagePath = filePath;
-                        Log.e("file path", "choosePhoto: "+filePath);
-                        Glide.with(getContext()).load(filePath).into(profileImage);
-                        File file = new File(filePath);
-                        long imageSize = file.length() /1024;
-                        if(imageSize > 1000)
-                            Toast.makeText(getContext(), "image more than 1000", Toast.LENGTH_SHORT).show();
-                        else {
-                            presenter.sendProfileImageToServer(file);
-                        }
+                        Log.e("file path", "choosePhoto: " + filePath);
+                        Glide.with(getContext()).load(filePath).apply(RequestOptions.circleCropTransform()).into(profileImage);
                     }
                 });
                 choose.show(getChildFragmentManager(), choose.getTag());
