@@ -6,16 +6,17 @@
     android:orientation="vertical"
     android:padding="@dimen/padding_16dp"
     tools:context=".ui.developerinfo.AboutFragment"
-    android:background="@drawable/background_gradient">
+    android:background="@drawable/background_gradient"
+    android:clickable="true">
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_developer"
         android:textSize="@dimen/font_size_20sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_margin="50dp"/>
+        android:layout_margin="50dp"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
         android:textSize="@dimen/font_size_18sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
-        android:lineSpacingExtra="@dimen/padding_16dp"/>
+        android:lineSpacingExtra="@dimen/padding_16dp"
+        android:layout_margin="50dp"/>
 
 </LinearLayout>

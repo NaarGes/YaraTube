@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,9 +127,9 @@ public class LoginCodeFragment extends Fragment implements LoginCodeContract.Vie
             case REQUEST_CODE_READ_SMS:
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
 
-                    toast("Permission Granted");
+                    Log.e("sms read permission", "onRequestPermissionsResult: Permission Granted");
                 else
-                    toast("Permission Denied");
+                    Log.e("sms read permission", "onRequestPermissionsResult: Permission Denied");
         }
     }
 }

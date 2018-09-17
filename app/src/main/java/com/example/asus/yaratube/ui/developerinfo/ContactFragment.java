@@ -22,6 +22,18 @@ public class ContactFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.contact_developer);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setTitle(R.string.app_name);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_contact, container, false);
         return root;

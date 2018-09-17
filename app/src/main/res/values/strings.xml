@@ -49,5 +49,6 @@
     <string name="more">بیشتر</string>
     <string name="choose_from_gallery">انتخاب تصویر از گالری</string>
     <string name="take_camera">گرفتن تصویر جدید</string>
+    <string name="user_profile">پروفایل کاربر</string>
 
 </resources>

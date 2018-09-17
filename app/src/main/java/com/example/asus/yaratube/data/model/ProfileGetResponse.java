@@ -1,21 +1,17 @@
 package com.example.asus.yaratube.data.model;
 
-import android.media.Image;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
 import java.util.List;
 
 public class ProfileGetResponse {
 
     @SerializedName("credit")
     @Expose
-    private String credit;
+    private Credit credit;
     @SerializedName("magic_credit")
     @Expose
-    private String magicCredit;
+    private MagicCredit magicCredit;
     @SerializedName("id")
     @Expose
     private int id;
@@ -44,19 +40,19 @@ public class ProfileGetResponse {
     @Expose
     private String email;
 
-    public String getCredit() {
+    public Credit getCredit() {
         return credit;
     }
 
-    public void setCredit(String credit) {
+    public void setCredit(Credit credit) {
         this.credit = credit;
     }
 
-    public String getMagicCredit() {
+    public MagicCredit getMagicCredit() {
         return magicCredit;
     }
 
-    public void setMagicCredit(String magicCredit) {
+    public void setMagicCredit(MagicCredit magicCredit) {
         this.magicCredit = magicCredit;
     }
 

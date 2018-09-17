@@ -53,8 +53,6 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/font_size_18sp"
                 android:inputType="text"
-                android:gravity="end"
-                android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/edit_name_butt"
                 />
 
@@ -77,7 +75,6 @@
             android:textStyle="bold"
             android:textSize="@dimen/font_size_18sp"
             android:inputType="text"
-            android:gravity="end"
             />
 
         <RelativeLayout

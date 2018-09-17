@@ -2,17 +2,17 @@
 <resources>
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
-    <dimen name="font_size_20sp">20sp</dimen>
-    <dimen name="font_size_18sp">18sp</dimen>
+    <dimen name="font_size_20sp">19sp</dimen>
+    <dimen name="font_size_18sp">17sp</dimen>
     <dimen name="padding_25dp">25dp</dimen>
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_150dp">150dp</dimen>
     <dimen name="_300dp">300dp</dimen>
     <dimen name="_5dp">5dp</dimen>
-    <dimen name="font_size_15sp">15sp</dimen>
+    <dimen name="font_size_15sp">14sp</dimen>
     <dimen name="_200dp">200dp</dimen>
-    <dimen name="font_size_12sp">12sp</dimen>
-    <dimen name="font_size_17sp">17sp</dimen>
+    <dimen name="font_size_12sp">11sp</dimen>
+    <dimen name="font_size_17sp">16sp</dimen>
     <dimen name="_3dp">3dp</dimen>
-    <dimen name="font_size_16sp">16sp</dimen>
+    <dimen name="font_size_16sp">15sp</dimen>
 </resources>

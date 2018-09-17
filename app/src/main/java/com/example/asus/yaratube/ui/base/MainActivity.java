@@ -1,5 +1,6 @@
 package com.example.asus.yaratube.ui.base;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,8 @@ import com.example.asus.yaratube.ui.home.BottomHolderFragment;
 import com.example.asus.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.asus.yaratube.ui.productlist.ProductListFragment;
 import com.example.asus.yaratube.ui.profile.ProfileFragment;
-import com.google.android.exoplayer2.C;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements TransferBetweenFragments {
 
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
         // change app direction to RTL
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        // clickable home button
-        //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
         setBottomNavigationFragment();
 
@@ -87,5 +89,10 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
 
         getSupportFragmentManager().beginTransaction().addToBackStack(fragment.getClass().getName())
                 .add(R.id.main_container, fragment).commit();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

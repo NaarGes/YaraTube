@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.UserRepository;
 import com.example.asus.yaratube.data.local.AppDatabase;
 import com.example.asus.yaratube.data.local.UserEntity;
 import com.example.asus.yaratube.data.model.ProfileGetResponse;
 import com.example.asus.yaratube.data.model.ProfilePostResponse;
 import com.example.asus.yaratube.data.remote.ApiResult;
+import com.example.asus.yaratube.util.Util;
 
 import java.io.File;
 
@@ -50,29 +50,43 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         name.setText(user.getName());
         birthDate.setText(user.getBirthDate());
 
-        // todo set user gender
-
         if (user.getPhotoUri() != null)
             Glide.with(context).load(user.getPhotoUri()).apply(RequestOptions.circleCropTransform()).into(profileImage);
 
-        // FIXME get profile error: java.lang.IllegalStateException: Expected a string but was
-        // FIXME BEGIN_OBJECT at line 1 column 60 path $.magic_credit
-        /*ProfileGetResponse profile = getProfile();
 
-        if (profile.getNickname() != null &&
-                !profile.getNickname().equals(nickname.getText().toString()))
-            nickname.setText(profile.getNickname());
+        if(Util.isNetworkAvailable(context)) {
+            ProfileGetResponse profile = getProfile();
 
-        if (profile.getGender() != null &&
-                !profile.getGender().equals(nickname.getText().toString()))
-            nickname.setText(profile.getGender());
+            // fixme how to wait to get!
 
-        if (profile.getDateOfBirth() != null &&
-                !profile.getDateOfBirth().equals(birthDate.getText().toString()))
-            birthDate.setText(profile.getDateOfBirth());
+            Log.e("profile fetched", "fillProfile: "+profile );
+            // update nickname
+           // Log.e("update", "fillProfile: " + !profile.getNickname().equals(nickname.getText().toString()));
+            if (profile.getNickname() != null &&
+                    !profile.getNickname().equals(nickname.getText().toString())) {
+                Log.e("nickname from server", "fillProfile: " + profile.getNickname());
+                nickname.setText(profile.getNickname());
+            }
 
-        if (profile.getAvatar() != null)
-            Glide.with(context).load(profile.getAvatar()).into(profileImage);*/
+            // update gender
+
+            // update birth date
+            if (profile.getDateOfBirth() != null &&
+                    !profile.getDateOfBirth().equals(birthDate.getText().toString())) {
+                Log.e("bd from server", "fillProfile: " + profile.getDateOfBirth());
+                birthDate.setText(formatBirthDate(profile.getDateOfBirth()));
+            }
+
+            // update avatar
+            if (profile.getAvatar() != null) {
+                Log.e("avatar from server", "fillProfile: " + profile.getAvatar());
+                Glide.with(context).load(BASE_URL + profile.getAvatar()).into(profileImage);
+            }
+        }
+    }
+
+    private String formatBirthDate(String dateOfBirth) {
+        return dateOfBirth.replace("-", "/");
     }
 
     @Override

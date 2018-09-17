@@ -51,6 +51,13 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new ProfilePresenter(getContext(), this);
+        getActivity().setTitle(getString(R.string.user_profile));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setTitle(R.string.app_name);
     }
 
     @Override

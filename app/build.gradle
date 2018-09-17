@@ -66,5 +66,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     // persian date picker
     implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
+    // set font to app
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
 apply plugin: 'com.google.gms.google-services'

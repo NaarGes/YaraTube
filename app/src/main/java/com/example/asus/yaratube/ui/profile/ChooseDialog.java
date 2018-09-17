@@ -3,14 +3,14 @@ package com.example.asus.yaratube.ui.profile;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,18 +21,13 @@ import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
 
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
 import static android.app.Activity.RESULT_OK;
 
 public class ChooseDialog extends DialogFragment {
 
     private static final int CAMERA_CODE = 0;
     private static final int GALLERY_CODE = 1;
-    private static final int THUMBNAIL_SIZE = 1024;
+    //private static final int THUMBNAIL_SIZE = 1024;
 
     private static final int PERMISSION_GALLERY = 2;
     private static final int PERMISSION_CAMERA = 3;
@@ -82,20 +77,31 @@ public class ChooseDialog extends DialogFragment {
         gallery.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                       MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-               startActivityForResult(pickPhoto, GALLERY_CODE);
-              // if(!hasPermissions(getActivity(), GALLERY_PERMISSIONS))
-                //   ActivityCompat.requestPermissions(getActivity(), GALLERY_PERMISSIONS, PERMISSION_GALLERY);
+
+               if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                   Log.e("PERMISSION CHECK", "onClick: android M or more");
+                   ActivityCompat.requestPermissions(getActivity(), GALLERY_PERMISSIONS, PERMISSION_GALLERY); // FIXME doesn't work
+               }
+                else {
+                   Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                           MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                   startActivityForResult(pickPhoto, GALLERY_CODE);
+               }
            }
        });
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, CAMERA_CODE);
-             //   if(!hasPermissions(getActivity(), Manifest.permission.CAMERA))
-                 //   ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, PERMISSION_CAMERA);
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    Log.e("PERMISSION CHECK", "onClick: android M or more");
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
+                            PERMISSION_CAMERA); // FIXME doesn't work
+                }
+                else {
+                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, CAMERA_CODE);
+                }
             }
         });
     }
@@ -113,22 +119,22 @@ public class ChooseDialog extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        getDialog().dismiss();
+
         switch (requestCode) {
             case CAMERA_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImage = data.getData();
                     listener.choosePhoto(createFilePath(selectedImage));
-                    Log.d("uri", "onActivityResult: "+selectedImage);
+                    Log.e("uri", "onActivityResult: "+selectedImage);
                 }
-                getDialog().dismiss();
                 break;
             case GALLERY_CODE:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
                     listener.choosePhoto(createFilePath(selectedImage));
-                    Log.d("uri", "onActivityResult: "+selectedImage);
+                    Log.e("uri", "onActivityResult: "+selectedImage);
                 }
-                getDialog().dismiss();
                 break;
         }
     }
@@ -160,8 +166,8 @@ public class ChooseDialog extends DialogFragment {
     }
     // call: Bitmap scaledBitmap = scaleDown(realImage, MAX_IMAGE_SIZE, true);
 */
-/*
-    public static boolean hasPermissions(Context context, String... permissions) {
+
+    /*public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
             for (String permission : permissions) {
                 if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -170,11 +176,13 @@ public class ChooseDialog extends DialogFragment {
             }
         }
         return true;
-    }
+    }*/
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
 
+        Log.e("PERMISSION CHECK", "onClick: on activity result" );
         switch (requestCode) {
             case PERMISSION_GALLERY:
                 if (grantResults.length > 0
@@ -183,7 +191,7 @@ public class ChooseDialog extends DialogFragment {
                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto, GALLERY_CODE);
                 } else {
-                    // todo permission denied
+                    Log.e("gallery permission", "onRequestPermissionsResult: Permission Denied");
                 }
                 break;
             case PERMISSION_CAMERA:
@@ -192,9 +200,9 @@ public class ChooseDialog extends DialogFragment {
                     Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, CAMERA_CODE);
                 } else {
-                    // todo permission denied
+                    Log.e("camera permission", "onRequestPermissionsResult: Permission Denied");
                 }
                 break;
         }
-    }*/
+    }
 }
