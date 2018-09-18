@@ -1,5 +1,6 @@
 package com.example.asus.yaratube.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -189,6 +190,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 choose.show(getChildFragmentManager(), choose.getTag());
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
     }
 
     private void editBirthDate(final TextView birthDate) {

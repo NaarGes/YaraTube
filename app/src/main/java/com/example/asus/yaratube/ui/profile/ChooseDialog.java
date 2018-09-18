@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.IOException;
@@ -100,9 +101,7 @@ public class ChooseDialog extends DialogFragment {
                        openGalleryIntent();
                }
                 else {
-                   Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                           MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                   startActivityForResult(pickPhoto, GALLERY_CODE);
+                   openGalleryIntent();
                }
            }
        });
@@ -160,29 +159,38 @@ public class ChooseDialog extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        getDialog().dismiss();
-
+        Log.e("req code", "onActivityResult: "+requestCode );
         switch (requestCode) {
 
+
             case GALLERY_CODE:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = data.getData();
-                    listener.choosePhoto(createFilePath(selectedImage));
-                }
+                if (resultCode == RESULT_OK)
+                    cropImage(data.getData());
                 break;
 
             case CAMERA_CODE:
-                if (resultCode == RESULT_OK) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-                        listener.choosePhoto(imageFilePath);
-                    else {
-                        Uri selectedImage = data.getData();
-                        listener.choosePhoto(createFilePath(selectedImage));
+                if (resultCode == RESULT_OK)
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        Log.e("image file path", "onActivityResult: "+imageFilePath );
+                        Log.e("crop shooo", "onActivityResult: "+Uri.parse(Uri.parse(imageFilePath).getPath()));
+                        cropImage(Uri.fromFile(new File(imageFilePath)));
                     }
+                    else
+                        cropImage(data.getData());
+                break;
+
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Log.e("result uri", "onActivityResult: "+result.getUri() );
+                if (resultCode == RESULT_OK) {
+                    Uri resultUri = result.getUri();
+                    listener.choosePhoto(resultUri.getPath());
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Exception error = result.getError();
                 }
+                getDialog().dismiss();
                 break;
         }
-        getDialog().dismiss();
     }
 
 
@@ -228,20 +236,6 @@ public class ChooseDialog extends DialogFragment {
         }
     }
 
-    private String createFilePath(Uri uri) {
-
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-        Cursor cursor = getContext().getContentResolver().query(
-                uri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return filePath;
-    }
-
-    // todo
     private void openGalleryIntent() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -257,5 +251,13 @@ public class ChooseDialog extends DialogFragment {
             }
         }
         return true;
+    }
+
+    private void cropImage(Uri uri) {
+        Log.e("cropping", "cropImage: in cropImage"+uri );
+        CropImage.activity(uri)
+                .setOutputCompressQuality(50)
+                .setFixAspectRatio(true)
+                .start(getContext(), this);
     }
 }

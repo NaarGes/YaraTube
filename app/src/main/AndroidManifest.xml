@@ -33,6 +33,8 @@
             android:configChanges="screenSize|orientation|keyboardHidden">
 
         </activity>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
         <receiver
             android:name=".ui.login.phone.LoginCode.SMSReceiver"
             android:permission="android.permission.BROADCAST_SMS">
