@@ -5,7 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +28,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     private CategoryAdapter adapter;
     private ProgressBar spinner;
     private TransferBetweenFragments transferBetweenFragments;
+    private CategoryContract.Presenter presenter;
+    private View view;
 
     public CategoryFragment() {
     }
@@ -47,7 +51,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CategoryContract.Presenter presenter = new CategoryPresenter(this, getContext());
+        presenter = new CategoryPresenter(this, getContext());
+        this.view = view;
 
         spinner = view.findViewById(R.id.category_progress_bar);
         setRecyclerView(view);
@@ -105,6 +110,21 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
                 transferBetweenFragments.goFromCategoryToProductList(category);
             }
         });
+    }
+
+    @Override
+    public void showSnackbar() {
+
+        Snackbar snackbar = Snackbar.make(view, R.string.no_internet_connection, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.retry, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.onLoadCategory();
+                    }
+                });
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.snackbar));
+        snackbar.show();
     }
 
     @Override

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -181,12 +182,12 @@ public class ChooseDialog extends DialogFragment {
 
             case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Log.e("result uri", "onActivityResult: "+result.getUri() );
                 if (resultCode == RESULT_OK) {
                     Uri resultUri = result.getUri();
                     listener.choosePhoto(resultUri.getPath());
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     Exception error = result.getError();
+                    Log.e("Error message", "onActivityResult: " + error.getMessage());
                 }
                 getDialog().dismiss();
                 break;
@@ -256,8 +257,10 @@ public class ChooseDialog extends DialogFragment {
     private void cropImage(Uri uri) {
         Log.e("cropping", "cropImage: in cropImage"+uri );
         CropImage.activity(uri)
-                .setOutputCompressQuality(50)
+                //.setOutputCompressQuality(50)
+                .setRequestedSize(1024, 1024, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
                 .setFixAspectRatio(true)
+                .setCropShape(CropImageView.CropShape.OVAL)
                 .start(getContext(), this);
     }
 }

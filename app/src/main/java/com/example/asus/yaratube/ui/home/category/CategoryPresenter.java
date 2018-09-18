@@ -35,7 +35,8 @@ public class CategoryPresenter implements CategoryContract.Presenter {
             @Override
             public void onFail(String errorMessage) {
 
-                view.showErrorMessage(errorMessage);
+                view.hideProgressBar();
+                view.showSnackbar();
             }
         });
     }

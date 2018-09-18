@@ -6,4 +6,5 @@
     <color name="colorAccent">#f4df3a</color>
     <color name="black">#000</color>
     <color name="white">#fff</color>
+    <color name="snackbar">#8c002c</color>
 </resources>

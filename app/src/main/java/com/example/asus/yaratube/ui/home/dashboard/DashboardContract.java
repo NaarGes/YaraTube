@@ -9,6 +9,7 @@ public interface DashboardContract {
     interface View extends BaseView {
 
         void showDashboard(Store store);
+        void showSnackbar();
     }
 
     interface Presenter {

@@ -21,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/profile_image"
-                android:layout_width="@dimen/_100dp"
-                android:layout_height="@dimen/_100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:contentDescription="@string/nav_header_desc"
                 android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/ic_launcher_round"
@@ -65,17 +65,34 @@
                 android:layout_margin="@dimen/padding_8dp" />
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/user_name"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_16dp"
-            android:background="@null"
-            android:hint="@string/first_last_name"
-            android:textStyle="bold"
-            android:textSize="@dimen/font_size_18sp"
-            android:inputType="text"
-            />
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/padding_16dp">
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/padding_8dp"
+                android:background="@null"
+                android:hint="@string/first_last_name"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_18sp"
+                android:inputType="text"
+                android:layout_toStartOf="@id/edit_fullname_butt"
+                />
+
+            <Button
+                android:id="@+id/edit_fullname_butt"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_pencil_edit_button"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/padding_8dp" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

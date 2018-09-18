@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.model.Category;
 
@@ -70,7 +71,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         void onBind(final Category category) {
 
             if(category.getAvatar() != null) {
-                Glide.with(itemView.getContext()).load(category.getAvatarUrl()).into(categoryAvatar);
+                Glide.with(itemView.getContext())
+                        .load(category.getAvatarUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(categoryAvatar);
             }
 
             categoryTitle.setText(category.getTitle());

@@ -22,6 +22,7 @@ public class BottomHolderFragment extends Fragment {
     private CategoryFragment categoryFragment;
     private MoreFragment moreFragment;
     private Fragment active;
+    private boolean categoryIsAdded = false;
 
     public BottomHolderFragment() {
     }
@@ -73,9 +74,9 @@ public class BottomHolderFragment extends Fragment {
 
         getChildFragmentManager().beginTransaction()
                 .add(R.id.home_category_fragment_container, dashboardFragment)
-                .add(R.id.home_category_fragment_container, categoryFragment)
+                //.add(R.id.home_category_fragment_container, categoryFragment)
                 .add(R.id.home_category_fragment_container, moreFragment)
-                .hide(categoryFragment)
+                //.hide(categoryFragment)
                 .hide(moreFragment)
                 .commit();
         active = dashboardFragment;
@@ -97,13 +98,22 @@ public class BottomHolderFragment extends Fragment {
                                 return true;
 
                             case R.id.category_bn:
-                                if(categoryFragment != active) {
-                                    getChildFragmentManager().beginTransaction()
-                                            .hide(active)
-                                            .show(categoryFragment)
-                                            .commit();
-                                    active = categoryFragment;
-                                }
+                                if (categoryIsAdded) {
+                                    if (categoryFragment != active) {
+                                        getChildFragmentManager().beginTransaction()
+                                                .hide(active)
+                                                .show(categoryFragment)
+                                                .commit();
+                                        active = categoryFragment;
+                                    }
+                                } else {
+                                        categoryIsAdded = true;
+                                        getChildFragmentManager().beginTransaction()
+                                                .hide(active)
+                                                .add(R.id.home_category_fragment_container, categoryFragment)
+                                                .commit();
+                                        active = categoryFragment;
+                                    }
                                 return true;
 
                             case R.id.more_bn:

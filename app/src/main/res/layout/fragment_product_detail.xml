@@ -134,7 +134,8 @@
                             android:elevation="3dp"
                             android:text="@string/comment"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
                     </RelativeLayout>
 
                     <ProgressBar

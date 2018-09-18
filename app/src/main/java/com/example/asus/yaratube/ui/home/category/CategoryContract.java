@@ -10,6 +10,7 @@ public interface CategoryContract {
     interface View extends BaseView {
 
         void showCategoryList(List<Category> categories);
+        void showSnackbar();
     }
 
     interface Presenter {

@@ -32,7 +32,6 @@ public class Repository {
 
         Call<List<Category>> call = service.getCategories();
 
-        if(Util.isNetworkAvailable(context)) {
             call.enqueue(new Callback<List<Category>>() {
                 @Override
                 public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
@@ -50,16 +49,12 @@ public class Repository {
                     callback.onFail(t.getMessage());
                 }
             });
-        } else {
-            toastNetworkNotAvailable(context);
-        }
     }
 
     public void getStore(final ApiResult<Store> callback) {
 
         Call<Store> call = service.getDashboard();
 
-        if(Util.isNetworkAvailable(context)) {
             call.enqueue(new Callback<Store>() {
                 @Override
                 public void onResponse(Call<Store> call, Response<Store> response) {
@@ -77,9 +72,6 @@ public class Repository {
                     callback.onFail(t.getMessage());
                 }
             });
-        } else {
-            toastNetworkNotAvailable(context);
-        }
     }
 
     public void getProductList(int categoryId, int offset, final ApiResult<List<Product>> callback) {

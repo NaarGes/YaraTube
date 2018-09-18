@@ -50,5 +50,8 @@
     <string name="choose_from_gallery">انتخاب تصویر از گالری</string>
     <string name="take_camera">گرفتن تصویر جدید</string>
     <string name="user_profile">پروفایل کاربر</string>
+    <string name="no_internet_connection">لطفا اتصال به اینترنت را بررسی کنید</string>
+    <string name="retry">تلاش مجدد</string>
+    <string name="ok">بیخیال</string>
 
 </resources>
