@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.ui.base.MainActivity;
@@ -106,7 +107,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             }
         });
 
-        presenter.fillProfile(nickname, name, gender, birthDate, profileImage);
+        presenter.fillProfile(nickname, name, dropdown, birthDate, profileImage);
 
         editPhoto(profileImage);
         editBirthDate(birthDate);
@@ -178,7 +179,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
                         profileImagePath = filePath;
                         Log.e("file path", "choosePhoto: " + filePath);
-                        Glide.with(getContext()).load(filePath).apply(RequestOptions.circleCropTransform()).into(profileImage);
+                        Glide.with(getContext())
+                                .load(filePath)
+                                .apply(RequestOptions.circleCropTransform())
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .into(profileImage);
                     }
                 });
                 choose.show(getChildFragmentManager(), choose.getTag());

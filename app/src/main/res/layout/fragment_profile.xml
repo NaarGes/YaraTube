@@ -54,6 +54,7 @@
                 android:textSize="@dimen/font_size_18sp"
                 android:inputType="text"
                 android:layout_toStartOf="@id/edit_name_butt"
+                android:textAlignment="textEnd"
                 />
 
             <Button
@@ -75,6 +76,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/font_size_18sp"
             android:inputType="text"
+            android:textAlignment="textEnd"
             />
 
         <RelativeLayout

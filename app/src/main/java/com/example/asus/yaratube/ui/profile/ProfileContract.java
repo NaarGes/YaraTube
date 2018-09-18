@@ -2,6 +2,7 @@ package com.example.asus.yaratube.ui.profile;
 
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.asus.yaratube.data.model.ProfileGetResponse;
@@ -18,11 +19,14 @@ public interface ProfileContract {
 
     interface Presenter {
 
-        void fillProfile(EditText nickname, EditText name, String gender, TextView birthDate, ImageView profileImage);
-        void updateUserInDatabase(String nickname, String name, String gender, String birthDate, String profileImagePath);
+        void fillProfile(EditText nickname, EditText name, Spinner gender, TextView birthDate,
+                         ImageView profileImage);
+        void updateUserInDatabase(String nickname, String name, String gender, String birthDate,
+                                  String profileImagePath);
         void sendProfileToServer(String nickname, String birthDate, String gender);
         void sendProfileImageToServer(File image);
-        ProfileGetResponse getProfile();
+        void getAndUpdateProfile(EditText nickname, Spinner gender, TextView birthDate,
+                                 ImageView profileImage);
 
         void Logout();
     }

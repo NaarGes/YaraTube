@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="@dimen/padding_16dp"
-    android:weightSum="3">
+    android:layout_margin="@dimen/padding_16dp">
 
     <TextView
         android:id="@+id/profile"
@@ -14,9 +13,10 @@
         android:text="@string/profile"
         android:textSize="@dimen/font_size_16sp"
         android:textStyle="bold"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/padding_16dp"
+        android:layout_marginBottom="@dimen/padding_16dp"
+        android:layout_marginStart="@dimen/padding_8dp"/>
 
     <View
         android:layout_width="match_parent"
@@ -31,9 +31,10 @@
         android:text="@string/about_developer"
         android:textSize="@dimen/font_size_16sp"
         android:textStyle="bold"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/padding_16dp"
+        android:layout_marginBottom="@dimen/padding_16dp"
+        android:layout_marginStart="@dimen/padding_8dp"/>
 
     <View
         android:layout_width="match_parent"
@@ -48,7 +49,14 @@
         android:text="@string/contact_developer"
         android:textSize="@dimen/font_size_16sp"
         android:textStyle="bold"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/padding_16dp"
+        android:layout_marginBottom="@dimen/padding_16dp"
+        android:layout_marginStart="@dimen/padding_8dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:padding="1dp"
+        android:background="@color/colorPrimary"/>
 </LinearLayout>

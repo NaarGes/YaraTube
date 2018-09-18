@@ -2,16 +2,18 @@ package com.example.asus.yaratube.ui.profile;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +23,19 @@ import android.widget.TextView;
 
 import com.example.asus.yaratube.R;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import static android.app.Activity.RESULT_OK;
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 public class ChooseDialog extends DialogFragment {
 
     private static final int CAMERA_CODE = 0;
     private static final int GALLERY_CODE = 1;
-    //private static final int THUMBNAIL_SIZE = 1024;
 
     private static final int PERMISSION_GALLERY = 2;
     private static final int PERMISSION_CAMERA = 3;
@@ -35,6 +43,13 @@ public class ChooseDialog extends DialogFragment {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
+
+    String[] CAMERA_PERMISSIONS = {
+      Manifest.permission.CAMERA,
+      Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    private String imageFilePath;
 
     private ProfileContract.onChoosePhotoListener listener;
 
@@ -79,8 +94,10 @@ public class ChooseDialog extends DialogFragment {
            public void onClick(View view) {
 
                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                   Log.e("PERMISSION CHECK", "onClick: android M or more");
-                   ActivityCompat.requestPermissions(getActivity(), GALLERY_PERMISSIONS, PERMISSION_GALLERY); // FIXME doesn't work
+                   if (!hasPermissions(getContext(), GALLERY_PERMISSIONS))
+                       requestPermissions(GALLERY_PERMISSIONS, PERMISSION_GALLERY);
+                   else
+                       openGalleryIntent();
                }
                 else {
                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
@@ -94,9 +111,10 @@ public class ChooseDialog extends DialogFragment {
             public void onClick(View view) {
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    Log.e("PERMISSION CHECK", "onClick: android M or more");
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
-                            PERMISSION_CAMERA); // FIXME doesn't work
+                    if (!hasPermissions(getContext(), CAMERA_PERMISSIONS)) {
+                        requestPermissions(CAMERA_PERMISSIONS, PERMISSION_CAMERA);
+                    } else
+                        openCameraIntent();
                 }
                 else {
                     Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -116,26 +134,97 @@ public class ChooseDialog extends DialogFragment {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e("PERMISSION CHECK", "onClick: on request permission result" );
+
+        switch (requestCode) {
+
+            case PERMISSION_GALLERY:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    openGalleryIntent();
+                else
+                    Log.e("gallery permission", "onRequestPermissionsResult: Permission Denied");
+                break;
+
+            case PERMISSION_CAMERA:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    openCameraIntent();
+                else
+                    Log.e("camera permission", "onRequestPermissionsResult: Permission Denied");
+                break;
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         getDialog().dismiss();
 
         switch (requestCode) {
-            case CAMERA_CODE:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = data.getData();
-                    listener.choosePhoto(createFilePath(selectedImage));
-                    Log.e("uri", "onActivityResult: "+selectedImage);
-                }
-                break;
+
             case GALLERY_CODE:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
                     listener.choosePhoto(createFilePath(selectedImage));
-                    Log.e("uri", "onActivityResult: "+selectedImage);
                 }
                 break;
+
+            case CAMERA_CODE:
+                if (resultCode == RESULT_OK) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                        listener.choosePhoto(imageFilePath);
+                    else {
+                        Uri selectedImage = data.getData();
+                        listener.choosePhoto(createFilePath(selectedImage));
+                    }
+                }
+                break;
+        }
+        getDialog().dismiss();
+    }
+
+
+    private File createImageFile() throws IOException {
+        String timeStamp =
+                new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir =
+                getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        imageFilePath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void openCameraIntent() {
+        Intent pictureIntent = new Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE
+        );
+        if(pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+             //Create a file to store the image
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                ex.printStackTrace();
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getContext(),
+                                                    getContext().getPackageName() + ".provider",
+                                                            photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        photoURI);
+                startActivityForResult(pictureIntent,
+                        CAMERA_CODE);
+            }
         }
     }
 
@@ -152,57 +241,21 @@ public class ChooseDialog extends DialogFragment {
         return filePath;
     }
 
-    /*public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                   boolean filter) {
-        float ratio = Math.min(
-                maxImageSize / realImage.getWidth(),
-                maxImageSize / realImage.getHeight());
-        int width = Math.round( ratio * realImage.getWidth());
-        int height = Math.round( ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-        return newBitmap;
+    // todo
+    private void openGalleryIntent() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, GALLERY_CODE);
     }
-    // call: Bitmap scaledBitmap = scaleDown(realImage, MAX_IMAGE_SIZE, true);
-*/
 
-    /*public static boolean hasPermissions(Context context, String... permissions) {
+    public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
             for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                if (checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
                     return false;
                 }
             }
         }
         return true;
-    }*/
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
-        Log.e("PERMISSION CHECK", "onClick: on activity result" );
-        switch (requestCode) {
-            case PERMISSION_GALLERY:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto, GALLERY_CODE);
-                } else {
-                    Log.e("gallery permission", "onRequestPermissionsResult: Permission Denied");
-                }
-                break;
-            case PERMISSION_CAMERA:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, CAMERA_CODE);
-                } else {
-                    Log.e("camera permission", "onRequestPermissionsResult: Permission Denied");
-                }
-                break;
-        }
     }
 }
