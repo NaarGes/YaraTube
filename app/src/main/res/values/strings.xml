@@ -21,8 +21,6 @@
     <string name="product_image">تصویر محصول</string>
     <string name="header_image">تصویر هدر</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description">توضیحات</string>
     <string name="users_comments">نظرات کاربران</string>
     <string name="comment">نظر دهید</string>
@@ -34,7 +32,7 @@
     <string name="sex">جنسیت</string>
     <string name="male">مرد</string>
     <string name="birth_date">تاریخ تولد</string>
-    <string name="default_date">1397/1/1</string>
+    <string name="default_date">-/-/-</string>
     <string name="submit_changes">ثبت تغییرات</string>
     <string name="cancel">انصراف</string>
     <string name="logout">خروج از برنامه</string>

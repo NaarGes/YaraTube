@@ -82,7 +82,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         user.setNickname(nickname);
         user.setName(name);
         user.setSex(gender);
-        user.setBirthDate(birthDate);
+        user.setBirthDate(Util.enToFa(birthDate));
         if (profileImagePath != null) {
             Log.e("photo is saving in db", "updateUserInfo: " + profileImagePath);
             user.setPhotoUri(profileImagePath);
@@ -160,7 +160,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 // update birth date
                 if (result.getDateOfBirth() != null &&
                         !result.getDateOfBirth().equals(birthDate.getText().toString()))
-                    birthDate.setText(formatBirthDate(result.getDateOfBirth()));
+                    birthDate.setText(Util.enToFa(formatBirthDate(result.getDateOfBirth())));
 
 
                 // update avatar

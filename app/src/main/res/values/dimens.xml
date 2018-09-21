@@ -15,4 +15,5 @@
     <dimen name="font_size_17sp">16sp</dimen>
     <dimen name="_3dp">3dp</dimen>
     <dimen name="font_size_16sp">15sp</dimen>
+    <dimen name="action_button_padding">4dp</dimen>
 </resources>

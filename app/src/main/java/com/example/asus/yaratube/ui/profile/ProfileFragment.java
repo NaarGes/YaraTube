@@ -1,6 +1,5 @@
 package com.example.asus.yaratube.ui.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -126,12 +125,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
                 // send profile image to server
                 if (profileImagePath != null) { // if user select an image for profile
-                    Log.e("image sending to server", "onClick: "+profileImagePath );
+                    Log.e("image sending to server", "onClick: " + profileImagePath);
                     File file = new File(profileImagePath);
                     long imageWidth = file.length() / 1024;
                     if (imageWidth > 1024) {
-                        // TODO resize image
-                        Log.e("imag size is big", "onClick: image size more than 1024*1024" );
+                        toast("سایز عکس بزرگتر از 1024 در 1024 است");
+                        Log.e("image size is big", "onClick: image size more than 1024*1024" );
                     } else {
                         presenter.sendProfileImageToServer(file);
                     }
@@ -192,12 +191,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("TAG", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
-    }
-
     private void editBirthDate(final TextView birthDate) {
 
         final PersianCalendar persianCalendar = new PersianCalendar();
@@ -211,7 +204,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
                 setDateOfBirth(dayOfMonth, monthOfYear, year);
                 String showDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
-                birthDate.setText(showDate);
+                birthDate.setText(Util.enToFa(showDate));
             }
         };
 
@@ -235,16 +228,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         dateOfBirth = year + "-";
 
-        if (month + 1 < 10) {
+        if (month + 1 < 10)
             dateOfBirth += "0" + (month + 1) + "-";
-        }
         else dateOfBirth += "" + (month + 1) + "-";
 
-        if (day < 10) {
+        if (day < 10)
             dateOfBirth += "0" + day;
-        }
         else dateOfBirth += "" + day;
-
-        Log.d("date of birth", "setDateOfBirth: " + dateOfBirth);
     }
 }

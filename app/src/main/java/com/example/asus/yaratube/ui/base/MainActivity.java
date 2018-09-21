@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.asus.yaratube.R;
 import com.example.asus.yaratube.data.UserRepository;
@@ -34,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements TransferBetweenFr
         // change app direction to RTL
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         setBottomNavigationFragment();
 
